@@ -35,11 +35,12 @@ public class ChildDeviceManager : MonoBehaviour
         foreach(bool input in inputs) if (input) newInput = true;
         if (moveInput != Vector2.zero || newInput)
         {
-            MainDeviceManager.PassInputs(id, inputs);
+            MainDeviceManager.PassInputs(id, inputs, moveInput);
         }
     }
 
     public bool[] GetInputs => inputs;
+    public Vector2 GetMoveInput => moveInput;
 
     public int Id
     {

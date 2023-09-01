@@ -8,6 +8,7 @@ public class MainDeviceManager : MonoBehaviour
     List<ChildDeviceManager> inputDevices;
     int latestInputId;
     bool[] lastInputs;
+    Vector2 lastMoveInput;
     bool alreadyInputOnThisFrame = false;
 
     void Start()
@@ -27,12 +28,13 @@ public class MainDeviceManager : MonoBehaviour
         Debug.Log($"A new ChildDeviceManager with id {newDevice.Id} has been added to the device list of the MainDeviceManager.");
     }
 
-    public static void PassInputs(int id, bool[] inputs)
+    public static void PassInputs(int id, bool[] inputs, Vector2 moveInput)
     {
         if (Instance.alreadyInputOnThisFrame) return;
         Instance.alreadyInputOnThisFrame = true;
         Instance.latestInputId = id;
         Instance.lastInputs = inputs;
+        Instance.lastMoveInput = moveInput;
         //Debug.Log(Instance.lastInputs[(int) ChildDeviceManager.InputTypes.confirm]);
     }
 
