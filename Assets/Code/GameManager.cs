@@ -5,6 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public static bool CurrentlyInUI = true;
+
+    // -1 means any input device can use the current UI
+    public static int UIOwnerId = -1;
     
     void Start()
     {
@@ -12,7 +16,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         

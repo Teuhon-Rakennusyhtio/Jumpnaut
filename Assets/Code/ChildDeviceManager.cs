@@ -7,13 +7,12 @@ using UnityEngine.InputSystem;
 
 public class ChildDeviceManager : MonoBehaviour
 {
-    int id = -1;
+    int _id = -1;
 
-    Vector2 moveInput;
-    bool confirmInput, cancelInput, pauseInput, jumpInput, useInput, catchInput;
-    bool newInput = false;
+    Vector2 _moveInput;
+    bool _newInput = false;
     public enum InputTypes { confirm, cancel, pause, jump, use, pickup };
-    bool[] inputs = new bool[GetNames(typeof(InputTypes)).Length];
+    bool[] _inputs = new bool[GetNames(typeof(InputTypes)).Length], _oldInputs = new bool[GetNames(typeof(InputTypes)).Length], _passedInputs = new bool[GetNames(typeof(InputTypes)).Length];
     
     void Start()
     {
@@ -21,43 +20,48 @@ public class ChildDeviceManager : MonoBehaviour
         MainDeviceManager.AddNewDevice(this);
     }
 
-    public void OnMove(InputAction.CallbackContext context) => moveInput = context.ReadValue<Vector2>();
-    public void OnConfirm(InputAction.CallbackContext context) => inputs[(int) InputTypes.confirm] = context.action.triggered;
-    public void OnCancel(InputAction.CallbackContext context) => inputs[(int) InputTypes.cancel] = context.action.triggered;
-    public void OnOpenPauseMenu(InputAction.CallbackContext context) => inputs[(int) InputTypes.pause] = context.action.triggered;
-    public void OnJump(InputAction.CallbackContext context) => inputs[(int) InputTypes.jump] = context.action.triggered;
-    public void OnUseItem(InputAction.CallbackContext context) => inputs[(int) InputTypes.use] = context.action.triggered;
-    public void OnCatchOrPickup(InputAction.CallbackContext context) => inputs[(int) InputTypes.pickup] = context.action.triggered;
+    public void OnMove(InputAction.CallbackContext context) => _moveInput = context.ReadValue<Vector2>();
+    public void OnConfirm(InputAction.CallbackContext context) => _inputs[(int) InputTypes.confirm] = context.action.triggered;
+    public void OnCancel(InputAction.CallbackContext context) => _inputs[(int) InputTypes.cancel] = context.action.triggered;
+    public void OnOpenPauseMenu(InputAction.CallbackContext context) => _inputs[(int) InputTypes.pause] = context.action.triggered;
+    public void OnJump(InputAction.CallbackContext context) => _inputs[(int) InputTypes.jump] = context.action.triggered;
+    public void OnUseItem(InputAction.CallbackContext context) => _inputs[(int) InputTypes.use] = context.action.triggered;
+    public void OnCatchOrPickup(InputAction.CallbackContext context) => _inputs[(int) InputTypes.pickup] = context.action.triggered;
 
     void LateUpdate()
     {
-        newInput = false;
-        foreach(bool input in inputs) if (input) newInput = true;
-        if (moveInput != Vector2.zero || newInput)
+        _newInput = false;
+        for(int i = 0; i < _inputs.Length; i++)
         {
-            MainDeviceManager.PassInputs(id, inputs, moveInput);
+            if (_inputs[i] != _oldInputs[i]) _newInput = true;
+            _passedInputs[i] = _inputs[i] != _oldInputs[i] && _inputs[i];
+            _oldInputs[i] = _inputs[i];
+        }
+        if (_moveInput.magnitude > 0.3f || _newInput)
+        {
+            MainDeviceManager.PassInputs(_id, _passedInputs, _moveInput);
         }
     }
 
-    public bool[] GetInputs => inputs;
-    public Vector2 GetMoveInput => moveInput;
+    public bool[] GetInputs => _inputs;
+    public Vector2 GetMoveInput => _moveInput;
 
     public int Id
     {
         get
         {
-            return id;
+            return _id;
         }
         set
         {
-            if (id == -1)
+            if (_id == -1)
             {
-                id = value;
-                gameObject.name = $"ChildDeviceManager {id}";
+                _id = value;
+                gameObject.name = $"ChildDeviceManager {_id}";
             }
             else
             {
-                Debug.LogError($"Overwriting the id of ChildDeviceManager with id {id} is not allowed!");
+                Debug.LogError($"Overwriting the _id of ChildDeviceManager with _id {_id} is not allowed!");
             }
         }
     }
