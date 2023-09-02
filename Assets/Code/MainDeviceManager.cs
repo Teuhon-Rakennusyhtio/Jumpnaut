@@ -10,7 +10,7 @@ public class MainDeviceManager : MonoBehaviour
 
     List<ChildDeviceManager> _inputDevices;
     int _latestInputId;
-    bool[] _lastInputs;
+    bool[] _lastInputs, _emptyInputs = new bool[System.Enum.GetNames(typeof(ChildDeviceManager.InputTypes)).Length];
     Vector2 _lastMoveInput;
     bool _alreadyInputOnThisFrame = false;
     float _uiDelay = 0f;
@@ -48,6 +48,7 @@ public class MainDeviceManager : MonoBehaviour
         
         GameObject selectedGameObject = Instance._eventSystem.currentSelectedGameObject;
         Selectable nextSelect = null;
+        if (selectedGameObject == null) return;
         if (selectedGameObject.GetComponent<Button>() != null)
         {
             Button selectedButton = selectedGameObject.GetComponent<Button>();
@@ -70,6 +71,7 @@ public class MainDeviceManager : MonoBehaviour
         if (!_alreadyInputOnThisFrame)
         {
             _uiDelay = 0f;
+            _lastInputs = _emptyInputs;
         }
         else if (_uiDelay > 0f)
         {
