@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Move Analog",
+                    "type": "PassThrough",
+                    "id": "2ba18583-488d-4f4c-add6-51be144b78d2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Confirm",
                     "type": "Button",
                     "id": "ff4e985a-ed0e-4761-bbe3-0c01c3616c63",
@@ -215,17 +224,6 @@
                 },
                 {
                     "name": "",
-                    "id": "4b064cc4-b861-4537-b543-c4ecf10ff815",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "21f953f7-806d-400b-8aa4-58a23bea54c6",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -342,6 +340,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Catch Or Pickup",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14ea5271-d610-430f-bdab-fa70e55ef2b3",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Move Analog",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

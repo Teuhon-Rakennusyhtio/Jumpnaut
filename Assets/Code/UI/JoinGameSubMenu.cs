@@ -52,8 +52,14 @@ public class JoinGameSubMenu : MonoBehaviour
     void SetReadyPlayersText()
     {
         _readyPlayersText.text = _currentPlayerCount > 0 ? $"{_currentReadyPlayerCount} / {_currentPlayerCount} {_readyText}" : "";
+        if (!CurrentlyInJoinGame) return;
+        foreach (PlayerJoinIcon icon in _playerIcons)
+        {
+            icon.JoinGameUpdated();
+        }
         if (_currentReadyPlayerCount == _currentPlayerCount && _currentPlayerCount > 0)
         {
+            GameManager.CurrentlyInUI = false;
             SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
         }
     }
@@ -83,6 +89,8 @@ public class JoinGameSubMenu : MonoBehaviour
         _currentReadyPlayerCount += toggle ? 1 : -1;
         SetReadyPlayersText();
     }
+
+    public int GetPlayerJoinIconPosition(PlayerJoinIcon icon) => _playerIcons.IndexOf(icon);
 
     void BackToStart()
     {

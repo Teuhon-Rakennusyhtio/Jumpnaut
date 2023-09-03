@@ -602,6 +602,7 @@ MonoBehaviour:
   _start: {fileID: 1710305914}
   _joinGame: {fileID: 630394249}
   _settings: {fileID: 1165438933}
+  _startGameButton: {fileID: 906586395}
   statement: {fileID: 2019631347}
   agree: {fileID: 318666917}
 --- !u!1 &519420028
@@ -622,7 +623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &519420029
 AudioListener:
   m_ObjectHideFlags: 0
@@ -666,7 +667,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -709,6 +710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181106f91908e6cb1b0224e52c967983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lowestPoint: 0
+  _highestPoint: 1000
 --- !u!1 &555197627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,7 +1684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1448223136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1751,7 +1754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82b68751169df1339028eb89cecae7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColors: []
+  playerColors:
+  - {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1448223139
 Transform:
   m_ObjectHideFlags: 0

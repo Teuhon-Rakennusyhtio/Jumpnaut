@@ -182,6 +182,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 233c3847-e5f8-40d9-8253-c3a46ec55345
     m_ActionName: Player/Catch Or Pickup[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8124395365595548844}
+        m_TargetAssemblyTypeName: ChildDeviceManager, Assembly-CSharp
+        m_MethodName: OnMoveAnalog
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2ba18583-488d-4f4c-add6-51be144b78d2
+    m_ActionName: Player/Move Analog[/Gamepad/leftStick]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

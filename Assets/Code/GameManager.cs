@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Instance = this;
         PlayerDevices = new List<ChildDeviceManager>();
+        ReturnToMainMenu();
     }
 
     public static Color GetPlayerColor(int id)
@@ -29,6 +31,15 @@ public class GameManager : MonoBehaviour
         Color playerColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         Random.InitState((int)System.DateTime.Now.Ticks);
         return playerColor;
+    }
+
+    public static void ReturnToMainMenu()
+    {
+        GameManager.CurrentlyInUI = true;
+        UIOwnerId = -1;
+        Camera.main.GetComponent<CameraMovement>().ReturnToMainMenu();
+        PlayerDevices.Clear();
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     void Update()

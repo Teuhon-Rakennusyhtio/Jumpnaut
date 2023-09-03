@@ -11,11 +11,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Entity
+  - Player Hurt Box
+  - Weapon
+  - Enemy Hurt Box
   - 
   - 
   - 

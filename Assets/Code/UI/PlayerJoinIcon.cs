@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerJoinIcon : MonoBehaviour
 {
@@ -53,6 +54,11 @@ public class PlayerJoinIcon : MonoBehaviour
         {
             _cancelReleased = true;
         }
+    }
+
+    public void JoinGameUpdated()
+    {
+        _image.GetComponent<Image>().color = GameManager.GetPlayerColor(_joinGame.GetPlayerJoinIconPosition(this));
     }
 
     void Readiness(bool toggle)

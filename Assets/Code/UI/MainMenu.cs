@@ -7,11 +7,13 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] GameObject _start, _joinGame, _settings;
+    [SerializeField] GameObject _start, _joinGame, _settings, _startGameButton;
     GameObject _lastSelectedButtonInStart;
     // Start is called before the first frame update
     void Start()
     {
+        EventSystem.current.SetSelectedGameObject(_startGameButton);
+        Time.timeScale = 1.0f;
         ToggleAllButtons(_joinGame, false);
         ToggleAllButtons(_settings, false);
     }
@@ -44,7 +46,7 @@ public class MainMenu : MonoBehaviour
                             "This game is just so perfect, you don't need to change the settings.",
                             "Anyone who doesn't think it's white and gold is a fool.",
                             "Violence is the answer!",
-                            "I know what is best for you because I am you.",
+                            "I know what is best for you.",
                             "I don't know you and I don't care to know you.",
                             "You should get a job.",
                             "These donuts are great! Jelly filled are my favorite. Nothing beats a jelly filled donut!",

@@ -9,7 +9,7 @@ public class ChildDeviceManager : MonoBehaviour
 {
     int _id = -1;
 
-    Vector2 _moveInput;
+    Vector2 _moveInput, _moveAnalogInput;
     bool _newInput = false;
     public enum InputTypes { confirm, cancel, pause, jump, use, pickup };
     bool[] _inputs = new bool[GetNames(typeof(InputTypes)).Length], _oldInputs = new bool[GetNames(typeof(InputTypes)).Length], _passedInputs = new bool[GetNames(typeof(InputTypes)).Length];
@@ -21,6 +21,7 @@ public class ChildDeviceManager : MonoBehaviour
     }
 
     public void OnMove(InputAction.CallbackContext context) => _moveInput = context.ReadValue<Vector2>();
+    public void OnMoveAnalog(InputAction.CallbackContext context) => _moveAnalogInput = context.ReadValue<Vector2>();
     public void OnConfirm(InputAction.CallbackContext context) => _inputs[(int) InputTypes.confirm] = context.action.triggered;
     public void OnCancel(InputAction.CallbackContext context) => _inputs[(int) InputTypes.cancel] = context.action.triggered;
     public void OnOpenPauseMenu(InputAction.CallbackContext context) => _inputs[(int) InputTypes.pause] = context.action.triggered;
@@ -41,10 +42,15 @@ public class ChildDeviceManager : MonoBehaviour
         {
             MainDeviceManager.PassInputs(_id, _passedInputs, _moveInput);
         }
+        else if (_moveAnalogInput.magnitude > 0.3f)
+        {
+            MainDeviceManager.PassInputs(_id, _passedInputs, _moveAnalogInput);
+        }
     }
 
     public bool[] GetInputs => _inputs;
     public Vector2 GetMoveInput => _moveInput;
+    public Vector2 GetMoveAnalogInput => _moveAnalogInput;
 
     public int Id
     {
