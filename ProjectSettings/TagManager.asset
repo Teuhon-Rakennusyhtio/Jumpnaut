@@ -16,7 +16,7 @@ TagManager:
   - Player Hurt Box
   - Weapon
   - Enemy Hurt Box
-  - 
+  - Ladder
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 2023566255
+    locked: 0
+  - name: Ladder
+    uniqueID: 1073249231
+    locked: 0
+  - name: Ground
+    uniqueID: 2679110407
+    locked: 0
+  - name: Player
+    uniqueID: 3452095631
     locked: 0

@@ -25,7 +25,7 @@ public class CameraMovement : MonoBehaviour
             cameraPosition += player.GetPlayerCameraPosition().y;
         }
         cameraPosition /= _players.Count;
-        cameraPosition += 3f;
+        cameraPosition += 2f;
         if (cameraPosition < _lowestPoint) cameraPosition = _lowestPoint;
         else if (cameraPosition > _highestPoint) cameraPosition = _highestPoint;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(_startPosition.x, cameraPosition, _startPosition.z), Mathf.Abs(cameraPosition - transform.position.y) * 2f * Time.deltaTime);

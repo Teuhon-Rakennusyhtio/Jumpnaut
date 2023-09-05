@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -842871665
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -100,16 +100,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 7
-  _coyoteTime: 0.2
+  _maxJumpBuffer: 0.2
+  _maxCoyoteTime: 0.1
   _jumpForce: 13
   _jumpApex: 0.2
   _jumpFallSpeed: 3
+  _fallAcceleration: 1
   _maxGravity: {x: 0, y: -15}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
   _standMaterial: {fileID: 6200000, guid: f84d71fe17bab5c14ac6fcf270b9da12, type: 2}
   _moveMaterial: {fileID: 6200000, guid: 996a436b0401bb15e9e46f71a6620b4e, type: 2}
+  Device: {fileID: 0}
+  Id: 0
 --- !u!61 &7545643569282281466
 BoxCollider2D:
   m_ObjectHideFlags: 0
