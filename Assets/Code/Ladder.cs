@@ -23,6 +23,7 @@ public class Ladder : MonoBehaviour
             gameObject.GetComponent<CompositeCollider2D>().isTrigger = true;
             gameObject.GetComponent<CompositeCollider2D>().geometryType = CompositeCollider2D.GeometryType.Polygons;
             gameObject.GetComponent<CompositeCollider2D>().GenerateGeometry();
+            gameObject.layer = LayerMask.GetMask("Ladder");
         }
     }
     // Start is called before the first frame update
