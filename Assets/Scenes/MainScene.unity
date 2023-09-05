@@ -1001,7 +1001,7 @@ GameObject:
   - component: {fileID: 513713259}
   m_Layer: 6
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Barrel Killer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1919,6 +1919,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 9220821595686113212, guid: 26d84b21ee9cf872a945be3c860c9016, type: 3}
+--- !u!1 &1195130057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1195130059}
+  - component: {fileID: 1195130058}
+  m_Layer: 0
+  m_Name: BarrelSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1195130058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195130057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a049939933eecd94fae02db52de5a265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4123661763460666093, guid: b253f6cf51b0d7f44875314ebe74a20a, type: 3}
+  minTime: 2
+  maxTime: 3
+--- !u!4 &1195130059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195130057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.01, y: 1.33, z: 0.29096156}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1199035274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2567,7 +2614,7 @@ Transform:
   m_GameObject: {fileID: 1603178986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.09606213, w: 0.9953754}
-  m_LocalPosition: {x: 1.15, y: -0.66, z: 0}
+  m_LocalPosition: {x: 1.06, y: -0.66, z: 0}
   m_LocalScale: {x: 16.96192, y: 0.3965204, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3398,4 +3445,5 @@ SceneRoots:
   - {fileID: 1068661113}
   - {fileID: 2137529951}
   - {fileID: 1606583896}
+  - {fileID: 1195130059}
   - {fileID: 940884483}
