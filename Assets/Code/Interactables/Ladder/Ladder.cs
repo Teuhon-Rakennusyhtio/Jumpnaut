@@ -26,7 +26,6 @@ public class Ladder : MonoBehaviour
             gameObject.layer = LayerMask.GetMask("Ladder");
         }
     }
-    // Start is called before the first frame update
     void Start()
     {
         _collider = GetComponent<Collider2D>();

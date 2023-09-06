@@ -63,7 +63,6 @@ public class PlayerMover : MonoBehaviour, ILadderInteractable
             return;
         }
 
-        //if (Mathf.Abs(_moveInput.x) > 0.3f && !_insideGround)
         if (Mathf.Abs(_moveInput.x) > 0.3f)
         {
             _climbingLadder = false;
@@ -101,6 +100,7 @@ public class PlayerMover : MonoBehaviour, ILadderInteractable
         if (_climbingLadder)
         {
             _jumpVelocity = 0f;
+            _alreadyJumped = true;
             return;
         }
         _jumpBuffer -= Time.fixedDeltaTime;
