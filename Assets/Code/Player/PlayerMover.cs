@@ -6,15 +6,17 @@ public class PlayerMover : MonoBehaviour, ILadderInteractable
 {
     [SerializeField] float _speed = 10f, _climbingSpeed = 5f, _maxJumpBuffer = 0.2f, _maxCoyoteTime = 0.1f, _jumpForce = 10f, _jumpApex = 0.8f, _jumpFallSpeed = 2f, _fallAcceleration = 1f;
     [SerializeField] Vector2 _maxGravity;
-    [SerializeField] LayerMask _groundLayer;
+    [SerializeField] LayerMask _groundLayer, _holdableLayer;
     [SerializeField] PhysicsMaterial2D _standMaterial, _moveMaterial;
+    [SerializeField] Transform _handTransform;
     public ChildDeviceManager Device;
+    Holdable _heldItem;
     Vector2 _movement, _slopeNormalPerpendicular, _gravity, _moveInput, _cameraPosition;
     Rigidbody2D _rigidBody;
     Collider2D _collider;
     float _jumpBuffer = 0f, _coyoteTime = 0f, _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord, _ladderBottom, _ladderTop;
     int _groundedFrames = 0;
-    bool _grounded = true, _alreadyJumped = true, _climbingLadder = false, _nextToLadder = false, _insideGround = false;
+    bool _grounded = true, _alreadyJumped = true, _climbingLadder = false, _nextToLadder = false, _insideGround = false, _holdingSomething = false, _alreadyCaught = false, _facingLeft = false;
 
     bool _jumpInput, _useInput, _catchInput, _pauseInput;
     public int Id;
@@ -43,6 +45,16 @@ public class PlayerMover : MonoBehaviour, ILadderInteractable
     void Move()
     {
         if (_climbingLadder) return;
+
+        if (_moveInput.x > 0f)
+        {
+            _facingLeft = false;
+        }
+        else if (_moveInput.x < 0f)
+        {
+            _facingLeft = true;
+        }
+
         if (_grounded)
         {
             Debug.DrawRay(transform.position, _slopeNormalPerpendicular, Color.red);
@@ -139,6 +151,42 @@ public class PlayerMover : MonoBehaviour, ILadderInteractable
             _groundedFrames = 0;
             _gravity = Vector2.zero;
             _jumpVelocity = _jumpForce;
+        }
+    }
+
+    void Catch()
+    {
+        if (_climbingLadder) return;
+        if (!_catchInput) _alreadyCaught = false;
+
+        if (_catchInput && !_alreadyCaught)
+        {
+            if (!_holdingSomething)
+            {
+                Collider2D holdable = Physics2D.OverlapBox(transform.position, _collider.bounds.extents * 2, 0f, _holdableLayer);
+                if (holdable != null)
+                {
+                    _heldItem = holdable.gameObject.GetComponent<Holdable>();
+                    _heldItem.Pickup(_handTransform);
+                    _holdingSomething = true;
+                    _alreadyCaught = true;
+                }
+            }
+            else
+            {
+                Vector2 throwVector = Vector2.zero;
+                if (!_grounded)
+                {
+                    throwVector = Vector2.left;
+                }
+                else
+                {
+                    throwVector = _slopeNormalPerpendicular;
+                }
+                _heldItem.Throw(throwVector * (_facingLeft ? 1f : -1f));
+                _alreadyCaught = true;
+                _holdingSomething = false;
+            }
         }
     }
 
@@ -244,6 +292,7 @@ public class PlayerMover : MonoBehaviour, ILadderInteractable
         Move();
         ClimbLadder();
         Jump();
+        Catch();
         OpenPauseMenu();
         CheckIfInsideGround();
         _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
