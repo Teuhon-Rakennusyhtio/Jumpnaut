@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Chainsaw : Holdable
 {
-    [SerializeField] float _throwFallTime;
 
     void Start()
     {

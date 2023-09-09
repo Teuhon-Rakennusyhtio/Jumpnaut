@@ -10,17 +10,17 @@ using UnityEngine.Timeline;
 public class Holdable : MonoBehaviour
 {
     SpriteRenderer _renderer;
-    Rigidbody2D _rigidBody;
+    protected Rigidbody2D _rigidBody;
     CircleCollider2D _collider;
     LayerMask _groundLayer;
-    bool _thrown = false;
+    protected bool _thrown = false;
     float _xVelocity = 0f, _yVelocity = 0f, _outOfViewTime = 0f, _timeSinceThrown = 0f;
     public bool BeingHeld = false;
     
 
     // These can be changed in inherited classes
-    float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 2f;
-    bool _breaksOnImpact = false;
+    protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 2f;
+    protected bool _breaksOnImpact = false;
 
 
     
@@ -102,7 +102,7 @@ public class Holdable : MonoBehaviour
         }
     }
 
-    void Break()
+    public virtual void Break()
     {
         Destroy(gameObject);
     }

@@ -317,6 +317,12 @@ public class PlayerMover : MonoBehaviour, ILadderInteractable
     }
 
     public Vector2 GetPlayerCameraPosition() => _cameraPosition;
+    public Vector2 MoveInput {get { return _moveInput; }}
+    public void ClearHand()
+    {
+        _holdingSomething = false;
+        _heldItem = null;
+    }
 
     void GetInputs()
     {
