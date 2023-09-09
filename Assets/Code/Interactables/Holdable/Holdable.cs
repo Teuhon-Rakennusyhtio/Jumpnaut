@@ -6,17 +6,20 @@ using UnityEngine.Timeline;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CircleCollider2D))]
 public class Holdable : MonoBehaviour
 {
     SpriteRenderer _renderer;
     Rigidbody2D _rigidBody;
+    CircleCollider2D _collider;
     LayerMask _groundLayer;
     bool _thrown = false;
     float _xVelocity = 0f, _yVelocity = 0f, _outOfViewTime = 0f, _timeSinceThrown = 0f;
+    public bool BeingHeld = false;
     
 
     // These can be changed in inherited classes
-    float _throwFallTime = 2f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 20f, _throwTorque = 1f;
+    float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 2f;
     bool _breaksOnImpact = false;
 
 
@@ -34,36 +37,46 @@ public class Holdable : MonoBehaviour
         {
             _timeSinceThrown += Time.fixedDeltaTime;
 
-            // Let the "physics" take hold after the wanted duration of time has passed since the item was thrown
-            if (_timeSinceThrown > _throwFallTime && _yVelocity < _terminalVelocity)
+
+            // Let the "physics" take hold after the wanted duration of time has passed since the item was thrown.
+            if (_timeSinceThrown > _throwFallTime && _yVelocity > _terminalVelocity)
             {
                 _yVelocity = Mathf.MoveTowards(_yVelocity, _terminalVelocity, _fallAcceleration * 50f * Time.fixedDeltaTime);
-                _xVelocity = Mathf.MoveTowards(_xVelocity, 0f, _fallAcceleration * 50f * Time.fixedDeltaTime);
+                _xVelocity = Mathf.MoveTowards(_xVelocity, 0f, _fallAcceleration * 25f * Time.fixedDeltaTime);
             }
 
-
-            // If the thrown holdable hasn't been seen in two seconds it probably doesn't need to exist anymore
+            _rigidBody.velocity = new Vector2(_xVelocity, _yVelocity);
+            // If the thrown holdable hasn't been seen in 30 seconds it probably doesn't need to exist anymore.
             if (!_renderer.isVisible) _outOfViewTime += Time.fixedDeltaTime;
             else _outOfViewTime = 0f;
         }
-        if (_outOfViewTime > 2f) Break();
+        if (_outOfViewTime > 30f) Break();
     }
 
     public void Throw(Vector2 direction)
     {
         transform.parent = null;
         _rigidBody.isKinematic = false;
-        _rigidBody.AddForce(direction * _throwForce, ForceMode2D.Impulse);
-        _rigidBody.AddTorque(_throwTorque, ForceMode2D.Impulse);
+        Vector2 throwVector = direction * _throwForce;
+        _xVelocity = throwVector.x;
+        _yVelocity = throwVector.y;
+        _rigidBody.AddTorque(_throwTorque * (direction.x < 0f ? 1f : -1f), ForceMode2D.Impulse);
+        _timeSinceThrown = 0f;
         _thrown = true;
+        BeingHeld = false;
     }
 
     public void Pickup(Transform hand)
     {
+        _thrown = false;
+        _rigidBody.totalTorque = 0f;
+        _rigidBody.freezeRotation = true;
+        _rigidBody.freezeRotation = false;
         _rigidBody.isKinematic = true;
         transform.parent = hand;
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector2.zero;
+        BeingHeld = true;
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -76,7 +89,15 @@ public class Holdable : MonoBehaviour
             }
             else
             {
-                _xVelocity = 0f;
+                if (collision.GetContact(0).point.y < transform.position.y)
+                {
+                    _xVelocity = 0f;
+                }
+                else
+                {
+                    _timeSinceThrown = _throwFallTime;
+                }
+
             }
         }
     }

@@ -167,6 +167,7 @@ public class PlayerMover : MonoBehaviour, ILadderInteractable
                 if (holdable != null)
                 {
                     _heldItem = holdable.gameObject.GetComponent<Holdable>();
+                    if (_heldItem.BeingHeld) return;
                     _heldItem.Pickup(_handTransform);
                     _holdingSomething = true;
                     _alreadyCaught = true;
