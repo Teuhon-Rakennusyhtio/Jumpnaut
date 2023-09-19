@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4127108249412570079}
   - component: {fileID: 7777595810833830400}
-  - component: {fileID: 4424194147688811939}
+  - component: {fileID: 4382271523608291103}
   - component: {fileID: 7545643569282281466}
   - component: {fileID: 103640614233981181}
   m_Layer: 7
@@ -119,7 +119,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4424194147688811939
+--- !u!114 &4382271523608291103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9220821595686113212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d766f722430f3310792bb212a8d40ce9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f08ab099814c157da55b212a4b2045d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 7
@@ -139,7 +139,7 @@ MonoBehaviour:
   _jumpApex: 0.2
   _jumpFallSpeed: 3
   _fallAcceleration: 1
-  _maxGravity: {x: 0, y: -15}
+  _maxGravity: -15
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64

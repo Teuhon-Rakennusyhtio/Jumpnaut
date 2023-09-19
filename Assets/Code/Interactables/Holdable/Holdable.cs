@@ -20,7 +20,7 @@ public class Holdable : MonoBehaviour
 
     // These can be changed in inherited classes
     protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 2f;
-    protected bool _breaksOnImpact = false;
+    protected bool _breaksOnImpact = false, _isHeavy = false;
 
 
     
@@ -66,7 +66,7 @@ public class Holdable : MonoBehaviour
         BeingHeld = false;
     }
 
-    public void Pickup(Transform hand)
+    public bool Pickup(Transform hand)
     {
         _thrown = false;
         _rigidBody.totalTorque = 0f;
@@ -77,6 +77,7 @@ public class Holdable : MonoBehaviour
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector2.zero;
         BeingHeld = true;
+        return _isHeavy;
     }
 
     void OnCollisionStay2D(Collision2D collision)

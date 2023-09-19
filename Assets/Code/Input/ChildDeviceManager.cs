@@ -17,6 +17,7 @@ public class ChildDeviceManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameObject);
+        if (MainDeviceManager.Instance == null) return;
         MainDeviceManager.AddNewDevice(this);
     }
 
@@ -31,6 +32,7 @@ public class ChildDeviceManager : MonoBehaviour
 
     void LateUpdate()
     {
+        if (MainDeviceManager.Instance == null) return;
         _newInput = false;
         for(int i = 0; i < _inputs.Length; i++)
         {

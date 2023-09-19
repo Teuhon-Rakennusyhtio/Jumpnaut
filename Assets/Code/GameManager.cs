@@ -18,7 +18,14 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Instance = this;
         PlayerDevices = new List<ChildDeviceManager>();
-        ReturnToMainMenu();
+        if (SceneManager.GetActiveScene().name == "StartScene")
+        {
+            ReturnToMainMenu();
+        }
+        else
+        {
+            CurrentlyInUI = false;
+        }
     }
 
     public static Color GetPlayerColor(int id)
