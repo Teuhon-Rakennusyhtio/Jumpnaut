@@ -99,10 +99,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 3
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 996a436b0401bb15e9e46f71a6620b4e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -162,7 +162,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _ladderSpeed: 4
   _maxGravity: -15
+  _fallAcceleration: 1
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64

@@ -8,10 +8,10 @@ public class Barrel : MonoBehaviour, ILadderInteractable
 {
     CircleCollider2D _collider;
     Rigidbody2D _rigidbody;
-    Vector2 _slopeNormalPerpendicular, _gravity;
-    bool _grounded, _climbingLadder;
-    float _groundCastHeight = 0.01f, _direction = 1f;
-    [SerializeField] float _speed = 1f, _maxGravity = -15f, _fallAcceleration = 1f;
+    Vector2 _slopeNormalPerpendicular, _gravity, _ladderTop, _ladderBottom;
+    bool _grounded, _nextToLadders, _goingDownLadder;
+    float _groundCastHeight = 0.01f, _direction = 1f, _ladderXPosition = 0f;
+    [SerializeField] float _speed = 1f, _ladderSpeed = 4f, _maxGravity = -15f, _fallAcceleration = 1f;
     [SerializeField] LayerMask _groundLayer;
     void Start()
     {
@@ -32,20 +32,46 @@ public class Barrel : MonoBehaviour, ILadderInteractable
             _slopeNormalPerpendicular = SlopeCheck();
             if (_slopeNormalPerpendicular.y > 0f) _direction = 1f;
             else if (_slopeNormalPerpendicular.y < 0f) _direction = -1f;
+            _rigidbody.MovePosition(Physics2D.Raycast(transform.position, Vector2.down, 2f, _groundLayer).point + Vector2.up * _collider.bounds.extents.y);
         }
 
         CalculateGravity();
         if (!_grounded)
         {
-            _rigidbody.velocity = _gravity;
+            if (_goingDownLadder)
+            {
+                _rigidbody.MovePosition((Vector2)transform.position + Vector2.down * _ladderSpeed * Time.fixedDeltaTime);
+                if (transform.position.y < _ladderBottom.y)
+                {
+                    _rigidbody.MovePosition(_ladderBottom);
+                    _goingDownLadder = false;
+                    _nextToLadders = false;
+                    _collider.isTrigger = false;
+                }
+            }
+            else
+            {
+                _rigidbody.velocity = _gravity;
+            }
         }
         else
         {
-            _rigidbody.velocity = new Vector2(-_direction * _speed * _slopeNormalPerpendicular.x,
-                                     -_direction * _speed * _slopeNormalPerpendicular.y);
-            if (Physics2D.Raycast(transform.position, Vector2.right * _direction, _groundCastHeight, _groundLayer))
+            if (_nextToLadders && Mathf.Abs(transform.position.x - _ladderXPosition) < 0.1f && !_goingDownLadder)
             {
-                Break();
+                _goingDownLadder = true;
+                _grounded = false;
+                _rigidbody.velocity = Vector2.zero;
+                _rigidbody.MovePosition(_ladderTop);
+                _collider.isTrigger = true;
+            }
+            else
+            {
+                _rigidbody.velocity = new Vector2(-_direction * _speed * _slopeNormalPerpendicular.x,
+                                        -_direction * _speed * _slopeNormalPerpendicular.y);
+                if (Physics2D.Raycast(transform.position, Vector2.right * _direction, _groundCastHeight, _groundLayer))
+                {
+                    Break();
+                }
             }
         }
     }
@@ -57,6 +83,7 @@ public class Barrel : MonoBehaviour, ILadderInteractable
 
     bool GroundCheck()
     {
+        if (_goingDownLadder) return false;
         return (Physics2D.Raycast(transform.position, Vector2.down, _groundCastHeight, _groundLayer)
                   || Physics2D.Raycast((Vector2)transform.position + (Vector2.right * _collider.bounds.extents.x), Vector2.down, _groundCastHeight, _groundLayer)
                   || Physics2D.Raycast((Vector2)transform.position + (Vector2.left * _collider.bounds.extents.x), Vector2.down, _groundCastHeight, _groundLayer));
@@ -72,7 +99,7 @@ public class Barrel : MonoBehaviour, ILadderInteractable
     void CalculateGravity()
     {
         // Gravity should not affect entites which are already on ground or are climbing
-        if (_grounded || _climbingLadder)
+        if (_grounded || _goingDownLadder)
         {
             _gravity = Vector2.zero;
             return;
@@ -83,10 +110,18 @@ public class Barrel : MonoBehaviour, ILadderInteractable
 
     public void OnLadderEnter(float xCoord)
     {
-
+        Vector2? nullableLadderTop = Ladder.GetLadderTop(_collider, xCoord);
+        if (nullableLadderTop == null) return;
+        _ladderTop = Vector2.zero + (Vector2)nullableLadderTop;
+        _ladderBottom = Vector2.zero + (Vector2)Ladder.GetLadderBottom(_collider, xCoord);
+        if (Random.Range(0f, 1f) > 0.49f && Mathf.Abs(transform.position.y - _ladderTop.y) < 0.2f)
+        {
+            _nextToLadders = true;
+            _ladderXPosition = xCoord;
+        }
     }
     public void OnLadderExit()
     {
-
+        _nextToLadders = false;
     }
 }
