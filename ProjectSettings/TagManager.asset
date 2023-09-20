@@ -14,9 +14,9 @@ TagManager:
   - UI
   - Ground
   - Entity
-  - Player Hurt Box
+  - Hurtbox
   - Weapon
-  - Enemy Hurt Box
+  - 
   - Ladder
   - Holdable
   - 
