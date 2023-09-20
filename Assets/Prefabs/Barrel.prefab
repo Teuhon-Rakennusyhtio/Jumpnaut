@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2643642007306348655}
   - component: {fileID: 7359859812256715248}
   - component: {fileID: 7256215934105648986}
-  - component: {fileID: -1933734093320616154}
-  m_Layer: 0
+  - component: {fileID: 3369950809908811711}
+  m_Layer: 7
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c5beb7b1b21fbd145984fd723fdc7d22, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Color: {r: 0.8962264, g: 0.16487186, b: 0.16487186, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,13 +97,13 @@ Rigidbody2D:
   m_GameObject: {fileID: 4123661763460666093}
   m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 3
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 996a436b0401bb15e9e46f71a6620b4e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -146,10 +146,10 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02233475, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.65009
---- !u!114 &-1933734093320616154
+  m_Radius: 0.5
+--- !u!114 &3369950809908811711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,6 +158,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4123661763460666093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f171102a808f03549afc4b724a7effcb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b735152284033e29a9bde2cd3785310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 5
+  _maxGravity: -15
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
