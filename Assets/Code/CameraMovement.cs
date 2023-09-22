@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
     List<PlayerMover> _players;
     Vector3 _startPosition;
 
-    void Start()
+    void Awake()
     {
         DontDestroyOnLoad(gameObject);
         _startPosition = transform.position;

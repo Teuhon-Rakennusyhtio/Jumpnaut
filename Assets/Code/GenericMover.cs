@@ -14,7 +14,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     Collider2D _collider;
     float _jumpBuffer = 0f, _coyoteTime = 0f, _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord, _ladderBottom, _ladderTop;
     int _groundedFrames = 0;
-    protected bool _grounded = true, _alreadyJumped = true, _climbingLadder = false, _nextToLadder = false, _insideGround = false, _holdingSomething = false, _alreadyCaught = false, _facingLeft = false, _holdingHeavyObject = false;
+    protected bool _grounded = true, _alreadyJumped = true, _climbingLadder = false, _nextToLadder = false, _insideGround = false, _holdingSomething = false, _alreadyCaught = false, _facingLeft = false, _holdingHeavyObject = false, _isInControl = true;
 
     protected bool _jumpInput, _useInput, _catchInput;
     
@@ -286,28 +286,31 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     void FixedUpdate()
     {
         if (GameManager.CurrentlyInUI) return;
-        _movement = Vector2.zero;
-
-        // Stops the entity from sliding off of sloped surfaces
-        if (_moveInput.x != 0f)
+        if (_isInControl)
         {
-            _collider.sharedMaterial = _moveMaterial;
-        }
-        else
-        {
-            _collider.sharedMaterial = _standMaterial;
-        }
+            _movement = Vector2.zero;
 
-        GetInputs();
-        CheckIfGrounded();
-        CheckSlope();
-        CalculateGravity();
-        Move();
-        ClimbLadder();
-        Jump();
-        Catch();
-        CheckIfInsideGround();
-        _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
+            // Stops the entity from sliding off of sloped surfaces
+            if (_moveInput.x != 0f)
+            {
+                _collider.sharedMaterial = _moveMaterial;
+            }
+            else
+            {
+                _collider.sharedMaterial = _standMaterial;
+            }
+
+            GetInputs();
+            CheckIfGrounded();
+            CheckSlope();
+            CalculateGravity();
+            Move();
+            ClimbLadder();
+            Jump();
+            Catch();
+            CheckIfInsideGround();
+            _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
+        }
         FixedUpdateLogic();
     }
 
