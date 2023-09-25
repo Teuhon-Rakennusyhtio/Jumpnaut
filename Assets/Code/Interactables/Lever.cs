@@ -52,10 +52,9 @@ public class Lever : MonoBehaviour
         
         if (!_pull)
         {
-            PlayerMover mover = collision.GetComponent<PlayerMover>();
-            if (mover != null)
+            foreach (PlayerMover mover in _movers)
             {
-                _pull = mover.MoveInput.y > 0.3f || _pull;
+                if (mover.MoveInput.y > 0.3f || _pull) _pull = true;
             }
         }
         if (!_alreadyPulled && _pull)
