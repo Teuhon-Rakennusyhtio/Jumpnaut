@@ -4,17 +4,27 @@ using UnityEngine;
 
 public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 {
-    [SerializeField] float _speed = 7f, _climbingSpeed = 5f, _maxJumpBuffer = 0.2f, _maxCoyoteTime = 0.1f, _jumpForce = 13f, _jumpApex = 0.2f, _jumpFallSpeed = 3f, _fallAcceleration = 1f, _maxGravity = -15f;
+    [SerializeField] float _speed = 7f, _climbingSpeed = 5f,
+    _maxJumpBuffer = 0.2f, _maxCoyoteTime = 0.1f,
+    _jumpForce = 13f, _jumpApex = 0.2f, _jumpFallSpeed = 3f,
+    _fallAcceleration = 1f, _maxGravity = -15f;
     [SerializeField] protected LayerMask _groundLayer, _holdableLayer;
     [SerializeField] PhysicsMaterial2D _standMaterial, _moveMaterial;
     [SerializeField] Transform _handTransform;
     Holdable _heldItem;
-    protected Vector2 _movement, _slopeNormalPerpendicular, _gravity, _moveInput;
+    protected Vector2 _movement, _slopeNormalPerpendicular,
+    _gravity, _moveInput;
     Rigidbody2D _rigidBody;
     Collider2D _collider;
-    float _jumpBuffer = 0f, _coyoteTime = 0f, _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord, _ladderBottom, _ladderTop;
+    float _jumpBuffer = 0f, _coyoteTime = 0f,
+     _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord,
+     _ladderBottom, _ladderTop;
     int _groundedFrames = 0;
-    protected bool _grounded = true, _alreadyJumped = true, _climbingLadder = false, _nextToLadder = false, _insideGround = false, _holdingSomething = false, _alreadyCaught = false, _facingLeft = false, _holdingHeavyObject = false, _isInControl = true;
+    protected bool _grounded = true, _alreadyJumped = true,
+    _climbingLadder = false, _nextToLadder = false,
+    _insideGround = false, _holdingSomething = false,
+    _alreadyCaught = false, _facingLeft = false,
+    _holdingHeavyObject = false, _isInControl = true;
 
     protected bool _jumpInput, _useInput, _catchInput;
     
@@ -55,8 +65,9 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         if (_grounded)
         {
             Debug.DrawRay(transform.position, _slopeNormalPerpendicular, Color.red);
-            _movement += new Vector2(-_moveInput.x * _speed * _slopeNormalPerpendicular.x,
-                                     -_moveInput.x * _speed * _slopeNormalPerpendicular.y);
+            _movement += new Vector2(
+            -_moveInput.x * _speed * _slopeNormalPerpendicular.x,
+            -_moveInput.x * _speed * _slopeNormalPerpendicular.y);
         }
         else
         {
@@ -161,7 +172,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     void Catch()
     {
-        if (_climbingLadder) return; // Can't catch or throw stuff on the ladder
+        if (_climbingLadder) return; // Can't catch or throw stuff while on the ladder
         if (!_catchInput) _alreadyCaught = false;
 
         if (_catchInput && !_alreadyCaught)

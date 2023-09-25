@@ -6,26 +6,38 @@ using UnityEngine.Events;
 public class Lever : MonoBehaviour
 {
     public bool _oneTimeUse = false;
+    float _useTipBubbleYCoord;
     [SerializeField] UnityEvent _pullLeft, _pullRight;
     [SerializeField] Animator _anim;
+    [SerializeField] SpriteRenderer _useTipBubbleGraphic;
+    Transform _useTipBubble;
     List<PlayerMover> _movers;
     bool _currentDirection = false, _alreadyPulled = false, _pull = false;
     
     void Start()
     {
+        _useTipBubble = _useTipBubbleGraphic.gameObject.transform;
+        _useTipBubbleYCoord = _useTipBubble.position.y;
         _movers = new List<PlayerMover>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerMover mover = collision.gameObject.GetComponent<PlayerMover>();
-        if (mover != null) _movers.Add(mover);
+        if (mover != null)
+        {
+            _movers.Add(mover);
+            UpdateBubblePosition();
+            _useTipBubbleGraphic.enabled = true;
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        PlayerMover mover = collision.gameObject.GetComponent<PlayerMover>();
+        PlayerMover mover;
+        mover = collision.gameObject.GetComponent<PlayerMover>();
         if (mover != null) _movers.Remove(mover);
+        _useTipBubbleGraphic.enabled = _movers.Count != 0;
     }
 
     void Update()
@@ -35,12 +47,15 @@ public class Lever : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (_movers.Count == 0 || _oneTimeUse && _currentDirection) return;
+        if (_movers.Count == 0 ||
+            _oneTimeUse && _currentDirection) return;
+        
         if (!_pull)
         {
-            foreach (PlayerMover mover in _movers)
+            PlayerMover mover = collision.GetComponent<PlayerMover>();
+            if (mover != null)
             {
-                if (mover.MoveInput.y > 0.3f || _pull) _pull = true;
+                _pull = mover.MoveInput.y > 0.3f || _pull;
             }
         }
         if (!_alreadyPulled && _pull)
@@ -52,6 +67,16 @@ public class Lever : MonoBehaviour
         {
             _alreadyPulled = false;
         }
+
+        UpdateBubblePosition();
+    }
+
+    void UpdateBubblePosition()
+    {
+        _useTipBubble.position =
+            new Vector2(_useTipBubble.position.x,
+            _useTipBubbleYCoord +
+            Mathf.Sin(Time.timeSinceLevelLoad * 3) * 0.1f);
     }
 
     void Pull()
