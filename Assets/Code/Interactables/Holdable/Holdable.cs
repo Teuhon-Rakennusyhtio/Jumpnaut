@@ -24,7 +24,7 @@ public class Holdable : MonoBehaviour
 
 
     
-    void Start()
+    void Awake()
     {
         _groundLayer = LayerMask.NameToLayer("Ground");
         _renderer = GetComponent<SpriteRenderer>();
@@ -77,7 +77,13 @@ public class Holdable : MonoBehaviour
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector2.zero;
         BeingHeld = true;
+        OnPickup(hand);
         return _isHeavy;
+    }
+
+    protected virtual void OnPickup(Transform hand)
+    {
+
     }
 
     void OnCollisionStay2D(Collision2D collision)
