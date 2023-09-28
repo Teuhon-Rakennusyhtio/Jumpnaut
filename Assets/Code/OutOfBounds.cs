@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class OutOfBounds : MonoBehaviour
 {
-    [SerializeField] private Transform _spawnPoint;
-    [SerializeField] private GameObject player;
+    public Transform _spawnPoint;
+    bool _fellBehind;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        _fellBehind = true;
+        if (collision.CompareTag("MainCamera") && _fellBehind == true)
         {
-            player.transform.position = _spawnPoint.TransformPoint(new Vector3(0,0,0));
+            transform.position = _spawnPoint.TransformPoint(new Vector3(0,0,0));
+            _fellBehind = false;
         }
     }
 }
