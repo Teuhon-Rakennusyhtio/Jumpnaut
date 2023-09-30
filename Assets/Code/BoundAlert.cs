@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BoundAlert : MonoBehaviour
-{
-    bool _onTheEdge;
-
-    OnCollisionStay2D(Collision2D col)
+{    
+    public GameObject icon;
+    public SpriteRenderer iconRenderer;
+        
+    void Start()
     {
-        if (col.CompareTag("Player") && _onTheEdge == true)
+        icon = transform.gameObject;
+        iconRenderer = icon.GetComponent<SpriteRenderer>();
+        iconRenderer.enabled = false;
+    }
+
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Edge")
         {
-            
+            iconRenderer.enabled = true;
+        }
+        else
+        {
+            iconRenderer.enabled = false;
         }
     }
 }
