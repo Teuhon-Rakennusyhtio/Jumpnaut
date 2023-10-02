@@ -74,7 +74,7 @@ public class Barrel : MonoBehaviour, ILadderInteractable
         }
     }
 
-    void Break()
+    public void Break()
     {
         Destroy(gameObject);
     }
