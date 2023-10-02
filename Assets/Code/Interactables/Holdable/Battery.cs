@@ -7,7 +7,7 @@ public class Battery : Holdable
     [SerializeField] Sprite _explosionGraphic;
     public BatterySpawner BatterySpawner;
     bool _exploded = false;
-    void Awake()
+    void Start()
     {
         _breaksOnImpact = true;
     }
