@@ -230,14 +230,14 @@ MonoBehaviour:
   _maxJumpBuffer: 0.2
   _maxCoyoteTime: 0.1
   _jumpForce: 17
-  _jumpApex: 1.5
-  _jumpFallSpeed: 3.6
+  _jumpApex: 1
+  _jumpFallSpeed: 4.6
   _fallAcceleration: 1
   _maxGravity: -12
-  _groundAcceleration: 60
-  _airAcceleration: 40
-  _groundDecceleration: 40
-  _airDecceleration: 15
+  _groundAcceleration: 80
+  _airAcceleration: 70
+  _groundDecceleration: 60
+  _airDecceleration: 40
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64

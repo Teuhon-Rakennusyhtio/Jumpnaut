@@ -99,7 +99,9 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
         if (Mathf.Abs(_moveInput.y) > 0.2f)
         {
+            // -------------------------------------------
             // If the entity just grabbed on to the ladder
+            // -------------------------------------------
             if (!_climbingLadder)
             {
                 // Get the bottom and the top of the ladder to stop the entity from climbing beyond them
@@ -117,6 +119,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
                 _climbingLadder = true;
                 _collider.isTrigger = true; // The entity should not collide with the ground when climbing
+                _movement = Vector2.zero;
+                _currentSpeed = 0f;
                 transform.position = new Vector2(_ladderXCoord, Mathf.Max(transform.position.y, _ladderBottom));
             }
             
@@ -148,20 +152,12 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
         else if (_jumpVelocity > _maxGravity && _gravity.y == 0f)
         {
-            // When the entity is at the apex of the jump it should hang in the air for a while longer for the game feel
-            /*if (Mathf.Abs(_jumpVelocity) < 0.4f)
+            if (Physics2D.OverlapBox((Vector2)transform.position + Vector2.up * _groundCastHeight, new Vector2(_collider.bounds.extents.x * 2 - 0.03f, 0.04f), 0f, _groundLayer)
+            && _jumpVelocity > 0f)
             {
-                _jumpVelocity -= _jumpForce * _jumpApex * Time.fixedDeltaTime;
+                _jumpVelocity = 0f;
+                _jumpBuffer = 0f;
             }
-            else
-            {
-                _jumpVelocity -= _jumpForce * _jumpFallSpeed * Time.fixedDeltaTime;
-            }*/
-            if ((Mathf.Abs(transform.position.y - _previousPosition.y) < 0.001f ||
-            Physics2D.Raycast(transform.position, Vector2.up, _groundCastHeight + 0.1f, _groundLayer)
-            || Physics2D.Raycast((Vector2)transform.position + (Vector2.right * _collider.bounds.extents.x), Vector2.up, _groundCastHeight + 0.1f, _groundLayer)
-            || Physics2D.Raycast((Vector2)transform.position + (Vector2.left * _collider.bounds.extents.x), Vector2.up, _groundCastHeight + 0.1f, _groundLayer))
-            && _jumpVelocity > 0f) _jumpVelocity = 0f;
 
             _jumpVelocity -= _jumpForce * Mathf.Lerp(_jumpApex, _jumpFallSpeed, Mathf.Abs(_jumpVelocity) * 0.1f) * Time.fixedDeltaTime;
         }

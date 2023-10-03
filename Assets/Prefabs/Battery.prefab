@@ -163,4 +163,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BeingHeld: 0
   _explosionGraphic: {fileID: 21300000, guid: 322b9d9848917414b8515de81ab8e525, type: 3}
+  _particleEffect: {fileID: 4756641884696935764, guid: 2590e230dbbc40e41b1dfbc88df94b70, type: 3}
   BatterySpawner: {fileID: 0}

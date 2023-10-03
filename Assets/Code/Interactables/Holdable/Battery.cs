@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Battery : Holdable
 {
-    [SerializeField] Sprite _explosionGraphic;
+    [SerializeField] GameObject _particleEffect;
     public BatterySpawner BatterySpawner;
     bool _exploded = false;
     void Start()
@@ -32,13 +32,12 @@ public class Battery : Holdable
     IEnumerator Explode()
     {
         Debug.Log("BOOM");
-        GameObject explosionEffect = new GameObject("Battery explosion");
-        explosionEffect.transform.position = transform.position;
-        SpriteRenderer explosionRenderer = explosionEffect.AddComponent<SpriteRenderer>();
-        explosionRenderer.sprite = _explosionGraphic;
-        yield return new WaitForSeconds(0.5f);
+
+        ParticleSystem explosionEffect = Instantiate(_particleEffect, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+        explosionEffect.Play();
+        yield return new WaitForSeconds(explosionEffect.main.duration);
         if (BatterySpawner != null) BatterySpawner.SpawnBattery();
-        Destroy(explosionEffect);
+        Destroy(explosionEffect.gameObject);
         Destroy(gameObject);
     }
 }
