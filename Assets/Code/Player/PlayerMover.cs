@@ -18,10 +18,11 @@ public class PlayerMover : GenericMover
     protected override void FixedUpdateLogic()
     {
         OpenPauseMenu();
-        RaycastHit2D cameraPosition = Physics2D.Raycast(transform.position, Vector2.down, 3f, _groundLayer);
-        Debug.DrawRay(transform.position, Vector2.down * 3f, Color.green);
+
+        RaycastHit2D cameraPosition = Physics2D.Raycast(transform.position, Vector2.down, 5f, _groundLayer);
+        Debug.DrawRay(transform.position, Vector2.down * 5f, Color.green);
         if (cameraPosition) _cameraPosition = cameraPosition.point;
-        else _cameraPosition = transform.position;
+        else if (transform.position.y < _cameraPosition.y || _climbingLadder) _cameraPosition = transform.position;
     }
 
     protected override void GetInputs()
