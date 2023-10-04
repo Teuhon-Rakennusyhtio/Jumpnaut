@@ -12,8 +12,8 @@ public class MainDeviceManager : MonoBehaviour
     int _latestInputId;
     bool[] _lastInputs, _emptyInputs = new bool[System.Enum.GetNames(typeof(ChildDeviceManager.InputTypes)).Length];
     Vector2 _lastMoveInput;
-    bool _alreadyInputOnThisFrame = false;
-    float _uiDelay = 0f;
+    bool _alreadyInputOnThisFrame = false, _newInputDeviceOnThisFrame = false;
+    float _uiDelay = 0f, _newInputCheckDelay = 0f;
     [SerializeField] EventSystem _eventSystem;
 
     void Start()
@@ -28,9 +28,14 @@ public class MainDeviceManager : MonoBehaviour
 
     public static void AddNewDevice(ChildDeviceManager newDevice)
     {
+        if (Instance._newInputDeviceOnThisFrame)
+        {
+            newDevice.IgnoreThisDevice = true;
+        }
+        Instance._newInputDeviceOnThisFrame = true;
         newDevice.Id = Instance._inputDevices.Count;
         Instance._inputDevices.Add(newDevice);
-        Debug.Log($"A new ChildDeviceManager with id {newDevice.Id} has been added to the device list of the MainDeviceManager.");
+        Debug.Log($"A new ChildDeviceManager with id {newDevice.Id} has been added to the device list of the MainDeviceManager. {Time.time}");
     }
 
     public static void PassInputs(int id, bool[] inputs, Vector2 moveInput)
@@ -68,6 +73,13 @@ public class MainDeviceManager : MonoBehaviour
 
     void Update()
     {
+        if (_newInputCheckDelay > 0.06f)
+        {
+            _newInputDeviceOnThisFrame = false;
+            _newInputCheckDelay = 0f;
+        }
+        _newInputCheckDelay += Time.deltaTime;
+        
         if (!_alreadyInputOnThisFrame)
         {
             _uiDelay = 0f;

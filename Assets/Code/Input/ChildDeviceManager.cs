@@ -11,6 +11,7 @@ public class ChildDeviceManager : MonoBehaviour
 
     Vector2 _moveInput, _moveAnalogInput;
     bool _newInput = false;
+    public bool IgnoreThisDevice = false;
     public enum InputTypes { confirm, cancel, pause, jump, use, pickup };
     bool[] _inputs = new bool[GetNames(typeof(InputTypes)).Length], _oldInputs = new bool[GetNames(typeof(InputTypes)).Length], _passedInputs = new bool[GetNames(typeof(InputTypes)).Length];
     
@@ -32,7 +33,7 @@ public class ChildDeviceManager : MonoBehaviour
 
     void LateUpdate()
     {
-        if (MainDeviceManager.Instance == null) return;
+        if (MainDeviceManager.Instance == null || IgnoreThisDevice) return;
         _newInput = false;
         for(int i = 0; i < _inputs.Length; i++)
         {

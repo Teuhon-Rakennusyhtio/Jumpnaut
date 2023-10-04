@@ -73,6 +73,9 @@ public class Holdable : MonoBehaviour
         _rigidBody.freezeRotation = true;
         _rigidBody.freezeRotation = false;
         _rigidBody.isKinematic = true;
+        _xVelocity = 0f;
+        _yVelocity = 0f;
+        _rigidBody.velocity = Vector2.zero;
         transform.parent = hand;
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector2.zero;
