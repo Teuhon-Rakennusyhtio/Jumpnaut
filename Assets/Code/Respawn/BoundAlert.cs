@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class BoundAlert : MonoBehaviour
 {    
-    public GameObject icon;
     public SpriteRenderer iconRenderer;
         
     void Start()
     {
-        icon = transform.gameObject;
-        iconRenderer = icon.GetComponent<SpriteRenderer>();
+        iconRenderer = GetComponent<SpriteRenderer>();
         iconRenderer.enabled = false;
     }
 
     private void OnTriggerStay2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Edge")
+        if (col.gameObject.name == "BoundAlert")
         {
             iconRenderer.enabled = true;
         }
-        else
-        {
-            iconRenderer.enabled = false;
-        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        iconRenderer.enabled = false;
     }
 }
