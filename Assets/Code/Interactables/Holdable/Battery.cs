@@ -33,11 +33,12 @@ public class Battery : Holdable
     {
         Debug.Log("BOOM");
 
-        ParticleSystem explosionEffect = Instantiate(_particleEffect, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+        GameObject explosionEffectObject = Instantiate(_particleEffect, transform.position, Quaternion.identity);
+        ParticleSystem explosionEffect = explosionEffectObject.GetComponent<ParticleSystem>();
         explosionEffect.Play();
         yield return new WaitForSeconds(explosionEffect.main.duration);
         if (BatterySpawner != null) BatterySpawner.SpawnBattery();
-        Destroy(explosionEffect.gameObject);
+        Destroy(explosionEffectObject);
         Destroy(gameObject);
     }
 }
