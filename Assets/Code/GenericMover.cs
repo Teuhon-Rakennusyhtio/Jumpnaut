@@ -7,19 +7,21 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     [SerializeField] float _speed = 7f, _climbingSpeed = 5f,
     _maxJumpBuffer = 0.2f, _maxCoyoteTime = 0.1f,
     _jumpForce = 13f, _jumpApex = 0.2f, _jumpFallSpeed = 3f,
-    _fallAcceleration = 1f, _maxGravity = -15f;
+    _fallAcceleration = 1f, _maxGravity = -15f,
+    _groundAcceleration = 1f, _airAcceleration = 1f,
+    _groundDecceleration = 1f, _airDecceleration = 1f;
     [SerializeField] protected LayerMask _groundLayer, _holdableLayer;
     [SerializeField] PhysicsMaterial2D _standMaterial, _moveMaterial;
     [SerializeField] Transform _handTransform;
     Holdable _heldItem;
     protected Vector2 _movement, _slopeNormalPerpendicular,
-    _gravity, _moveInput;
+    _gravity, _moveInput, _previousPosition;
     Rigidbody2D _rigidBody;
     Collider2D _collider;
     float _jumpBuffer = 0f, _coyoteTime = 0f,
      _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord,
-     _ladderBottom, _ladderTop;
-    int _groundedFrames = 0;
+     _ladderBottom, _ladderTop, _currentSpeed;
+    protected int _groundedFrames = 0;
     protected bool _grounded = true, _alreadyJumped = true,
     _climbingLadder = false, _nextToLadder = false,
     _insideGround = false, _holdingSomething = false,
@@ -34,6 +36,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _collider = GetComponent<Collider2D>();
         _groundCastHeight = _collider.bounds.extents.y + 0.05f;
         _gravity = Vector2.zero;
+        _previousPosition = transform.position;
     }
 
     public void OnLadderEnter(float xCoord)
@@ -61,17 +64,27 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _facingLeft = true;
         }
 
+        float acceleration = _grounded ? _groundAcceleration : _airAcceleration;
+        float decceleration = _grounded ? _groundDecceleration : _airDecceleration;
+        if (_moveInput.x == 0)
+        {
+            _currentSpeed = Mathf.MoveTowards(_currentSpeed, 0f, Time.fixedDeltaTime * decceleration);
+        }
+        else
+        {
+            _currentSpeed = Mathf.MoveTowards(_currentSpeed, _moveInput.x * _speed, Time.fixedDeltaTime * acceleration);
+        }
         // If the entity is grounded and moving, walk along the slope
         if (_grounded)
         {
             Debug.DrawRay(transform.position, _slopeNormalPerpendicular, Color.red);
             _movement += new Vector2(
-            -_moveInput.x * _speed * _slopeNormalPerpendicular.x,
-            -_moveInput.x * _speed * _slopeNormalPerpendicular.y);
+            -_currentSpeed * _slopeNormalPerpendicular.x,
+            -_currentSpeed * _slopeNormalPerpendicular.y);
         }
         else
         {
-            _movement += Vector2.right * _moveInput.x * _speed;
+            _movement += Vector2.right * _currentSpeed;
         }
     }
 
@@ -86,7 +99,9 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
         if (Mathf.Abs(_moveInput.y) > 0.2f)
         {
+            // -------------------------------------------
             // If the entity just grabbed on to the ladder
+            // -------------------------------------------
             if (!_climbingLadder)
             {
                 // Get the bottom and the top of the ladder to stop the entity from climbing beyond them
@@ -104,6 +119,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
                 _climbingLadder = true;
                 _collider.isTrigger = true; // The entity should not collide with the ground when climbing
+                _movement = Vector2.zero;
+                _currentSpeed = 0f;
                 transform.position = new Vector2(_ladderXCoord, Mathf.Max(transform.position.y, _ladderBottom));
             }
             
@@ -129,23 +146,20 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
         _movement += Vector2.up * _jumpVelocity;
 
-        // Jump velocity should not push the entity down
-        if (_jumpVelocity < 0f || _grounded)
+        if (_grounded)
         {
             _jumpVelocity = 0f;
         }
-
-        else if (_jumpVelocity > 0f)
+        else if (_jumpVelocity > _maxGravity && _gravity.y == 0f)
         {
-            // When the entity is at the apex of the jump it should hang in the air for a while longer for the game feel
-            if (_jumpVelocity + _gravity.y > -1f)
+            if (Physics2D.OverlapBox((Vector2)transform.position + Vector2.up * _groundCastHeight, new Vector2(_collider.bounds.extents.x * 2 - 0.03f, 0.04f), 0f, _groundLayer)
+            && _jumpVelocity > 0f)
             {
-                _jumpVelocity -= _jumpForce * _jumpApex * Time.fixedDeltaTime;
+                _jumpVelocity = 0f;
+                _jumpBuffer = 0f;
             }
-            else
-            {
-                _jumpVelocity -= _jumpForce * _jumpFallSpeed * Time.fixedDeltaTime;
-            }
+
+            _jumpVelocity -= _jumpForce * Mathf.Lerp(_jumpApex, _jumpFallSpeed, Mathf.Abs(_jumpVelocity) * 0.1f) * Time.fixedDeltaTime;
         }
 
         if (_jumpInput && !_alreadyJumped)
@@ -285,7 +299,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     void CalculateGravity()
     {
         // Gravity should not affect entites which are already on ground or are climbing
-        if (_groundedFrames >= 5 || _climbingLadder)
+        if (_groundedFrames >= 5 || _climbingLadder || _jumpVelocity != 0f)
         {
             _gravity = Vector2.zero;
             return;
@@ -302,7 +316,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _movement = Vector2.zero;
 
             // Stops the entity from sliding off of sloped surfaces
-            if (_moveInput.x != 0f)
+            if (_currentSpeed != 0f)
             {
                 _collider.sharedMaterial = _moveMaterial;
             }
@@ -321,6 +335,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             Catch();
             CheckIfInsideGround();
             _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
+            _previousPosition = transform.position;
         }
         FixedUpdateLogic();
     }
