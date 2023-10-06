@@ -8,9 +8,12 @@ public class PlayerMover : GenericMover
     public int Id;
     Vector2 _cameraPosition;
     bool _pauseInput;
+    public float _respawnSpeed = 7f;
+    GameObject _spawnPoint;
 
     void Start()
     {
+        _spawnPoint = GameObject.Find("Spawnpoint");
         _cameraPosition = Vector2.zero;
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
     }
@@ -41,4 +44,33 @@ public class PlayerMover : GenericMover
     }
 
     public Vector2 GetPlayerCameraPosition() => _cameraPosition;
+
+    
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("MainCamera"))
+        {
+            _isInControl = false;
+        }
+
+        if (collision.gameObject == _spawnPoint && _isInControl == false)
+        {
+            _isInControl = true;
+        }  
+    }
+
+    void Respawning()
+    {
+
+    if (_isInControl == false)
+        {
+            float distance = Vector3.Distance(transform.position, _spawnPoint.transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, _spawnPoint.transform.position, _respawnSpeed * Time.deltaTime);
+        }
+    }
+
+    void Update()
+    {
+        Respawning();
+    }
 }

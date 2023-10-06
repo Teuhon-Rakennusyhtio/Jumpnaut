@@ -8,6 +8,11 @@ public class Spawnpoint : MonoBehaviour
     public float smoothTime = 0;
     private Vector3 velocity = Vector3.zero;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+    
     void Update()
     {
         // Define a target position above and behind the target transform
