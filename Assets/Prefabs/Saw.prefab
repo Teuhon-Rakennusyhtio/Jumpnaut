@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 5726220469246871184}
   - component: {fileID: 7249549148505320073}
   m_Layer: 9
-  m_Name: Weapon (1)
+  m_Name: WeaponSub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 1740094791912618163}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6, y: 0, z: 0}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -146,7 +146,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740094791912618163}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -173,7 +173,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.75
 --- !u!114 &7249549148505320073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +204,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _subHitbox: 1
+  _mainWeapon: {fileID: 7457137685786729961}
   Thrown: 0
   LatestHitDirection: {x: 0, y: 0}
 --- !u!1 &1834205408683813429
@@ -5322,7 +5324,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6353258239062514537}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -5380,6 +5382,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _subHitbox: 0
+  _mainWeapon: {fileID: 0}
   Thrown: 0
   LatestHitDirection: {x: 0, y: 0}
 --- !u!1 &6797068124658435060
@@ -10431,8 +10435,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BeingHeld: 0
-  _weaponCollider: {fileID: 1227435148020174761}
-  _weapon: {fileID: 7457137685786729961}
+  _weaponColliders:
+  - {fileID: 1227435148020174761}
+  - {fileID: 5726220469246871184}
+  _weapons:
+  - {fileID: 7457137685786729961}
+  - {fileID: 7249549148505320073}
   _animator: {fileID: 6771181495548449103}
   _sparks: {fileID: 8461948141730751273}
 --- !u!58 &4168181707507645184

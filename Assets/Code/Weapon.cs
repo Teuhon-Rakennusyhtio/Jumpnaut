@@ -10,6 +10,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] int _damage = 1;
     [SerializeField] float _knockbackForce = 1f;
     [SerializeField] UnityEvent _weaponHit;
+    [SerializeField] bool _subHitbox;
+    [SerializeField] Weapon _mainWeapon;
     public bool Thrown = false;
 
     public Vector2 LatestHitDirection;
@@ -19,6 +21,10 @@ public class Weapon : MonoBehaviour
 
     public void WeaponHit()
     {
+        if (_subHitbox)
+        {
+            _mainWeapon.LatestHitDirection = LatestHitDirection;
+        }
         _weaponHit.Invoke();
     }
 }
