@@ -22,11 +22,13 @@ public abstract class GenericHealth : MonoBehaviour
     {
         if (_invincibilityFrames > 0f) return;
         if (collision.gameObject.layer != _weaponLayer) return;
-        Damaged(collision.GetComponent<Weapon>());
+        Vector2 hitDirection =
+        transform.position - collision.transform.position;
+        Damaged(collision.GetComponent<Weapon>(), hitDirection);
 
     }
 
-    public void Damaged(Weapon weapon)
+    public void Damaged(Weapon weapon, Vector2 direction)
     {
         if (
             (_isPlayerAligned && weapon.Alignment == 0) ||
@@ -34,6 +36,7 @@ public abstract class GenericHealth : MonoBehaviour
             (weapon.Thrown && _invincibleToCatchable)
             ) return;
 
+        weapon.LatestHitDirection = direction;
         weapon.WeaponHit();
         _health -= weapon.Damage;
         if (_health <= 0)

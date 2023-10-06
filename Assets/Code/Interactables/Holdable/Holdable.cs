@@ -20,7 +20,7 @@ public class Holdable : MonoBehaviour
 
     // These can be changed in inherited classes
     protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 2f;
-    protected bool _breaksOnImpact = false, _isHeavy = false;
+    protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true;
 
 
     
@@ -64,10 +64,17 @@ public class Holdable : MonoBehaviour
         _timeSinceThrown = 0f;
         _thrown = true;
         BeingHeld = false;
+        OnThrow(direction);
     }
 
-    public bool Pickup(Transform hand)
+    protected virtual void OnThrow(Vector2 direction)
     {
+
+    }
+
+    public void Pickup(Transform hand, ref bool heavy, ref bool flipable)
+    {
+        transform.localScale = new Vector3(1f, 1f, 1f);
         _thrown = false;
         _rigidBody.totalTorque = 0f;
         _rigidBody.freezeRotation = true;
@@ -81,7 +88,9 @@ public class Holdable : MonoBehaviour
         transform.localPosition = Vector2.zero;
         BeingHeld = true;
         OnPickup(hand);
-        return _isHeavy;
+        heavy = _isHeavy;
+        flipable = _flipable;
+
     }
 
     protected virtual void OnPickup(Transform hand)

@@ -12,6 +12,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] UnityEvent _weaponHit;
     public bool Thrown = false;
 
+    public Vector2 LatestHitDirection;
+
     public int Damage { get { return _damage; } }
     public float KnockbackForce { get{ return _knockbackForce; } }
 
