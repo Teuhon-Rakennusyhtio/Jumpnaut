@@ -50,19 +50,19 @@ public class PlayerMover : GenericMover
     {
         if (collision.CompareTag("MainCamera"))
         {
-            _isInControl = false;
+            SetControl(false);
         }
 
-        if (collision.gameObject == _spawnPoint && _isInControl == false)
+        if (collision.gameObject == _spawnPoint && IsInControl == false)
         {
-            _isInControl = true;
+            SetControl(true);
         }  
     }
 
     void Respawning()
     {
 
-    if (_isInControl == false)
+    if (IsInControl == false)
         {
             float distance = Vector3.Distance(transform.position, _spawnPoint.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, _spawnPoint.transform.position, _respawnSpeed * Time.deltaTime);

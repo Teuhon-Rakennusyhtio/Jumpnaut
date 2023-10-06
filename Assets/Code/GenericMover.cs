@@ -22,15 +22,17 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
      _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord,
      _ladderBottom, _ladderTop, _currentSpeed;
     protected int _groundedFrames = 0;
+    bool _isInControl = true;
     protected bool _grounded = true, _alreadyJumped = true,
     _climbingLadder = false, _nextToLadder = false,
     _insideGround = false, _holdingSomething = false,
     _alreadyCaught = false, _facingLeft = false,
-    _holdingHeavyObject = false, _isInControl = true,
+    _holdingHeavyObject = false,
     _heldItemIsFlipalbe;
 
     protected bool _jumpInput, _useInput, _catchInput;
     
+    public bool IsInControl { get { return _isInControl; } }
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -141,6 +143,14 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
                 _movement += Vector2.up * _moveInput.y * _climbingSpeed;
             }
         }
+    }
+
+    protected void SetControl(bool toggle)
+    {
+        if (_isInControl == toggle) return;
+        _isInControl = toggle;
+        _climbingLadder = false;
+        _collider.isTrigger = !toggle;
     }
 
     void Jump()
@@ -385,6 +395,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     public void ClearHand()
     {
         _holdingSomething = false;
+        _holdingHeavyObject = false;
         _heldItem = null;
     }
 
