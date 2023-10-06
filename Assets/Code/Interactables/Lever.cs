@@ -6,19 +6,30 @@ using UnityEngine.Events;
 public class Lever : MonoBehaviour
 {
     public bool _oneTimeUse = false;
-    float _useTipBubbleYCoord;
+    float _useTipBubbleYCoord, _delay;
     [SerializeField] UnityEvent _pullLeft, _pullRight;
+    [SerializeField] bool _movesAutomaticallyInSinglePlayer;
+    [SerializeField] float _automaticDelay = 2f;
     [SerializeField] Animator _anim;
     [SerializeField] SpriteRenderer _useTipBubbleGraphic;
     Transform _useTipBubble;
     List<PlayerMover> _movers;
-    bool _currentDirection = false, _alreadyPulled = false, _pull = false;
+    bool _currentDirection = false, _alreadyPulled = false, _pull = false, _singlePlayer;
     
     void Start()
     {
         _useTipBubble = _useTipBubbleGraphic.gameObject.transform;
         _useTipBubbleYCoord = _useTipBubble.position.y;
         _movers = new List<PlayerMover>();
+        _singlePlayer = GameManager.PlayerDevices.Count == 1 && _movesAutomaticallyInSinglePlayer;
+
+        if (_singlePlayer)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -43,12 +54,22 @@ public class Lever : MonoBehaviour
     void Update()
     {
         _pull = false;
+        if (_singlePlayer)
+        {
+            if (_delay > _automaticDelay)
+            {
+                _delay = 0f;
+                Pull();
+            }
+            _delay += Time.deltaTime;
+        }
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
         if (_movers.Count == 0 ||
-            _oneTimeUse && _currentDirection) return;
+            _oneTimeUse && _currentDirection ||
+            _singlePlayer) return;
         
         if (!_pull)
         {

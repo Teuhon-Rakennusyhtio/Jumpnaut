@@ -6,7 +6,9 @@ using UnityEngine.Events;
 public class BatterySocket : MonoBehaviour
 {
     [SerializeField] UnityEvent _batteryInserted;
-    [SerializeField] SpriteRenderer _useTipBubbleGraphic;
+    [SerializeField] SpriteRenderer _useTipBubbleGraphic, _machineSprite;
+    [SerializeField] Sprite _activatedSocketSprite;
+    [SerializeField] bool _preInsertedInSinglePlayer;
     List<PlayerMover> _movers;
     Transform _useTipBubble;
     Battery _battery;
@@ -18,16 +20,28 @@ public class BatterySocket : MonoBehaviour
         _movers = new List<PlayerMover>();
         _useTipBubble = _useTipBubbleGraphic.gameObject.transform;
         _useTipBubbleYCoord = _useTipBubble.position.y;
-        if (GameManager.PlayerDevices.Count == 1)
+        if (GameManager.PlayerDevices.Count == 1 && _preInsertedInSinglePlayer)
         {
-            _batteryInserted.Invoke();
-            _batteryInSocket = true;
+            InsertBattery(false);
+        }
+    }
+
+    void InsertBattery(bool insertedByPlayer)
+    {
+        _batteryInSocket = true;
+        _useTipBubbleGraphic.enabled = false;
+        _machineSprite.sprite = _activatedSocketSprite;
+        _batteryInserted.Invoke();
+
+        if (!insertedByPlayer)
+        {
             transform.Find("BatterySprite").GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_batteryInSocket) return;
         PlayerMover mover = collision.gameObject.GetComponent<PlayerMover>();
         if (mover != null) _movers.Add(mover);
         _useTipBubbleGraphic.enabled = CheckForBattery();
@@ -54,9 +68,7 @@ public class BatterySocket : MonoBehaviour
         if (_battery != null)
         {
             _battery.PlaceInSocket(transform);
-            _batteryInSocket = true;
-            _useTipBubbleGraphic.enabled = false;
-            _batteryInserted.Invoke();
+            InsertBattery(true);
         }
         UpdateBubblePosition();
     }

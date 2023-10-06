@@ -5,8 +5,10 @@ using UnityEngine;
 public class BatterySpawner : MonoBehaviour
 {
     [SerializeField] GameObject _battery;
+    [SerializeField] bool _existsInSinglePlayer;
     void Start()
     {
+        if (GameManager.PlayerDevices.Count == 1 && !_existsInSinglePlayer) return;
         SpawnBattery();
     }
 

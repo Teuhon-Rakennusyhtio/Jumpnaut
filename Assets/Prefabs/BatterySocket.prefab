@@ -291,6 +291,8 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   _useTipBubbleGraphic: {fileID: 331358733242333727}
+  _machineSprite: {fileID: 9075948289565394889}
+  _activatedSocketSprite: {fileID: 21300000, guid: 79e2a4638d80db140a27af8dec96e80a, type: 3}
 --- !u!1 &7879702626268987091
 GameObject:
   m_ObjectHideFlags: 0
