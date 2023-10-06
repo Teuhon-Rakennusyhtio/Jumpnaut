@@ -10,6 +10,8 @@ public class Battery : Holdable
     void Start()
     {
         _breaksOnImpact = true;
+        _flipable = false;
+        _isHeavy = true;
     }
 
     public override void Break()
@@ -31,8 +33,6 @@ public class Battery : Holdable
 
     IEnumerator Explode()
     {
-        Debug.Log("BOOM");
-
         GameObject explosionEffectObject = Instantiate(_particleEffect, transform.position, Quaternion.identity);
         ParticleSystem explosionEffect = explosionEffectObject.GetComponent<ParticleSystem>();
         explosionEffect.Play();

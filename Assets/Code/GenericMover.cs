@@ -26,7 +26,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _climbingLadder = false, _nextToLadder = false,
     _insideGround = false, _holdingSomething = false,
     _alreadyCaught = false, _facingLeft = false,
-    _holdingHeavyObject = false, _isInControl = true;
+    _holdingHeavyObject = false, _isInControl = true,
+    _heldItemIsFlipalbe;
 
     protected bool _jumpInput, _useInput, _catchInput;
     
@@ -54,6 +55,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         if (_climbingLadder) return;
 
+        bool oldFacing = _facingLeft;
         // Figure out which direction the player is facing
         if (_moveInput.x > 0f)
         {
@@ -63,6 +65,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         {
             _facingLeft = true;
         }
+
+        if (oldFacing != _facingLeft) Flip();
 
         float acceleration = _grounded ? _groundAcceleration : _airAcceleration;
         float decceleration = _grounded ? _groundDecceleration : _airDecceleration;
@@ -85,6 +89,14 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         else
         {
             _movement += Vector2.right * _currentSpeed;
+        }
+    }
+
+    void Flip()
+    {
+        if (_heldItemIsFlipalbe)
+        {
+            _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
         }
     }
 
@@ -199,7 +211,9 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
                 {
                     _heldItem = holdable.gameObject.GetComponent<Holdable>();
                     if (_heldItem.BeingHeld) return; // Can't pickup an item that someone is already holding
-                    _holdingHeavyObject = _heldItem.Pickup(_handTransform); // Puts the item in the entity's hand and checks if the object is heavy
+                    _handTransform.localScale = new Vector3(1f, 1f, 1f);
+                    _heldItem.Pickup(_handTransform, ref _holdingHeavyObject, ref _heldItemIsFlipalbe); // Puts the item in the entity's hand and checks if the object is heavy
+                    Flip();
                     _holdingSomething = true;
                     _alreadyCaught = true;
                 }

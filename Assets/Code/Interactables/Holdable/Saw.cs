@@ -7,15 +7,12 @@ public class Saw : Holdable
     [SerializeField] Collider2D _weaponCollider;
     [SerializeField] Weapon _weapon;
     [SerializeField] Animator _animator;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] ParticleSystem _sparks;
 
     protected override void OnPickup(Transform hand)
     {
         GenericHealth health = hand.parent.GetComponentInChildren<GenericHealth>();
+        _weapon.Thrown = false;
         if (health != null) _weapon.Alignment = health.Alignment; 
         if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Running"))
         {
@@ -23,7 +20,20 @@ public class Saw : Holdable
         }
     }
 
-    // Update is called once per frame
+    protected override void OnThrow(Vector2 direction)
+    {
+        _weapon.Thrown = true;
+    }
+
+    // Shoots spark particles towards the hurtbox that has been hit
+    public void Sparks()
+    {
+        float angle = Vector2.SignedAngle(_weapon.LatestHitDirection, Vector2.up);
+        var sparksShape = _sparks.shape;
+        sparksShape.rotation = Vector3.up * angle;
+        _sparks.Play();
+    }
+
     void Update()
     {
         if (BeingHeld || _thrown)
