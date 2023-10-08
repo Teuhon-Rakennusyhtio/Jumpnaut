@@ -208,7 +208,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
     }
 
-    void Catch()
+    void TryToCatchOrThrow()
     {
         if (_climbingLadder) return; // Can't catch or throw stuff while on the ladder
         if (!_catchInput) _alreadyCaught = false;
@@ -218,37 +218,56 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             // If the entity is holding something throw it, else try to pick up an item
             if (!_holdingSomething)
             {
-                Collider2D holdable = Physics2D.OverlapBox(transform.position, _collider.bounds.extents * 2, 0f, _holdableLayer);
-                if (holdable != null)
+                Collider2D holdableCollider = Physics2D.OverlapBox(transform.position, _collider.bounds.extents * 2, 0f, _holdableLayer);
+                if (holdableCollider != null)
                 {
-                    _heldItem = holdable.gameObject.GetComponent<Holdable>();
-                    if (_heldItem.BeingHeld) return; // Can't pickup an item that someone is already holding
-                    _handTransform.localScale = new Vector3(1f, 1f, 1f);
-                    _heldItem.Pickup(_handTransform, ref _holdingHeavyObject, ref _heldItemIsFlipalbe); // Puts the item in the entity's hand and checks if the object is heavy
-                    Flip();
-                    _holdingSomething = true;
-                    _alreadyCaught = true;
+                    Holdable holdable = holdableCollider.gameObject.GetComponent<Holdable>();
+                    if (holdable.BeingHeld) return; // Can't pickup an item that someone is already holding
+                    CatchLogic(holdable);
                 }
             }
             else
             {
-                Vector2 throwVector = Vector2.zero;
-                if (!_grounded)
-                {
-                    throwVector = Vector2.left;
-                }
-                else
-                {
-                    throwVector = _slopeNormalPerpendicular;
-                }
-                _heldItem.Throw(throwVector * (_facingLeft ? 1f : -1f));
-                _alreadyCaught = true;
-                _holdingSomething = false;
-                _holdingHeavyObject = false;
+                ThrowLogic();
             }
         }
     }
 
+    protected virtual void CatchLogic(Holdable holdable)
+    {
+        Catch(holdable);
+    }
+    protected void Catch(Holdable holdable)
+    {
+        _heldItem = holdable;
+        _handTransform.localScale = new Vector3(1f, 1f, 1f);
+        _heldItem.Pickup(_handTransform, ref _holdingHeavyObject, ref _heldItemIsFlipalbe); // Puts the item in the entity's hand and checks if the object is heavy
+        Flip();
+        _holdingSomething = true;
+        _alreadyCaught = true;
+    }
+
+    protected virtual void ThrowLogic()
+    {
+        Throw();
+    }
+
+    protected void Throw()
+    {
+        Vector2 throwVector = Vector2.zero;
+        if (!_grounded)
+        {
+            throwVector = Vector2.left;
+        }
+        else
+        {
+            throwVector = _slopeNormalPerpendicular;
+        }
+        _heldItem.Throw(throwVector * (_facingLeft ? 1f : -1f));
+        _alreadyCaught = true;
+        _holdingSomething = false;
+        _holdingHeavyObject = false;
+    }
     void CheckIfGrounded()
     {
         // Checks if the entity is climbing in which case they obviously aren't grounded
@@ -359,7 +378,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             Move();
             ClimbLadder();
             Jump();
-            Catch();
+            TryToCatchOrThrow();
             CheckIfInsideGround();
             _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
             _previousPosition = transform.position;

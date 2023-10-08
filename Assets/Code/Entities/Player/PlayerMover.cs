@@ -8,7 +8,7 @@ public class PlayerMover : GenericMover
     public ChildDeviceManager Device;
     public int Id;
     Vector2 _cameraPosition;
-    bool _pauseInput;
+    bool _pauseInput, _throwAnimationStarted;
     public float _respawnSpeed = 7f;
     GameObject _spawnPoint;
 
@@ -38,6 +38,27 @@ public class PlayerMover : GenericMover
         _useInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.use];
         _catchInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pickup];
         _pauseInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pause];
+    }
+
+    protected override void ThrowLogic()
+    {
+        _throwAnimationStarted = true;
+        _animator.SetTrigger("Throw");
+
+        Invoke(nameof (ThrowSoon), 0.1f);
+    }
+
+    void ThrowSoon()
+    {
+        _throwAnimationStarted = false;
+        _animator.ResetTrigger("Throw");
+        Throw();
+    }
+
+    void ThrowUpdate()
+    {
+        if (!_throwAnimationStarted) return;
+
     }
 
     void OpenPauseMenu()
@@ -74,5 +95,6 @@ public class PlayerMover : GenericMover
     void Update()
     {
         Respawning();
+        ThrowUpdate();
     }
 }
