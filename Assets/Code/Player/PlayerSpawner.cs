@@ -11,7 +11,12 @@ public class PlayerSpawner : MonoBehaviour
         for (int i = 0; i < GameManager.PlayerDevices.Count; i++)
         {
             GameObject player = Instantiate(_playerPrefab, transform.position + new Vector3(i % 4, 0, 0), Quaternion.identity);
-            player.GetComponent<SpriteRenderer>().color = GameManager.GetPlayerColor(i);
+            //player.GetComponent<SpriteRenderer>().color = GameManager.GetPlayerColor(i);
+            SpriteRenderer[] sprites = player.GetComponentsInChildren<SpriteRenderer>();
+            foreach (SpriteRenderer sprite in sprites)
+            {
+                sprite.color = GameManager.GetPlayerColor(i);
+            }
             player.GetComponent<PlayerMover>().Device = GameManager.PlayerDevices[i];
             player.GetComponent<PlayerMover>().Id = i;
         }

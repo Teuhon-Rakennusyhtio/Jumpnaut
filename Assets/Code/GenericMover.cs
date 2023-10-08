@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Accessibility;
 
 public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 {
@@ -28,7 +29,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _insideGround = false, _holdingSomething = false,
     _alreadyCaught = false, _facingLeft = false,
     _holdingHeavyObject = false,
-    _heldItemIsFlipalbe;
+    _heldItemIsFlipalbe, _jumpedThisFrame;
 
     protected bool _jumpInput, _useInput, _catchInput;
     
@@ -203,6 +204,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _groundedFrames = 0;
             _gravity = Vector2.zero;
             _jumpVelocity = _jumpForce;
+            _jumpedThisFrame = true;
         }
     }
 
@@ -335,6 +337,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     void FixedUpdate()
     {
         if (GameManager.CurrentlyInUI) return;
+        _jumpedThisFrame = false;
         if (_isInControl)
         {
             _movement = Vector2.zero;
@@ -367,6 +370,23 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     protected virtual void FixedUpdateLogic()
     {
 
+    }
+
+    protected virtual void Animate(Animator anim)
+    {
+        anim.SetFloat("HorizontalSpeed", _movement.x);
+        anim.SetFloat("VerticalSpeed", _jumpVelocity + _gravity.y);
+        anim.SetFloat("MoveInput", _moveInput.x);
+        anim.SetFloat("WalkSpeed", Mathf.Max(Mathf.Abs(_moveInput.x), 0.2f));
+        anim.SetBool("Grounded", _grounded);
+        if (_jumpedThisFrame)
+        {
+            anim.SetTrigger("Jump");
+        }
+        else
+        {
+            anim.ResetTrigger("Jump");
+        }
     }
 
     void LateUpdate()

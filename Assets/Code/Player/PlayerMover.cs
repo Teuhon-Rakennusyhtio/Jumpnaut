@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMover : GenericMover
 {
+    [SerializeField] Animator _animator;
     public ChildDeviceManager Device;
     public int Id;
     Vector2 _cameraPosition;
@@ -26,6 +27,7 @@ public class PlayerMover : GenericMover
         Debug.DrawRay(transform.position, Vector2.down * 5f, Color.green);
         if (cameraPosition) _cameraPosition = cameraPosition.point;
         else if (transform.position.y < _cameraPosition.y || _climbingLadder) _cameraPosition = transform.position;
+        if (_animator != null) Animate(_animator);
     }
 
     protected override void GetInputs()
