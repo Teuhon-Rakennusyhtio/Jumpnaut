@@ -27,7 +27,7 @@ public class StickEntityToMe : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             Rigidbody2D child = transform.GetChild(i).GetComponent<Rigidbody2D>();
-            if (child.velocity == Vector2.zero)
+            if (child.velocity.magnitude < 0.95f)
             //child.MovePosition((Vector2)child.position + (Vector2)transform.position - _oldPosition);
             child.position = (Vector2)child.position + (Vector2)transform.position - _oldPosition;
         }
