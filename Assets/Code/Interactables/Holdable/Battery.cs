@@ -29,6 +29,7 @@ public class Battery : Holdable
         GetComponentInParent<PlayerMover>().ClearHand();
         transform.parent = socket;
         transform.localPosition = Vector2.zero;
+        transform.localRotation = Quaternion.identity;
     }
 
     IEnumerator Explode()

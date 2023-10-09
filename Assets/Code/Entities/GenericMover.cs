@@ -29,7 +29,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _insideGround = false, _holdingSomething = false,
     _alreadyCaught = false, _facingLeft = false,
     _holdingHeavyObject = false,
-    _heldItemIsFlipalbe, _jumpedThisFrame;
+    _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut;
 
     protected bool _jumpInput, _useInput, _catchInput;
     
@@ -212,11 +212,19 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
                     if (holdable.BeingHeld) return; // Can't pickup an item that someone is already holding
                     CatchLogic(holdable);
                 }
+                else
+                {
+                    _holdingOut = true;
+                }
             }
             else
             {
                 ThrowLogic();
             }
+        }
+        else
+        {
+            _holdingOut = false;
         }
     }
 
@@ -232,6 +240,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         FlipLogic();
         _holdingSomething = true;
         _alreadyCaught = true;
+        _holdingOut = false;
     }
 
     protected virtual void ThrowLogic()
@@ -405,6 +414,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         anim.SetFloat("MoveInput", _moveInput.x);
         anim.SetFloat("WalkSpeed", Mathf.Max(Mathf.Abs(_moveInput.x), 0.2f));
         anim.SetBool("Grounded", _grounded);
+        anim.SetBool("HoldingOut", _holdingOut);
+        anim.SetBool("FacingLeft", _facingLeft);
         if (_jumpedThisFrame)
         {
             anim.SetTrigger("Jump");

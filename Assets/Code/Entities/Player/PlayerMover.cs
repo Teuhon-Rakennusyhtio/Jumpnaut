@@ -9,7 +9,7 @@ public class PlayerMover : GenericMover
     public ChildDeviceManager Device;
     public int Id;
     Vector2 _cameraPosition;
-    bool _pauseInput, _throwAnimationStarted;
+    bool _pauseInput;//, _throwAnimationStarted;
     public float _respawnSpeed = 7f;
     GameObject _spawnPoint;
 
@@ -53,10 +53,22 @@ public class PlayerMover : GenericMover
         {
             heldItem.localScale = new Vector3(1f, 1f, 1f);
         }*/
-        if (!_holdingSomething)
+        if (!_holdingSomething && !_catchInput)
         {
             _animator.Play("Empty Hand");
         }
+        if (_holdingOut)
+        {
+            if (_facingLeft)
+            {
+                _animator.Play("Hold Out Left", -1, 1f);
+            }
+            else
+            {
+                _animator.Play("Hold Out Right", -1, 1f);
+            }
+        }
+        
         if (!_holdingHeavyObject)
         {
             if (_facingLeft)
@@ -82,9 +94,22 @@ public class PlayerMover : GenericMover
         _pauseInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pause];
     }
 
+    protected override void CatchLogic(Holdable holdable)
+    {
+        base.CatchLogic(holdable);
+        if (!_facingLeft)
+        {
+            _animator.Play("Pickup Right");
+        }
+        else
+        {
+            _animator.Play("Pickup Left");
+        }
+    }
+
     protected override void ThrowLogic()
     {
-        _throwAnimationStarted = true;
+        //_throwAnimationStarted = true;
         //_animator.SetTrigger("Throw");
         if (!_facingLeft)
         {
@@ -99,14 +124,8 @@ public class PlayerMover : GenericMover
 
     void ThrowSoon()
     {
-        _throwAnimationStarted = false;
+        //_throwAnimationStarted = false;
         Throw();
-    }
-
-    void ThrowUpdate()
-    {
-        if (!_throwAnimationStarted) return;
-
     }
 
     void OpenPauseMenu()
@@ -143,6 +162,5 @@ public class PlayerMover : GenericMover
     void Update()
     {
         Respawning();
-        ThrowUpdate();
     }
 }

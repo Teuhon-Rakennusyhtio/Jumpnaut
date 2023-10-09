@@ -68,6 +68,7 @@ public class BatterySocket : MonoBehaviour
         if (_battery != null)
         {
             _battery.PlaceInSocket(transform);
+            _battery.transform.localPosition = transform.Find("BatterySprite").transform.localPosition;
             InsertBattery(true);
         }
         UpdateBubblePosition();
