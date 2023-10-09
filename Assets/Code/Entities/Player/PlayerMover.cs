@@ -43,7 +43,8 @@ public class PlayerMover : GenericMover
     protected override void ThrowLogic()
     {
         _throwAnimationStarted = true;
-        _animator.SetTrigger("Throw");
+        //_animator.SetTrigger("Throw");
+        _animator.Play("Throw Right");
 
         Invoke(nameof (ThrowSoon), 0.1f);
     }
