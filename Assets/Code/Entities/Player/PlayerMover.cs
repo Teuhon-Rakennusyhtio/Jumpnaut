@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMover : GenericMover
 {
     [SerializeField] Animator _animator;
+    [SerializeField] Transform _mainRig, _leftArm, _rightArm;
     public ChildDeviceManager Device;
     public int Id;
     Vector2 _cameraPosition;
@@ -21,6 +22,7 @@ public class PlayerMover : GenericMover
 
     protected override void FixedUpdateLogic()
     {
+
         OpenPauseMenu();
 
         RaycastHit2D cameraPosition = Physics2D.Raycast(transform.position, Vector2.down, 5f, _groundLayer);
@@ -28,6 +30,46 @@ public class PlayerMover : GenericMover
         if (cameraPosition) _cameraPosition = cameraPosition.point;
         else if (transform.position.y < _cameraPosition.y || _climbingLadder) _cameraPosition = transform.position;
         if (_animator != null) Animate(_animator);
+    }
+
+    protected override void CheckFacingLogic()
+    {
+        bool oldFacing = _facingLeft;
+        // Figure out which direction the player is facing
+        _facingLeft = _mainRig.localScale.x < 0f;
+
+        if (oldFacing != _facingLeft) FlipLogic();
+    }
+
+    protected override void FlipLogic()
+    {
+        if (!_heldItemIsFlipalbe)
+        {
+            _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
+        }
+
+        /*Transform heldItem = _handTransform.GetChild(0);
+        if (heldItem != null)
+        {
+            heldItem.localScale = new Vector3(1f, 1f, 1f);
+        }*/
+        if (!_holdingSomething)
+        {
+            _animator.Play("Empty Hand");
+        }
+        if (!_holdingHeavyObject)
+        {
+            if (_facingLeft)
+            {
+                _handTransform.parent = _leftArm;
+            }
+            else
+            {
+                _handTransform.parent = _rightArm;
+            }
+            _handTransform.localPosition = Vector3.right * 0.45f;
+            _handTransform.localRotation = Quaternion.identity;
+        }
     }
 
     protected override void GetInputs()
@@ -44,15 +86,20 @@ public class PlayerMover : GenericMover
     {
         _throwAnimationStarted = true;
         //_animator.SetTrigger("Throw");
-        _animator.Play("Throw Right");
-
+        if (!_facingLeft)
+        {
+            _animator.Play("Throw Right");
+        }
+        else
+        {
+            _animator.Play("Throw Left");
+        }
         Invoke(nameof (ThrowSoon), 0.1f);
     }
 
     void ThrowSoon()
     {
         _throwAnimationStarted = false;
-        _animator.ResetTrigger("Throw");
         Throw();
     }
 

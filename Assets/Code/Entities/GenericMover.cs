@@ -13,7 +13,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _groundDecceleration = 1f, _airDecceleration = 1f;
     [SerializeField] protected LayerMask _groundLayer, _holdableLayer;
     [SerializeField] PhysicsMaterial2D _standMaterial, _moveMaterial;
-    [SerializeField] Transform _handTransform;
+    [SerializeField] protected Transform _handTransform;
     Holdable _heldItem;
     protected Vector2 _movement, _slopeNormalPerpendicular,
     _gravity, _moveInput, _previousPosition;
@@ -58,19 +58,6 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         if (_climbingLadder) return;
 
-        bool oldFacing = _facingLeft;
-        // Figure out which direction the player is facing
-        if (_moveInput.x > 0f)
-        {
-            _facingLeft = false;
-        }
-        else if (_moveInput.x < 0f)
-        {
-            _facingLeft = true;
-        }
-
-        if (oldFacing != _facingLeft) Flip();
-
         float acceleration = _grounded ? _groundAcceleration : _airAcceleration;
         float decceleration = _grounded ? _groundDecceleration : _airDecceleration;
         if (_moveInput.x == 0)
@@ -95,7 +82,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
     }
 
-    void Flip()
+    protected virtual void FlipLogic()
     {
         if (_heldItemIsFlipalbe)
         {
@@ -242,7 +229,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _heldItem = holdable;
         _handTransform.localScale = new Vector3(1f, 1f, 1f);
         _heldItem.Pickup(_handTransform, ref _holdingHeavyObject, ref _heldItemIsFlipalbe); // Puts the item in the entity's hand and checks if the object is heavy
-        Flip();
+        FlipLogic();
         _holdingSomething = true;
         _alreadyCaught = true;
     }
@@ -263,7 +250,17 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         {
             throwVector = _slopeNormalPerpendicular;
         }
+        Transform handParent = _handTransform.parent;
+        Vector3 handPosition = _handTransform.localPosition;
+        Quaternion handRotation = _handTransform.localRotation;
+        _handTransform.parent = null;
+        _handTransform.localPosition = transform.position + Vector3.up * _collider.bounds.extents.y;
+        _handTransform.localRotation = Quaternion.identity;
         _heldItem.Throw(throwVector * (_facingLeft ? 1f : -1f));
+        _handTransform.parent = handParent;
+        _handTransform.localPosition = handPosition;
+        _handTransform.rotation = handRotation;
+        _handTransform.localScale = Vector3.one;
         _alreadyCaught = true;
         _holdingSomething = false;
         _holdingHeavyObject = false;
@@ -372,6 +369,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             }
 
             GetInputs();
+            CheckFacingLogic();
             CheckIfGrounded();
             CheckSlope();
             CalculateGravity();
@@ -389,6 +387,15 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     protected virtual void FixedUpdateLogic()
     {
 
+    }
+
+    protected virtual void CheckFacingLogic()
+    {
+        bool oldFacing = _facingLeft;
+        // Figure out which direction the entity is facing
+        _facingLeft = _moveInput.x < 0f;
+
+        if (oldFacing != _facingLeft) FlipLogic();
     }
 
     protected virtual void Animate(Animator anim)
@@ -422,6 +429,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
                 transform.position = new Vector2(transform.position.x, _ladderTop);
             }
         }
+        CheckFacingLogic();
         LateUpdateLogic();
     }
 

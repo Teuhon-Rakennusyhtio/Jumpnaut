@@ -16,16 +16,18 @@ public class Holdable : MonoBehaviour
     protected bool _thrown = false;
     float _xVelocity = 0f, _yVelocity = 0f, _outOfViewTime = 0f, _timeSinceThrown = 0f;
     public bool BeingHeld = false;
+    Vector3 _realSize;
     
 
     // These can be changed in inherited classes
-    protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 2f;
+    protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 0.5f;
     protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true;
 
 
     
     void Awake()
     {
+        _realSize = transform.localScale;
         _groundLayer = LayerMask.NameToLayer("Ground");
         _renderer = GetComponent<SpriteRenderer>();
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -55,7 +57,10 @@ public class Holdable : MonoBehaviour
 
     public void Throw(Vector2 direction)
     {
+        bool flipped = transform.lossyScale.x < 0f;
         transform.parent = null;
+        transform.localScale = flipped ? new Vector3(-_realSize.x, _realSize.y, _realSize.z) : _realSize;
+        //transform.localScale = _realSize;
         _rigidBody.isKinematic = false;
         Vector2 throwVector = direction * _throwForce;
         _xVelocity = throwVector.x;
@@ -74,7 +79,8 @@ public class Holdable : MonoBehaviour
 
     public void Pickup(Transform hand, ref bool heavy, ref bool flipable)
     {
-        transform.localScale = new Vector3(1f, 1f, 1f);
+        //bool flipped = transform.localScale.x < 0f;
+        //transform.localScale = flipped ? new Vector3(-_realSize.x, _realSize.y, _realSize.z) : _realSize;
         _thrown = false;
         _rigidBody.totalTorque = 0f;
         _rigidBody.freezeRotation = true;
@@ -84,6 +90,7 @@ public class Holdable : MonoBehaviour
         _yVelocity = 0f;
         _rigidBody.velocity = Vector2.zero;
         transform.parent = hand;
+        transform.localScale = _realSize;
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector2.zero;
         BeingHeld = true;
