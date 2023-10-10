@@ -119,12 +119,6 @@ public class PlayerMover : GenericMover
         {
             _animator.Play("Throw Left");
         }
-        Invoke(nameof (ThrowSoon), 0.1f);
-    }
-
-    void ThrowSoon()
-    {
-        //_throwAnimationStarted = false;
         Throw();
     }
 

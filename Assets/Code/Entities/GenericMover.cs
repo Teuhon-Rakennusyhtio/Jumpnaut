@@ -209,8 +209,14 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
                 if (holdableCollider != null)
                 {
                     Holdable holdable = holdableCollider.gameObject.GetComponent<Holdable>();
-                    if (holdable.BeingHeld) return; // Can't pickup an item that someone is already holding
-                    CatchLogic(holdable);
+                    if (holdable.BeingHeld)
+                    {
+                        _holdingOut = true; // Can't pickup an item that someone is already holding
+                    }
+                    else
+                    {
+                        CatchLogic(holdable);
+                    }
                 }
                 else
                 {

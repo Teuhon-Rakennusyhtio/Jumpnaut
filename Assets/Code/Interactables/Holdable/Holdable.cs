@@ -81,6 +81,7 @@ public class Holdable : MonoBehaviour
     {
         //bool flipped = transform.localScale.x < 0f;
         //transform.localScale = flipped ? new Vector3(-_realSize.x, _realSize.y, _realSize.z) : _realSize;
+        if (transform.parent == hand) return;
         _thrown = false;
         _rigidBody.totalTorque = 0f;
         _rigidBody.freezeRotation = true;
@@ -97,7 +98,6 @@ public class Holdable : MonoBehaviour
         OnPickup(hand);
         heavy = _isHeavy;
         flipable = _flipable;
-
     }
 
     protected virtual void OnPickup(Transform hand)
