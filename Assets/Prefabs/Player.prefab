@@ -1222,6 +1222,7 @@ GameObject:
   - component: {fileID: 4420006751133330111}
   - component: {fileID: 2630256389398866862}
   - component: {fileID: 1956143442342476625}
+  - component: {fileID: 5408821077718742452}
   m_Layer: 0
   m_Name: Right arm
   m_TagString: Untagged
@@ -1319,6 +1320,18 @@ MonoBehaviour:
     m_Extent: {x: 0.19704883, y: 0.43671012, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!210 &5408821077718742452
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137790200725762981}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_SortAtRoot: 0
 --- !u!1 &3335641705031059587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2846,6 +2859,7 @@ GameObject:
   - component: {fileID: 7665886626058610554}
   - component: {fileID: 4791547665078810290}
   - component: {fileID: 745499427186467329}
+  - component: {fileID: 3582593454006348504}
   m_Layer: 0
   m_Name: Left arm
   m_TagString: Untagged
@@ -2943,6 +2957,18 @@ MonoBehaviour:
     m_Extent: {x: 0.1859473, y: 0.38680506, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!210 &3582593454006348504
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7245896527957747660}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -2
+  m_SortAtRoot: 0
 --- !u!1 &7275949255095904223
 GameObject:
   m_ObjectHideFlags: 0
