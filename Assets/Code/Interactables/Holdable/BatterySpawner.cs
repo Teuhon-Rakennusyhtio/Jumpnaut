@@ -8,7 +8,7 @@ public class BatterySpawner : MonoBehaviour
     [SerializeField] bool _existsInSinglePlayer;
     void Start()
     {
-        if (GameManager.PlayerDevices.Count == 1 && !_existsInSinglePlayer) return;
+        if (!_existsInSinglePlayer && GameManager.PlayerDevices.Count == 1) return;
         SpawnBattery();
     }
 

@@ -161,7 +161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032e9b1700309f3489b2be2c74068e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _positionInHand: {x: 0.2, y: 0.3}
   BeingHeld: 0
-  _explosionGraphic: {fileID: 21300000, guid: 322b9d9848917414b8515de81ab8e525, type: 3}
+  _breaksOnImpact: 1
+  _isHeavy: 1
+  _flipable: 0
   _particleEffect: {fileID: 4756641884696935764, guid: 2590e230dbbc40e41b1dfbc88df94b70, type: 3}
   BatterySpawner: {fileID: 0}

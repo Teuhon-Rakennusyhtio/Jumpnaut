@@ -9,9 +9,9 @@ public class Battery : Holdable
     bool _exploded = false;
     void Start()
     {
-        _breaksOnImpact = true;
+        /*_breaksOnImpact = true;
         _flipable = false;
-        _isHeavy = true;
+        _isHeavy = true;*/
     }
 
     public override void Break()

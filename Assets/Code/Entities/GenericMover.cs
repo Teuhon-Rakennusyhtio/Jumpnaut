@@ -242,7 +242,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         _heldItem = holdable;
         _handTransform.localScale = new Vector3(1f, 1f, 1f);
-        _heldItem.Pickup(_handTransform, ref _holdingHeavyObject, ref _heldItemIsFlipalbe); // Puts the item in the entity's hand and checks if the object is heavy
+        _heldItem.Pickup(_handTransform, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe); // Puts the item in the entity's hand and checks if the object is heavy
         FlipLogic();
         _holdingSomething = true;
         _alreadyCaught = true;
@@ -269,7 +269,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         Vector3 handPosition = _handTransform.localPosition;
         Quaternion handRotation = _handTransform.localRotation;
         _handTransform.parent = null;
-        _handTransform.localPosition = transform.position + Vector3.up * _collider.bounds.extents.y;
+        _handTransform.localPosition = transform.position + Vector3.up * (_collider.bounds.extents.y - 0.4f);
         _handTransform.localRotation = Quaternion.identity;
         _heldItem.Throw(throwVector * (_facingLeft ? 1f : -1f));
         _handTransform.parent = handParent;

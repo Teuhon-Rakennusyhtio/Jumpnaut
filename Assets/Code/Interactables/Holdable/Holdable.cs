@@ -9,6 +9,7 @@ using UnityEngine.Timeline;
 [RequireComponent(typeof(CircleCollider2D))]
 public class Holdable : MonoBehaviour
 {
+    [SerializeField] Vector2 _positionInHand;
     SpriteRenderer _renderer;
     protected Rigidbody2D _rigidBody;
     CircleCollider2D _collider;
@@ -20,8 +21,8 @@ public class Holdable : MonoBehaviour
     
 
     // These can be changed in inherited classes
-    protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 0.5f;
-    protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true;
+    protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 1f;
+    [SerializeField] protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true;
 
 
     
@@ -77,11 +78,8 @@ public class Holdable : MonoBehaviour
 
     }
 
-    public void Pickup(Transform hand, ref bool heavy, ref bool flipable)
+    public void Pickup(Transform hand, bool isFacingLeft, ref bool heavy, ref bool flipable)
     {
-        //bool flipped = transform.localScale.x < 0f;
-        //transform.localScale = flipped ? new Vector3(-_realSize.x, _realSize.y, _realSize.z) : _realSize;
-        if (transform.parent == hand) return;
         _thrown = false;
         _rigidBody.totalTorque = 0f;
         _rigidBody.freezeRotation = true;
@@ -93,7 +91,11 @@ public class Holdable : MonoBehaviour
         transform.parent = hand;
         transform.localScale = _realSize;
         transform.localRotation = Quaternion.identity;
-        transform.localPosition = Vector2.zero;
+        transform.localPosition = _positionInHand;
+        if (!_flipable)
+        {
+            transform.localPosition += (isFacingLeft ? Vector3.zero : Vector3.left * _positionInHand.x * 2);
+        }
         BeingHeld = true;
         OnPickup(hand);
         heavy = _isHeavy;
