@@ -32,13 +32,17 @@ public class Battery : Holdable
         transform.localRotation = Quaternion.identity;
     }
 
+    protected override void OnPickup(Transform hand)
+    {
+        if (BatterySpawner != null) BatterySpawner.StartSpawning();
+    }
+
     IEnumerator Explode()
     {
         GameObject explosionEffectObject = Instantiate(_particleEffect, transform.position, Quaternion.identity);
         ParticleSystem explosionEffect = explosionEffectObject.GetComponent<ParticleSystem>();
         explosionEffect.Play();
         yield return new WaitForSeconds(explosionEffect.main.duration);
-        if (BatterySpawner != null) BatterySpawner.SpawnBattery();
         Destroy(explosionEffectObject);
         Destroy(gameObject);
     }

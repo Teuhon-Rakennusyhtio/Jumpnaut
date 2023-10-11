@@ -57,7 +57,7 @@ public class PlayerMover : GenericMover
         {
             _animator.Play("Empty Hand");
         }
-        else if (!_heldItemIsFlipalbe)
+        else if (!_heldItemIsFlipalbe && _handTransform.childCount > 0)
         {
             Transform heldItem = _handTransform.GetChild(0).transform;
             heldItem.localPosition = new Vector2(-heldItem.localPosition.x, heldItem.localPosition.y);
