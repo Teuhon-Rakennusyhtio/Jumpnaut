@@ -6289,12 +6289,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -6.623474, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _SortingLayer: 0
-  _SortingLayerID: 0
-  _SortingOrder: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1263272239}
   m_maskType: 0
+  _SortingLayer: 0
+  _SortingLayerID: 0
+  _SortingOrder: 0
 --- !u!23 &1263272239
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -58384,12 +58384,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -6.623474, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _SortingLayer: 0
-  _SortingLayerID: 0
-  _SortingOrder: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1975657877}
   m_maskType: 0
+  _SortingLayer: 0
+  _SortingLayerID: 0
+  _SortingOrder: 0
 --- !u!23 &1975657877
 MeshRenderer:
   m_ObjectHideFlags: 0

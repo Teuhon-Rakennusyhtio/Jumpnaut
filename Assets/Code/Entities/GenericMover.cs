@@ -28,7 +28,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _climbingLadder = false, _nextToLadder = false,
     _insideGround = false, _holdingSomething = false,
     _alreadyCaught = false, _facingLeft = false,
-    _holdingHeavyObject = false,
+    _holdingHeavyObject = false, _grabbedLadderThisFrame,
+    _leftLadderThisFrame,
     _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut;
 
     protected bool _jumpInput, _useInput, _catchInput;
@@ -92,11 +93,15 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     void ClimbLadder()
     {
-        // If the entity has left the ladder stop climbing
+        // ---------------------------------
+        // If the entity has left the ladder
+        // ---------------------------------
         if (!_nextToLadder || Mathf.Abs(_moveInput.x) > 0.5f || _holdingHeavyObject)
         {
             if (_climbingLadder) _jumpBuffer = 0f; // The entity should not jump off the ladder if they were going to do it before getting onto the ladder
             _climbingLadder = false;
+            OnExitLadder();
+            _leftLadderThisFrame = true;
             return;
         }
         if (Mathf.Abs(_moveInput.y) > 0.2f)
@@ -124,6 +129,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
                 _movement = Vector2.zero;
                 _currentSpeed = 0f;
                 transform.position = new Vector2(_ladderXCoord, Mathf.Max(transform.position.y, _ladderBottom));
+                OnEnterLadder();
+                _grabbedLadderThisFrame = true;
             }
             
             if ((transform.position.y > _ladderBottom && _moveInput.y < 0.1f) || (transform.position.y < _ladderTop && _moveInput.y > 0.1f))
@@ -131,6 +138,16 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
                 _movement += Vector2.up * _moveInput.y * _climbingSpeed;
             }
         }
+    }
+
+    protected virtual void OnEnterLadder()
+    {
+
+    }
+
+    protected virtual void OnExitLadder()
+    {
+        
     }
 
     protected void SetControl(bool toggle)
@@ -369,6 +386,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         if (GameManager.CurrentlyInUI) return;
         _jumpedThisFrame = false;
+        _leftLadderThisFrame = false;
+        _grabbedLadderThisFrame = false;
         if (_isInControl)
         {
             _movement = Vector2.zero;
@@ -417,7 +436,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         anim.SetFloat("HorizontalSpeed", _movement.x);
         anim.SetFloat("VerticalSpeed", _jumpVelocity + _gravity.y);
-        anim.SetFloat("MoveInput", _moveInput.x);
+        anim.SetFloat("HorizontalMoveInput", _moveInput.x);
+        anim.SetFloat("VerticalMoveInput", transform.position.y + 0.1f < _ladderTop && transform.position.y - 0.1f > _ladderBottom ? _moveInput.y : 0f);
         anim.SetFloat("WalkSpeed", Mathf.Max(Mathf.Abs(_moveInput.x), 0.2f));
         anim.SetBool("Grounded", _grounded);
         anim.SetBool("HoldingOut", _holdingOut);
@@ -429,6 +449,22 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         else
         {
             anim.ResetTrigger("Jump");
+        }
+        /*if (_grabbedLadderThisFrame)
+        {
+            anim.SetTrigger("GrabbedLadder");
+        }
+        else
+        {
+            anim.ResetTrigger("GrabbedLadder");
+        }*/
+        if (_leftLadderThisFrame)
+        {
+            anim.SetTrigger("LeftLadder");
+        }
+        else
+        {
+            anim.ResetTrigger("LeftLadder");
         }
     }
 

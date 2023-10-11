@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMover : GenericMover
 {
     [SerializeField] Animator _animator;
-    [SerializeField] Transform _mainRig, _leftArm, _rightArm;
+    [SerializeField] Transform _mainRig, _leftArm, _rightArm, _climbArm;
     public ChildDeviceManager Device;
     public int Id;
     Vector2 _cameraPosition;
@@ -47,12 +47,6 @@ public class PlayerMover : GenericMover
         {
             _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
         }
-        //_handTransform.localScale = new Vector3((_facingLeft && _heldItemIsFlipalbe ? -1f : 1f), 1f, 1f);
-        /*Transform heldItem = _handTransform.GetChild(0);
-        if (heldItem != null)
-        {
-            heldItem.localScale = new Vector3(1f, 1f, 1f);
-        }*/
         if (!_holdingSomething && !_catchInput)
         {
             _animator.Play("Empty Hand");
@@ -62,10 +56,6 @@ public class PlayerMover : GenericMover
             Transform heldItem = _handTransform.GetChild(0).transform;
             heldItem.localPosition = new Vector2(-heldItem.localPosition.x, heldItem.localPosition.y);
         }
-        /*if (_holdingHeavyObject)
-        {
-            _animator.Play("Hold Two Handed");
-        }*/
         if (_holdingOut)
         {
             if (_facingLeft)
@@ -101,12 +91,34 @@ public class PlayerMover : GenericMover
         _pauseInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pause];
     }
 
+    protected override void OnEnterLadder()
+    {
+        _animator.Play("Climbing");
+        _handTransform.parent = _climbArm;
+        _handTransform.localPosition = Vector3.right * 0.45f;
+        _handTransform.localRotation = Quaternion.identity;
+    }
+
+    protected override void OnExitLadder()
+    {
+        if (_holdingHeavyObject || !_facingLeft)
+        {
+            _handTransform.parent = _rightArm;
+            
+        }
+        else
+        {
+            _handTransform.parent = _leftArm;
+        }
+        _handTransform.localPosition = Vector3.right * 0.45f;
+        _handTransform.localRotation = Quaternion.identity;
+    }
+
     protected override void CatchLogic(Holdable holdable)
     {
         base.CatchLogic(holdable);
         if (_holdingHeavyObject)
         {
-            //FlipLogic();
             _animator.Play("Pickup Two Handed");
         }
         else if (!_facingLeft)
