@@ -6,7 +6,7 @@ Shader "Custom/RollingTexture"
         _MaskTex("Mask", 2D) = "white" {}
         _NormalMap("Normal Map", 2D) = "bump" {}
         _SecondaryTex ("Rolling Texture", 2D) = "white" {}
-        _Speed ("Speed", float) = 1
+        [PerRenderData]_Speed ("Speed", float) = 1
 
         // Legacy properties. They're here so that materials using this shader can gracefully fallback to the legacy sprite shader.
         [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
