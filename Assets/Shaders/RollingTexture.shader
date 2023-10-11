@@ -7,6 +7,7 @@ Shader "Custom/RollingTexture"
         _NormalMap("Normal Map", 2D) = "bump" {}
         _SecondaryTex ("Rolling Texture", 2D) = "white" {}
         [PerRenderData]_Speed ("Speed", float) = 1
+        _Scale ("Texture Scale", float) = 1
 
         // Legacy properties. They're here so that materials using this shader can gracefully fallback to the legacy sprite shader.
         [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
@@ -73,6 +74,7 @@ Shader "Custom/RollingTexture"
             float4 _Color;
             half4 _RendererColor;
             float _Speed;
+            float _Scale;
 
             #if USE_SHAPE_LIGHT_TYPE_0
             SHAPE_LIGHT(0)
@@ -112,7 +114,7 @@ Shader "Custom/RollingTexture"
             half4 Fragment(Varyings i) : SV_Target
             {
                 half4 main = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
-                main = SAMPLE_TEXTURE2D(_SecondaryTex, sampler_SecondaryTex, float2(i.uv.x, i.uv.y + _Time.y * 0.15 * _Speed)) * main;
+                main = SAMPLE_TEXTURE2D(_SecondaryTex, sampler_SecondaryTex, float2(i.uv.x * _Scale, i.uv.y * _Scale + _Time.y * 0.15 * _Speed)) * main;
                 main *= i.color;
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, i.uv);
                 SurfaceData2D surfaceData;
