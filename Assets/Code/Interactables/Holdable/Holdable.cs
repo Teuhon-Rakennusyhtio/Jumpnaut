@@ -10,6 +10,7 @@ using UnityEngine.Timeline;
 public class Holdable : MonoBehaviour
 {
     [SerializeField] Vector2 _positionInHand;
+    GenericMover _holder;
     SpriteRenderer _renderer;
     protected Rigidbody2D _rigidBody;
     CircleCollider2D _collider;
@@ -70,6 +71,7 @@ public class Holdable : MonoBehaviour
         _timeSinceThrown = 0f;
         _thrown = true;
         BeingHeld = false;
+        _holder = null;
         OnThrow(direction);
     }
 
@@ -78,7 +80,7 @@ public class Holdable : MonoBehaviour
 
     }
 
-    public void Pickup(Transform hand, bool isFacingLeft, ref bool heavy, ref bool flipable)
+    public void Pickup(Transform hand, GenericMover holder, bool isFacingLeft, ref bool heavy, ref bool flipable)
     {
         _thrown = false;
         _rigidBody.totalTorque = 0f;
@@ -96,6 +98,7 @@ public class Holdable : MonoBehaviour
         {
             transform.localPosition += (isFacingLeft ? Vector3.zero : Vector3.left * _positionInHand.x * 2);
         }
+        _holder = holder;
         BeingHeld = true;
         OnPickup(hand);
         heavy = _isHeavy;
@@ -113,6 +116,8 @@ public class Holdable : MonoBehaviour
         {
             if (_breaksOnImpact)
             {
+                if (_holder != null) _holder.ClearHand();
+                BeingHeld = true;
                 Break();
             }
             else

@@ -6,7 +6,7 @@ public class Battery : Holdable
 {
     [SerializeField] GameObject _particleEffect;
     public BatterySpawner BatterySpawner;
-    bool _exploded = false;
+    bool _exploded = false, _firstTimePickup = true;
     void Start()
     {
         /*_breaksOnImpact = true;
@@ -34,7 +34,11 @@ public class Battery : Holdable
 
     protected override void OnPickup(Transform hand)
     {
-        if (BatterySpawner != null) BatterySpawner.StartSpawning();
+        if (BatterySpawner != null && _firstTimePickup)
+        {
+            _firstTimePickup = false;
+            BatterySpawner.StartSpawning();
+        }
     }
 
     IEnumerator Explode()

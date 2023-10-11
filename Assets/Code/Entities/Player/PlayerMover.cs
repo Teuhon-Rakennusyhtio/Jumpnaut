@@ -134,6 +134,11 @@ public class PlayerMover : GenericMover
         Throw();
     }
 
+    protected override void ClearHandLogic()
+    {
+        _animator.Play("Empty Hand");
+    }
+
     void OpenPauseMenu()
     {
         if (_pauseInput) PauseMenu.Open(this);

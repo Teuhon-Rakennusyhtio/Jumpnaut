@@ -242,7 +242,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         _heldItem = holdable;
         _handTransform.localScale = new Vector3(1f, 1f, 1f);
-        _heldItem.Pickup(_handTransform, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe); // Puts the item in the entity's hand and checks if the object is heavy
+        _heldItem.Pickup(_handTransform, this, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe); // Puts the item in the entity's hand and checks if the object is heavy
         FlipLogic();
         _holdingSomething = true;
         _alreadyCaught = true;
@@ -461,6 +461,12 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _holdingSomething = false;
         _holdingHeavyObject = false;
         _heldItem = null;
+        ClearHandLogic();
+    }
+
+    protected virtual void ClearHandLogic()
+    {
+
     }
 
     protected virtual void GetInputs()
