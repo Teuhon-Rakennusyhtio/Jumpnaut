@@ -12,7 +12,7 @@ public class PlayerSpawner : MonoBehaviour
         {
             GameObject player = Instantiate(_playerPrefab, transform.position + new Vector3(i % 4, 0, 0), Quaternion.identity);
             //player.GetComponent<SpriteRenderer>().color = GameManager.GetPlayerColor(i);
-            SpriteRenderer[] sprites = player.GetComponentsInChildren<SpriteRenderer>();
+            SpriteRenderer[] sprites = player.GetComponentsInChildren<SpriteRenderer>(true);
             foreach (SpriteRenderer sprite in sprites)
             {
                 sprite.color = GameManager.GetPlayerColor(i);
