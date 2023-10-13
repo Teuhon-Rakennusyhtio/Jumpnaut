@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,7 +136,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -294,6 +294,7 @@ MonoBehaviour:
   _useTipBubbleGraphic: {fileID: 331358733242333727}
   _machineSprite: {fileID: 9075948289565394889}
   _activatedSocketSprite: {fileID: 21300000, guid: 79e2a4638d80db140a27af8dec96e80a, type: 3}
+  _particles: {fileID: 2117369376712645208}
   _preInsertedInSinglePlayer: 0
 --- !u!1 &7879702626268987091
 GameObject:
@@ -431,7 +432,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -532,6 +533,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfee608343649fd46ac7a21a929d0f59, type: 3}
+--- !u!198 &2117369376712645208 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7746132892758350272, guid: bfee608343649fd46ac7a21a929d0f59, type: 3}
+  m_PrefabInstance: {fileID: 8511137996352504728}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8207051072159862276 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 574472415639768476, guid: bfee608343649fd46ac7a21a929d0f59, type: 3}

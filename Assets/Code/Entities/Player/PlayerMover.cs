@@ -95,6 +95,7 @@ public class PlayerMover : GenericMover
     {
         _animator.Play("Climbing");
         _handTransform.parent = _climbArm;
+        _handTransform.localScale = Vector3.one;
         _handTransform.localPosition = Vector3.right * 0.45f;
         _handTransform.localRotation = Quaternion.identity;
     }

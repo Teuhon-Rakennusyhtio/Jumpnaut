@@ -8,6 +8,7 @@ public class BatterySocket : MonoBehaviour
     [SerializeField] UnityEvent _batteryInserted;
     [SerializeField] SpriteRenderer _useTipBubbleGraphic, _machineSprite;
     [SerializeField] Sprite _activatedSocketSprite;
+    [SerializeField] ParticleSystem _particles;
     [SerializeField] bool _preInsertedInSinglePlayer;
     List<PlayerMover> _movers;
     Transform _useTipBubble;
@@ -36,6 +37,10 @@ public class BatterySocket : MonoBehaviour
         if (!insertedByPlayer)
         {
             transform.Find("BatterySprite").GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else
+        {
+            _particles.Play();
         }
     }
 
