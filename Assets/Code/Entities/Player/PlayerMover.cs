@@ -11,11 +11,18 @@ public class PlayerMover : GenericMover
     Vector2 _cameraPosition;
     bool _pauseInput;//, _throwAnimationStarted;
     public float _respawnSpeed = 7f;
-    GameObject _spawnPoint;
+    GameObject spawnPoint;
+    public GameObject[] playerList;
+    public GameObject closestPlayer;
+    float distance;
+    float closest = 1000;
+    private Transform targetPlayer;
+    public float smoothTime = 0;
+    private Vector2 velocity = Vector2.zero;
 
     void Start()
     {
-        _spawnPoint = GameObject.Find("Spawnpoint");
+        spawnPoint = GameObject.Find("Spawnpoint");
         _cameraPosition = Vector2.zero;
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
     }
@@ -165,9 +172,10 @@ public class PlayerMover : GenericMover
         if (collision.CompareTag("MainCamera"))
         {
             SetControl(false);
+            FindClosestPlayer();
         }
 
-        if (collision.gameObject == _spawnPoint && IsInControl == false)
+        if (collision.gameObject == spawnPoint && IsInControl == false)
         {
             SetControl(true);
         }  
@@ -178,9 +186,36 @@ public class PlayerMover : GenericMover
 
     if (IsInControl == false)
         {
-            float distance = Vector3.Distance(transform.position, _spawnPoint.transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, _spawnPoint.transform.position, _respawnSpeed * Time.deltaTime);
+            float distance = Vector3.Distance(transform.position, spawnPoint.transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, spawnPoint.transform.position, _respawnSpeed * Time.deltaTime);
         }
+    }
+
+    void FindClosestPlayer()
+    {
+        playerList = GameObject.FindGameObjectsWithTag("Player");
+
+        for (int i = 0; i < playerList.Length; i++)
+        {
+            distance = Vector2.Distance(this.transform.position, playerList[i].transform.position);
+
+            if (distance < closest && distance > 0)
+            {
+                closestPlayer = playerList[i];
+                closest = distance;
+            }
+        }
+        MoveSpawnPoint();
+    }
+
+    void MoveSpawnPoint()
+    {
+        targetPlayer = closestPlayer.transform;
+        // Define a target position above and behind the target transform
+        Vector2 targetPosition = targetPlayer.TransformPoint(new Vector2(0, 0));
+
+        // Smoothly move the camera towards that target position
+        spawnPoint.transform.position = Vector2.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
 
     void Update()

@@ -5552,7 +5552,7 @@ GameObject:
   - component: {fileID: 103640614233981181}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5671,6 +5671,8 @@ MonoBehaviour:
   Device: {fileID: 0}
   Id: 0
   _respawnSpeed: 7
+  playerList: []
+  smoothTime: 0
 --- !u!61 &7545643569282281466
 BoxCollider2D:
   m_ObjectHideFlags: 0
