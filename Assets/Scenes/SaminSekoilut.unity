@@ -938,7 +938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &81416617
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -28826,8 +28826,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.043900013, y: 0.038650036, z: 0}
-    m_Extent: {x: 3.3987, y: 4.41215, z: 0}
+    m_Center: {x: 0.046550035, y: 0.039249897, z: 0}
+    m_Extent: {x: 3.39015, y: 4.41645, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
