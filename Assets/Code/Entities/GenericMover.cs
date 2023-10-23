@@ -150,6 +150,11 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         
     }
 
+    protected virtual void OnJump()
+    {
+
+    }
+
     protected void SetControl(bool toggle)
     {
         if (_isInControl == toggle) return;
@@ -192,7 +197,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         if (_jumpInput && !_alreadyJumped)
         {
             _alreadyJumped = true;
-            _jumpBuffer = _maxJumpBuffer; 
+            _jumpBuffer = _maxJumpBuffer;
         }
         else if (!_jumpInput)
         {
@@ -209,6 +214,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _gravity = Vector2.zero;
             _jumpVelocity = _jumpForce;
             _jumpedThisFrame = true;
+            OnJump();
         }
     }
 

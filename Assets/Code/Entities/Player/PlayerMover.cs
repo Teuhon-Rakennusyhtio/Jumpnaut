@@ -122,6 +122,18 @@ public class PlayerMover : GenericMover
         _handTransform.localRotation = Quaternion.identity;
     }
 
+    protected override void OnJump()
+    {
+        if (_facingLeft)
+        {
+            _animator.Play("Left Jump Start");
+        }
+        else
+        {
+            _animator.Play("Right Jump Start");
+        }
+    }
+
     protected override void CatchLogic(Holdable holdable)
     {
         base.CatchLogic(holdable);
