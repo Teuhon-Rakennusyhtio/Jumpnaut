@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
 
     // -1 means any input device can use the current UI
     public static int UIOwnerId = -1;
+
+
+    // Settings
+    public static float ShakeIntensity = 1;
     
     void Start()
     {

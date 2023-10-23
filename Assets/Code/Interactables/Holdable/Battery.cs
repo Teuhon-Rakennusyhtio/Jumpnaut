@@ -43,6 +43,7 @@ public class Battery : Holdable
 
     IEnumerator Explode()
     {
+        CameraMovement.SetCameraShake(3, 5, 1, 1f);
         GameObject explosionEffectObject = Instantiate(_particleEffect, transform.position, Quaternion.identity);
         ParticleSystem explosionEffect = explosionEffectObject.GetComponent<ParticleSystem>();
         explosionEffect.Play();
