@@ -40,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Space
+    uniqueID: 1447066259
+    locked: 0
   - name: Background
     uniqueID: 3911572663
     locked: 0
