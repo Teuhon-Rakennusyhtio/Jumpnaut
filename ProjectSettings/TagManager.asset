@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Barrel Killer
   - Edge
+  - SpawnPivot
   layers:
   - Default
   - TransparentFX

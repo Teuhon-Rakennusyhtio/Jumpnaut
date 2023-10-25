@@ -187,7 +187,7 @@ public class PlayerMover : GenericMover
             FindClosestPlayer();
         }
 
-        if (collision.gameObject == spawnPoint && IsInControl == false)
+        if (collision.gameObject.tag == "SpawnPivot" && IsInControl == false)
         {
             SetControl(true);
         }  
@@ -198,8 +198,8 @@ public class PlayerMover : GenericMover
 
     if (IsInControl == false)
         {
-            float distance = Vector3.Distance(transform.position, spawnPoint.transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, spawnPoint.transform.position, _respawnSpeed * Time.deltaTime);
+            float distance = Vector3.Distance(transform.position, closestPlayer.transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, closestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
         }
     }
 
@@ -211,7 +211,7 @@ public class PlayerMover : GenericMover
         {
             distance = Vector2.Distance(this.transform.position, playerList[i].transform.position);
 
-            if (distance < closest && distance > 0)
+            if (distance < closest && distance > 4.45)
             {
                 closestPlayer = playerList[i];
                 closest = distance;
