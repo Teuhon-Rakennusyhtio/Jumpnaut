@@ -3937,6 +3937,73 @@ Transform:
   - {fileID: 3400027391228144206}
   m_Father: {fileID: 6303499323647288942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.489}
+--- !u!1 &6437110152566330030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 684989265118888685}
+  - component: {fileID: 7819817906084684438}
+  m_Layer: 0
+  m_Name: SpawnPivot
+  m_TagString: SpawnPivot
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &684989265118888685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6437110152566330030}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.006, y: 1.108, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4127108249412570079}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &7819817906084684438
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6437110152566330030}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.008689851, y: 0.081602335}
+  serializedVersion: 2
+  m_Radius: 0.042165518
 --- !u!1 &6463086588733136227
 GameObject:
   m_ObjectHideFlags: 0
@@ -5573,6 +5640,7 @@ Transform:
   - {fileID: 5615837002145400868}
   - {fileID: 5195398543365120957}
   - {fileID: 1066682977479891559}
+  - {fileID: 684989265118888685}
   - {fileID: 4252025968398077944}
   - {fileID: 3860537403808918107}
   m_Father: {fileID: 0}
@@ -5672,6 +5740,7 @@ MonoBehaviour:
   Id: 0
   _respawnSpeed: 7
   playerList: []
+  closestPlayer: {fileID: 0}
   smoothTime: 0
 --- !u!61 &7545643569282281466
 BoxCollider2D:
