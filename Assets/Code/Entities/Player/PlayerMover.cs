@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMover : GenericMover
 {
+    [SerializeField] GameObject _playerHealthBar;
+    [SerializeField] PlayerHealth _health;
+
     [SerializeField] Animator _animator;
     [SerializeField] Transform _mainRig, _leftArm, _rightArm, _climbArm;
     public ChildDeviceManager Device;
@@ -25,6 +28,29 @@ public class PlayerMover : GenericMover
         spawnPoint = GameObject.Find("Spawnpoint");
         _cameraPosition = Vector2.zero;
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
+    }
+
+    public void AssignPlayer(ChildDeviceManager device, int id)
+    {
+        if (Device != null) return;
+        Device = device;
+        Id = id;
+        Color colour = GameManager.GetPlayerColor(id);
+        SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>(true);
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            sprite.color = colour;
+        }
+        RectTransform playerHealthBars = GameObject.Find("PlayerHealthBars").GetComponent<RectTransform>();
+        if (playerHealthBars != null) CreateHealthBar(playerHealthBars, colour);
+    }
+
+    void CreateHealthBar(RectTransform playerHealthBars, Color colour)
+    {
+        GameObject healthBar = Instantiate(_playerHealthBar, Vector3.zero, Quaternion.identity, playerHealthBars);
+        //Color colour = Color.white;
+        //if (GameManager.Instance != null) colour = GameManager.GetPlayerColor(Id);
+        healthBar.GetComponent<PlayerHealthBar>().AssignPlayer(this, _health, colour);
     }
 
     protected override void FixedUpdateLogic()
@@ -90,6 +116,7 @@ public class PlayerMover : GenericMover
 
     protected override void GetInputs()
     {
+        if (Device == null) return;
         if (Device.GetMoveAnalogInput.magnitude > 0.2f) _moveInput = Device.GetMoveAnalogInput;
         else _moveInput = Device.GetMoveInput;
         _jumpInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.jump];
