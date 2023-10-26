@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea18ee9e09a3b7438b42819bf0930c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Alignment: 0
+  Alignment: 1
   _damage: 1
   _knockbackForce: 1
   _weaponHit:

@@ -5,36 +5,41 @@ using UnityEngine;
 
 public class PlayerHealth : GenericHealth
 {
-    PlayerDamagedEventArgs _args;
+    PlayerHealthEventArgs _args;
     // Start is called before the first frame update
     void Start()
     {
-        _args = new PlayerDamagedEventArgs();
+        _args = new PlayerHealthEventArgs();
     }
 
     protected override void DamagedLogic(Weapon weapon)
     {
-        Debug.Log(_health);
         _args.Health = _health;
         OnPlayerDamaged();
     }
 
     protected override void Die()
     {
-        Debug.Log("I died :(");
+        OnPlayerDeath();
     }
 
-    public delegate void PlayerDamagedEventHandler(object source, EventArgs args);
+    public delegate void PlayerDamagedEventHandler(object source, PlayerHealthEventArgs args);
+    public delegate void PlayerDeathEventHandler(object source, PlayerHealthEventArgs args);
     public event PlayerDamagedEventHandler PlayerDamaged;
+    public event PlayerDeathEventHandler PlayerDeath;
 
     protected virtual void OnPlayerDamaged()
     {
-        if (PlayerDamaged != null)
-            PlayerDamaged(this, _args);
+        PlayerDamaged?.Invoke(this, _args);
+    }
+
+    protected virtual void OnPlayerDeath()
+    {
+        PlayerDeath?.Invoke(this, _args);
     }
 }
 
-public class PlayerDamagedEventArgs : EventArgs
+public class PlayerHealthEventArgs : EventArgs
 {
     public int Health { get; set; }
 }
