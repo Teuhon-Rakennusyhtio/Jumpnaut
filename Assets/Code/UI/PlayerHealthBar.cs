@@ -13,6 +13,7 @@ public class PlayerHealthBar : MonoBehaviour
     Color _playerColour;
     PlayerMover _mover;
     PlayerHealth _health;
+    GameObject[] _healthPoints;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,13 @@ public class PlayerHealthBar : MonoBehaviour
         foreach (Image element in _playerColouredElements)
         {
             element.color = _playerColour;
+        }
+
+        _healthPoints = new GameObject[health.MaxHealth];
+        for (int i = 0; i < health.MaxHealth; i++)
+        {
+            _healthPoints[i] = Instantiate(_healthPoint, Vector3.zero, Quaternion.identity, _healthRect);
+            _healthPoints[i].GetComponent<Image>().color = colour;
         }
     }
 }

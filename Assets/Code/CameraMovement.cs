@@ -59,7 +59,6 @@ public class CameraMovement : MonoBehaviour
         else
         {
             float fallOffStart = _maxShakeDuration * _shakeFallOff;
-            Debug.Log(fallOffStart);
             if (fallOffStart > _currentShakeDuration)
                 fallOff = _currentShakeDuration / (_maxShakeDuration + fallOffStart);
         }

@@ -12,6 +12,14 @@ public abstract class GenericHealth : MonoBehaviour
     protected float _invincibilityFrames = 0f;
     int _weaponLayer;
     
+    public int MaxHealth
+    {
+        get
+        {
+            return _maxHealth;
+        }
+    }
+
     void Awake()
     {
         _weaponLayer = LayerMask.NameToLayer("Weapon");
