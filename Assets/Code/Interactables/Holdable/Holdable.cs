@@ -10,6 +10,8 @@ using UnityEngine.Timeline;
 public class Holdable : MonoBehaviour
 {
     [SerializeField] Vector2 _positionInHand;
+    [SerializeField] protected Weapon[] _weapons;
+    protected Collider2D[] _weaponColliders;
     GenericMover _holder;
     SpriteRenderer _renderer;
     protected Rigidbody2D _rigidBody;
@@ -17,13 +19,17 @@ public class Holdable : MonoBehaviour
     LayerMask _groundLayer;
     protected bool _thrown = false;
     float _xVelocity = 0f, _yVelocity = 0f, _outOfViewTime = 0f, _timeSinceThrown = 0f;
-    public bool BeingHeld = false;
+    public bool BeingHeld { get; set; }
+    //public bool IsMeleeWeapon { get { return _isMeleeWeapon; } }
     Vector3 _realSize;
     
-
-    // These can be changed in inherited classes
-    protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 1f;
-    [SerializeField] protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true;
+    [SerializeField] protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 1f;
+    [SerializeField] protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true, _isWeapon = false;
+    [Tooltip("0 = No durability, 1 = Digital durability, 2 >= Analog durability")]
+    [SerializeField] int _durabilityType = 0;
+    [SerializeField] int _digitalDurability = 3;
+    [SerializeField] float _analogDurability = 1f;
+    [SerializeField] Sprite _itemIcon;
 
 
     
@@ -33,6 +39,18 @@ public class Holdable : MonoBehaviour
         _groundLayer = LayerMask.NameToLayer("Ground");
         _renderer = GetComponent<SpriteRenderer>();
         _rigidBody = GetComponent<Rigidbody2D>();
+
+        if (_analogDurability == 0f)
+        {
+            Debug.LogError($"On item {gameObject.name}, analog durability can't be zero!");
+            _analogDurability = 1f;
+        }
+        if (_weapons == null) return;
+        _weaponColliders = new Collider2D[_weapons.Length];
+        for(int i = 0; i < _weapons.Length; i++)
+        {
+            _weaponColliders[i] = _weapons[i].GetComponent<Collider2D>();
+        }
     }
 
     void FixedUpdate()
@@ -77,10 +95,14 @@ public class Holdable : MonoBehaviour
 
     protected virtual void OnThrow(Vector2 direction)
     {
-
+        if (_weapons == null) return;
+        foreach (Weapon weapon in _weapons)
+        {
+            weapon.Thrown = true;
+        }
     }
 
-    public void Pickup(Transform hand, GenericMover holder, bool isFacingLeft, ref bool heavy, ref bool flipable)
+    public void Pickup(Transform hand, GenericMover holder, bool isFacingLeft, ref bool heavy, ref bool flipable, ref bool isWeapon)
     {
         _thrown = false;
         _rigidBody.totalTorque = 0f;
@@ -103,11 +125,21 @@ public class Holdable : MonoBehaviour
         OnPickup(hand);
         heavy = _isHeavy;
         flipable = _flipable;
+        isWeapon = _isWeapon;
     }
 
     protected virtual void OnPickup(Transform hand)
     {
-
+        if (_weapons == null) return;
+        GenericHealth health = hand.parent.GetComponentInChildren<GenericHealth>();
+        if (health != null)
+        {
+            foreach (Weapon weapon in _weapons)
+            {
+                weapon.Alignment = health.Alignment;
+                weapon.Thrown = false;
+            }
+        } 
     }
 
     void OnCollisionStay2D(Collision2D collision)

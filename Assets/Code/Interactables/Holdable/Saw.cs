@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Saw : Holdable
 {
-    [SerializeField] Collider2D[] _weaponColliders;
-    [SerializeField] Weapon[] _weapons;
+    //[SerializeField] Collider2D[] _weaponColliders;
+    //[SerializeField] Weapon[] _weapons;
     [SerializeField] Animator _animator;
     [SerializeField] ParticleSystem _sparks;
     [SerializeField] Transform _sparkPosition;
@@ -13,15 +13,7 @@ public class Saw : Holdable
 
     protected override void OnPickup(Transform hand)
     {
-        GenericHealth health = hand.parent.GetComponentInChildren<GenericHealth>();
-        if (health != null)
-        {
-            foreach (Weapon weapon in _weapons)
-            {
-                weapon.Alignment = health.Alignment;
-                weapon.Thrown = false;
-            }
-        } 
+        base.OnPickup(hand);
         if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Running"))
         {
             _animator.Play("Open");

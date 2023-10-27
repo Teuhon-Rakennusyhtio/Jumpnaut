@@ -28,8 +28,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _climbingLadder = false, _nextToLadder = false,
     _insideGround = false, _holdingSomething = false,
     _alreadyCaught = false, _facingLeft = false,
-    _holdingHeavyObject = false, _grabbedLadderThisFrame,
-    _leftLadderThisFrame,
+    _holdingHeavyObject = false, _holdingMeleeWeapon,
+     _grabbedLadderThisFrame, _leftLadderThisFrame,
     _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut;
 
     protected bool _jumpInput, _useInput, _catchInput;
@@ -265,7 +265,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         _heldItem = holdable;
         _handTransform.localScale = new Vector3(1f, 1f, 1f);
-        _heldItem.Pickup(_handTransform, this, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe); // Puts the item in the entity's hand and checks if the object is heavy
+        _heldItem.Pickup(_handTransform, this, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe, ref _holdingMeleeWeapon); // Puts the item in the entity's hand and checks if the object is heavy
         FlipLogic();
         _holdingSomething = true;
         _alreadyCaught = true;
@@ -302,6 +302,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _alreadyCaught = true;
         _holdingSomething = false;
         _holdingHeavyObject = false;
+        _holdingMeleeWeapon = false;
     }
     void CheckIfGrounded()
     {
@@ -502,6 +503,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         _holdingSomething = false;
         _holdingHeavyObject = false;
+        _holdingMeleeWeapon = false;
         _heldItem = null;
         ClearHandLogic();
     }
