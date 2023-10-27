@@ -89,7 +89,7 @@ public class CameraMovement : MonoBehaviour
 
     public void RemovePlayer(PlayerMover player)
     {
-        _players.Add(player);
+        _players.Remove(player);
     }
 
     public void ReturnToMainMenu()

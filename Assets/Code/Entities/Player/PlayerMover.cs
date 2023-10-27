@@ -211,12 +211,14 @@ public class PlayerMover : GenericMover
         if (collision.CompareTag("MainCamera"))
         {
             SetControl(false);
+            Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
             FindClosestPlayer();
         }
 
         if (collision.gameObject.tag == "SpawnPivot" && IsInControl == false)
         {
             SetControl(true);
+            Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
         }  
     }
 
