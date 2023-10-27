@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class StarSkyGenerator : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class StarSkyGenerator : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(StarSkyGenerator))]
 public class StarSkyGeneratorEditor : Editor
 {
@@ -34,3 +37,4 @@ public class StarSkyGeneratorEditor : Editor
         }
     }
 }
+#endif
