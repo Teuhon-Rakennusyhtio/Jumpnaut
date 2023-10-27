@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 414979598052997565}
   - component: {fileID: -6500537095141333620}
   - component: {fileID: 6710159351592269261}
-  - component: {fileID: 789072039697321197}
   m_Layer: 0
   m_Name: PointerIconTemp
   m_TagString: Untagged
@@ -131,16 +130,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3444328, y: 0.3583146}
   m_EdgeRadius: 0
---- !u!114 &789072039697321197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1251535001529807143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbd1f938ba35e8e42a67d7b827ef11a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iconRenderer: {fileID: -6500537095141333620}

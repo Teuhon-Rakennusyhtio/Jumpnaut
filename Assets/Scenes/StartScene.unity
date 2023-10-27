@@ -5257,7 +5257,6 @@ GameObject:
   m_Component:
   - component: {fileID: 243647008}
   - component: {fileID: 243647007}
-  - component: {fileID: 243647009}
   m_Layer: 0
   m_Name: Spawnpoint
   m_TagString: Untagged
@@ -5315,18 +5314,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &243647009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243647005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f84bae75d9511b40b0d3480b946e954, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &251982566
 GameObject:
   m_ObjectHideFlags: 0

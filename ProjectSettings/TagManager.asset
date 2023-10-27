@@ -7,6 +7,7 @@ TagManager:
   - Barrel Killer
   - Edge
   - SpawnPivot
+  - Enemy
   layers:
   - Default
   - TransparentFX

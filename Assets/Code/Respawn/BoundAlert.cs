@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoundAlert : MonoBehaviour
 {    
     public SpriteRenderer iconRenderer;
+    bool respawning;
         
     void Start()
     {
@@ -12,9 +13,21 @@ public class BoundAlert : MonoBehaviour
         iconRenderer.enabled = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.name == "Main Camera")
+        {
+            respawning = true;
+        }
+        else if (col.gameObject.name == "SpawnPivot")
+        {
+            respawning = false;
+        }
+    }
+    
     private void OnTriggerStay2D(Collider2D col)
     {
-        if (col.gameObject.name == "BoundAlert")
+        if (col.gameObject.name == "BoundAlert" && respawning == false)
         {
             iconRenderer.enabled = true;
         }
