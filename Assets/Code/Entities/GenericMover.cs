@@ -14,6 +14,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     [SerializeField] protected LayerMask _groundLayer, _holdableLayer;
     [SerializeField] PhysicsMaterial2D _standMaterial, _moveMaterial;
     [SerializeField] protected Transform _handTransform;
+    [SerializeField] protected GenericHealth _health;
     Holdable _heldItem;
     protected Vector2 _movement, _slopeNormalPerpendicular,
     _gravity, _moveInput, _previousPosition;
@@ -28,7 +29,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _climbingLadder = false, _nextToLadder = false,
     _insideGround = false, _holdingSomething = false,
     _alreadyCaught = false, _facingLeft = false,
-    _holdingHeavyObject = false, _holdingMeleeWeapon,
+    _holdingHeavyObject = false, _holdingWeapon,
      _grabbedLadderThisFrame, _leftLadderThisFrame,
     _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut;
 
@@ -265,7 +266,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         _heldItem = holdable;
         _handTransform.localScale = new Vector3(1f, 1f, 1f);
-        _heldItem.Pickup(_handTransform, this, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe, ref _holdingMeleeWeapon); // Puts the item in the entity's hand and checks if the object is heavy
+        _heldItem.Pickup(_handTransform, this, _health, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe, ref _holdingWeapon); // Puts the item in the entity's hand and checks if the object is heavy
         FlipLogic();
         _holdingSomething = true;
         _alreadyCaught = true;
@@ -302,7 +303,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _alreadyCaught = true;
         _holdingSomething = false;
         _holdingHeavyObject = false;
-        _holdingMeleeWeapon = false;
+        _holdingWeapon = false;
     }
     void CheckIfGrounded()
     {
@@ -503,7 +504,9 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         _holdingSomething = false;
         _holdingHeavyObject = false;
-        _holdingMeleeWeapon = false;
+        _holdingWeapon = false;
+        _heldItem.transform.parent = null;
+        _heldItem.transform.localScale = Vector3.one;
         _heldItem = null;
         ClearHandLogic();
     }

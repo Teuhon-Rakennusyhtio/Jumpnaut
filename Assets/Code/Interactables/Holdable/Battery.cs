@@ -32,7 +32,7 @@ public class Battery : Holdable
         transform.localRotation = Quaternion.identity;
     }
 
-    protected override void OnPickup(Transform hand)
+    protected override void OnPickup(Transform hand, GenericHealth health)
     {
         if (BatterySpawner != null && _firstTimePickup)
         {

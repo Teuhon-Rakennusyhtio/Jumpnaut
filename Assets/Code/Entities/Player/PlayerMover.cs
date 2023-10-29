@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMover : GenericMover
 {
     [SerializeField] GameObject _playerHealthBar;
-    [SerializeField] PlayerHealth _health;
+    //[SerializeField] PlayerHealth _health;
 
     [SerializeField] Animator _animator;
     [SerializeField] Transform _mainRig, _leftArm, _rightArm, _climbArm;
@@ -49,7 +49,7 @@ public class PlayerMover : GenericMover
         GameObject healthBar = Instantiate(_playerHealthBar, Vector3.zero, Quaternion.identity, playerHealthBars);
         //Color colour = Color.white;
         //if (GameManager.Instance != null) colour = GameManager.GetPlayerColor(Id);
-        healthBar.GetComponent<PlayerHealthBar>().AssignPlayer(this, _health, colour);
+        healthBar.GetComponent<PlayerHealthBar>().AssignPlayer(this, _health as PlayerHealth, colour);
     }
 
     protected override void FixedUpdateLogic()

@@ -4,14 +4,21 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Timeline;
 
+public enum DurabilityType
+{
+    none,
+    digital,
+    analog
+}
+
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CircleCollider2D))]
 public class Holdable : MonoBehaviour
 {
     [SerializeField] Vector2 _positionInHand;
-    [SerializeField] protected Weapon[] _weapons;
-    protected Collider2D[] _weaponColliders;
+    [SerializeField] protected Weapon _weapon;
+    protected Collider2D _weaponCollider;
     GenericMover _holder;
     SpriteRenderer _renderer;
     protected Rigidbody2D _rigidBody;
@@ -25,8 +32,7 @@ public class Holdable : MonoBehaviour
     
     [SerializeField] protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 1f;
     [SerializeField] protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true, _isWeapon = false;
-    [Tooltip("0 = No durability, 1 = Digital durability, 2 >= Analog durability")]
-    [SerializeField] int _durabilityType = 0;
+    [SerializeField] DurabilityType _durabilityType = 0;
     [SerializeField] int _digitalDurability = 3;
     [SerializeField] float _analogDurability = 1f;
     [SerializeField] Sprite _itemIcon;
@@ -45,12 +51,8 @@ public class Holdable : MonoBehaviour
             Debug.LogError($"On item {gameObject.name}, analog durability can't be zero!");
             _analogDurability = 1f;
         }
-        if (_weapons == null) return;
-        _weaponColliders = new Collider2D[_weapons.Length];
-        for(int i = 0; i < _weapons.Length; i++)
-        {
-            _weaponColliders[i] = _weapons[i].GetComponent<Collider2D>();
-        }
+        if (_weapon != null)
+            _weaponCollider = _weapon.GetComponent<Collider2D>();
     }
 
     void FixedUpdate()
@@ -93,16 +95,82 @@ public class Holdable : MonoBehaviour
         OnThrow(direction);
     }
 
-    protected virtual void OnThrow(Vector2 direction)
+    protected void RemoveDurability(int removedDurablity)
     {
-        if (_weapons == null) return;
-        foreach (Weapon weapon in _weapons)
+        removedDurablity = Mathf.Abs(removedDurablity);
+        if (_durabilityType == DurabilityType.digital)
         {
-            weapon.Thrown = true;
+            if (_digitalDurability <= 0) return;
+            _digitalDurability -= removedDurablity;
+            if (_digitalDurability <= 0)
+            {
+                _digitalDurability = 0;
+                OnOutOfDurability();
+            }
+        }
+        else if (_durabilityType == DurabilityType.analog)
+        {
+            if (_analogDurability <= 0f) return;
+            _analogDurability -= removedDurablity;
+            if (_analogDurability <= 0f)
+            {
+                _analogDurability = 0f;
+                OnOutOfDurability();
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Cannot remove durability from {gameObject.name} because it has no durability type!");
         }
     }
 
-    public void Pickup(Transform hand, GenericMover holder, bool isFacingLeft, ref bool heavy, ref bool flipable, ref bool isWeapon)
+    protected void RemoveDurability(float removedDurablity)
+    {
+        removedDurablity = Mathf.Abs(removedDurablity);
+        if (_durabilityType == DurabilityType.digital)
+        {
+            Debug.LogWarning($"{gameObject.name} has digital durability and only integers are recommended to be removed from it! (tried to remove a float value {removedDurablity} from it)");
+            if (_digitalDurability <= 0) return;
+            _digitalDurability -= (int)removedDurablity;
+            if (_digitalDurability <= 0)
+            {
+                _digitalDurability = 0;
+                OnOutOfDurability();
+            }
+        }
+        else if (_durabilityType == DurabilityType.analog)
+        {
+            if (_analogDurability <= 0f) return;
+            _analogDurability -= removedDurablity;
+            if (_analogDurability <= 0f)
+            {
+                _analogDurability = 0f;
+                OnOutOfDurability();
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Cannot remove durability from {gameObject.name} because it has no durability type!");
+        }
+    }
+
+    protected virtual void OnThrow(Vector2 direction)
+    {
+        if (_weapon != null)
+            _weapon.Thrown = true;
+    }
+
+    protected virtual void OnAttack()
+    {
+        
+    }
+
+    protected virtual void OnOutOfDurability()
+    {
+        Break();
+    }
+
+    public void Pickup(Transform hand, GenericMover holder, GenericHealth health, bool isFacingLeft, ref bool heavy, ref bool flipable, ref bool isWeapon)
     {
         _thrown = false;
         _rigidBody.totalTorque = 0f;
@@ -122,23 +190,18 @@ public class Holdable : MonoBehaviour
         }
         _holder = holder;
         BeingHeld = true;
-        OnPickup(hand);
+        OnPickup(hand, health);
         heavy = _isHeavy;
         flipable = _flipable;
         isWeapon = _isWeapon;
     }
 
-    protected virtual void OnPickup(Transform hand)
+    protected virtual void OnPickup(Transform hand, GenericHealth health)
     {
-        if (_weapons == null) return;
-        GenericHealth health = hand.parent.GetComponentInChildren<GenericHealth>();
-        if (health != null)
+        if (health != null && _weapon != null)
         {
-            foreach (Weapon weapon in _weapons)
-            {
-                weapon.Alignment = health.Alignment;
-                weapon.Thrown = false;
-            }
+            _weapon.Alignment = health.Alignment;
+            _weapon.Thrown = false;
         } 
     }
 
@@ -148,7 +211,7 @@ public class Holdable : MonoBehaviour
         {
             if (_breaksOnImpact)
             {
-                if (_holder != null) _holder.ClearHand();
+                _holder?.ClearHand();
                 BeingHeld = true;
                 Break();
             }

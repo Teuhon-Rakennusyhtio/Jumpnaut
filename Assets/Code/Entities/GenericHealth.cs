@@ -11,6 +11,8 @@ public abstract class GenericHealth : MonoBehaviour
     protected int _health;
     protected float _invincibilityFrames = 0f;
     int _weaponLayer;
+
+    List<Weapon> _weapons;
     
     public int MaxHealth
     {
@@ -24,28 +26,44 @@ public abstract class GenericHealth : MonoBehaviour
     {
         _weaponLayer = LayerMask.NameToLayer("Weapon");
         _health = _maxHealth;
+        _weapons = new List<Weapon>();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
-        if (_invincibilityFrames > 0f) return;
-        if (collision.gameObject.layer != _weaponLayer) return;
-        Vector2 hitDirection =
-        transform.position - collision.transform.position;
-        Damaged(collision.GetComponent<Weapon>(), hitDirection);
-
-    }
-
-    public void Damaged(Weapon weapon, Vector2 direction)
-    {
+        if (collision.gameObject.layer != _weaponLayer || _health <= 0) return;
+        Weapon weapon = collision.GetComponent<Weapon>();
         if (
+            (weapon.Alignment == Alignment) ||
+            (weapon.Thrown && _invincibleToCatchable)
+            ) return;
+        if (_weapons.Contains(weapon))
+            if (!weapon.StayingDamage) return;
+        else
+            _weapons.Add(weapon);
+        Vector2 hitPosition = collision.transform.position;
+        
+        Damaged(weapon, hitPosition);
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        Weapon weapon = collision.GetComponent<Weapon>();
+        if (weapon == null) return;
+        _weapons.Remove(weapon);
+    }
+
+    public void Damaged(Weapon weapon, Vector2 position)
+    {
+        /*if (
             (_isPlayerAligned && weapon.Alignment == 0) ||
             (!_isPlayerAligned && weapon.Alignment == 1) ||
             (weapon.Thrown && _invincibleToCatchable)
-            ) return;
+            ) return;*/
 
-        weapon.LatestHitDirection = direction;
+        weapon.LatestHitPosition = position;
         weapon.WeaponHit();
+        if (_invincibilityFrames > 0f) return;
         _health -= weapon.Damage;
         if (_health <= 0)
         {
@@ -57,11 +75,11 @@ public abstract class GenericHealth : MonoBehaviour
         DamagedLogic(weapon);
     }
 
-    public int Alignment
+    public WeaponAlignment Alignment
     {
         get
         { 
-            return _isPlayerAligned ? 0 : 1;
+            return _isPlayerAligned ? WeaponAlignment.player : WeaponAlignment.enemy;
         }
     }
 
