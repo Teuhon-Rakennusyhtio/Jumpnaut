@@ -1,0 +1,815 @@
+fileFormatVersion: 2
+guid: 03f6a88c106a0764db37f78e7f32e21e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 512
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Kaltevat tasot_0
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b7f122556dd037448dc25a0a3f33864
+      internalID: -547914226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_1
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -172}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cb81b262a114ee4d81f061e6cd1cdcc
+      internalID: 768135429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -255.99994}
+        - {x: 256, y: -255.99994}
+        - {x: 256, y: -87}
+        - {x: -256, y: -172}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd8f522b6e1abe9448a8e648cb11b30d
+      internalID: 1911959441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_3
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -87}
+        - {x: -255.99998, y: -255.99994}
+        - {x: 256, y: -170}
+        - {x: 256, y: -1}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 691a0066b43a7b94b83664dcd87990bc
+      internalID: 1060558495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -1}
+        - {x: -256, y: -170}
+        - {x: 256, y: -84}
+        - {x: 256, y: 85}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96a80f9db8c96f647ad427d1ec6ef586
+      internalID: 494308515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_5
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 85}
+        - {x: -256, y: -84}
+        - {x: 256, y: 1}
+        - {x: 256, y: 170}
+      - - {x: 15, y: -14}
+        - {x: 15, y: 51}
+        - {x: 121, y: 51}
+        - {x: 121, y: -14}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35c2e951e0782f4479d246fe7427eb6b
+      internalID: -853552499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_6
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 170}
+        - {x: -256, y: 1}
+        - {x: 256, y: 86}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4a5c46aabcdb9b43a1aaaa41067f67c
+      internalID: -1017778434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_7
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: 86}
+        - {x: 256, y: 172}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 997e2b77eeb05aa4c90734808d90389c
+      internalID: 503954511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 256, y: 256}
+        - {x: -256, y: 256}
+        - {x: -256, y: 171}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9adcbe6a0255fb446ae5878beffed175
+      internalID: 1319392213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_9
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b86211c03e23b1a4296677787fe42349
+      internalID: -866812959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_10
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ee9681543151354abf0bdf3692080ab
+      internalID: 1813047037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_11
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81bfac3d699ca8d48b1c14078be0d7f0
+      internalID: -1253516498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_12
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -85}
+        - {x: -256, y: -85}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b19cabb28781b140bcae2aadf700779
+      internalID: 1317414554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_13
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d077e2a2f0b4642acc28c8055e6dd3
+      internalID: -511059806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -171}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8376b1768649b8a40ad4768e0d85cdd2
+      internalID: 1840492736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_15
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3ebc8342e24b374183258168fe6da23
+      internalID: -389968429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_16
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: 85}
+        - {x: 256, y: 84}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69a44ba63f9a5784e9906f3dc42a9088
+      internalID: 888556903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_17
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f36a31857ec11b04581c1e69d5db12d8
+      internalID: 546700816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_18
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da1c982a8d2f50d40b643c68dd4971e2
+      internalID: -386053420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_19
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57d5821fadae1c2428f4963e1508cc71
+      internalID: -1365354984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: 173}
+        - {x: 256, y: 88}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1c5e6483f0d1f047984064bfeb385cb
+      internalID: -536507932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_21
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: 88}
+        - {x: 256, y: 1}
+        - {x: 256, y: 171}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7255fe7ee0af1cb428a422b0f6e88a89
+      internalID: -1397558088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_22
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 171}
+        - {x: -256, y: 1}
+        - {x: 256, y: -84}
+        - {x: 256, y: 86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7ef3d138c8705940887731fbddf3f8d
+      internalID: 976525736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_23
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 86}
+        - {x: -256, y: -84}
+        - {x: 256, y: -170}
+        - {x: 256, y: 0}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a73f825592aa03499e6d8b47dd71dd3
+      internalID: 1274738240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_24
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 0}
+        - {x: -256, y: -170}
+        - {x: 256, y: -256}
+        - {x: 256, y: -85}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0739704920518fe48bf718e7ea8f54fc
+      internalID: 630248100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_25
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -85}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -171}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3365525bd91f222428614f701e3c2e57
+      internalID: -1718384287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_26
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bbf8ac770d06484d9817fe965825903
+      internalID: -336983919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaltevat tasot_27
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: 256, y: 171}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05e2dc2ca0f5e394e8a83cc755674de8
+      internalID: 177275513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Kaltevat tasot_0: -547914226
+      Kaltevat tasot_1: 768135429
+      Kaltevat tasot_10: 1813047037
+      Kaltevat tasot_11: -1253516498
+      Kaltevat tasot_12: 1317414554
+      Kaltevat tasot_13: -511059806
+      Kaltevat tasot_14: 1840492736
+      Kaltevat tasot_15: -389968429
+      Kaltevat tasot_16: 888556903
+      Kaltevat tasot_17: 546700816
+      Kaltevat tasot_18: -386053420
+      Kaltevat tasot_19: -1365354984
+      Kaltevat tasot_2: 1911959441
+      Kaltevat tasot_20: -536507932
+      Kaltevat tasot_21: -1397558088
+      Kaltevat tasot_22: 976525736
+      Kaltevat tasot_23: 1274738240
+      Kaltevat tasot_24: 630248100
+      Kaltevat tasot_25: -1718384287
+      Kaltevat tasot_26: -336983919
+      Kaltevat tasot_27: 177275513
+      Kaltevat tasot_3: 1060558495
+      Kaltevat tasot_4: 494308515
+      Kaltevat tasot_5: -853552499
+      Kaltevat tasot_6: -1017778434
+      Kaltevat tasot_7: 503954511
+      Kaltevat tasot_8: 1319392213
+      Kaltevat tasot_9: -866812959
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
