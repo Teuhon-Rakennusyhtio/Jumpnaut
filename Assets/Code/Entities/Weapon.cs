@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,12 +30,4 @@ public class Weapon : MonoBehaviour
     {
         _weaponHit.Invoke();
     }
-}
-
-public class WeaponEventArgs : EventArgs
-{
-    public Sprite Sprite { get; set; }
-    public int DurabilityType { get; set; }
-    public int Durability { get; set; }
-    public float AnalogDurability { get; set; }
 }

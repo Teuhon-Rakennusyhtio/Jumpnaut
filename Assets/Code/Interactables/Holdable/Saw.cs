@@ -17,6 +17,7 @@ public class Saw : Holdable
     protected override void OnPickup(Transform hand, GenericHealth health)
     {
         base.OnPickup(hand, health);
+        if (AnalogDurability <= 0f) return;
         if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Running"))
         {
             _animator.Play("Open");

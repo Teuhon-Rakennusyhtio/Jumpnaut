@@ -1,8 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public enum DurabilityType
 {
@@ -36,11 +35,18 @@ public class Holdable : MonoBehaviour
     [SerializeField] int _digitalDurability = 3;
     [SerializeField] float _analogDurability = 1f;
     [SerializeField] Sprite _itemIcon;
+    float _maxAnalogDurability;
+    int _maxDigitalDurability;
 
+    public Sprite ItemIcon { get { return _itemIcon; } }
+    public int DigitalDurability { get { return _digitalDurability; } }
+    public float AnalogDurability { get { return _analogDurability; } }
 
     
     void Awake()
     {
+        _maxAnalogDurability = _analogDurability;
+        _maxDigitalDurability = _digitalDurability;
         _realSize = transform.localScale;
         _groundLayer = LayerMask.NameToLayer("Ground");
         _renderer = GetComponent<SpriteRenderer>();
@@ -48,7 +54,7 @@ public class Holdable : MonoBehaviour
 
         if (_analogDurability == 0f)
         {
-            Debug.LogError($"On item {gameObject.name}, analog durability can't be zero!");
+            Debug.LogError($"On item {gameObject.name}, the analog durability can't be zero!");
             _analogDurability = 1f;
         }
         if (_weapon != null)
@@ -97,6 +103,7 @@ public class Holdable : MonoBehaviour
 
     protected void RemoveDurability(int removedDurablity)
     {
+        if (_weapon.Alignment == WeaponAlignment.enemy) return; // Enemies will not lose item durability
         removedDurablity = Mathf.Abs(removedDurablity);
         if (_durabilityType == DurabilityType.digital)
         {
@@ -122,10 +129,12 @@ public class Holdable : MonoBehaviour
         {
             Debug.LogWarning($"Cannot remove durability from {gameObject.name} because it has no durability type!");
         }
+        _holder?.DurabilityChanged();
     }
 
     protected void RemoveDurability(float removedDurablity)
     {
+        if (_weapon.Alignment == WeaponAlignment.enemy) return; // Enemies will not lose item durability
         removedDurablity = Mathf.Abs(removedDurablity);
         if (_durabilityType == DurabilityType.digital)
         {
@@ -152,6 +161,7 @@ public class Holdable : MonoBehaviour
         {
             Debug.LogWarning($"Cannot remove durability from {gameObject.name} because it has no durability type!");
         }
+        _holder?.DurabilityChanged();
     }
 
     protected virtual void OnThrow(Vector2 direction)
@@ -234,4 +244,22 @@ public class Holdable : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public void GetHoldableEventArgs(HoldableEventArgs args)
+    {
+        args.ItemIcon = _itemIcon;
+        args.MaxDigitalDurability = _maxDigitalDurability;
+        args.DurabilityType = _durabilityType;
+        args.DigitalDurability = _digitalDurability;
+        args.AnalogDurability = _analogDurability / _maxAnalogDurability;
+    }
+}
+
+public class HoldableEventArgs : EventArgs
+{
+    public Sprite ItemIcon { get; set; }
+    public DurabilityType DurabilityType { get; set; }
+    public int MaxDigitalDurability { get; set; }
+    public int DigitalDurability { get; set; }
+    public float AnalogDurability { get; set; }
 }

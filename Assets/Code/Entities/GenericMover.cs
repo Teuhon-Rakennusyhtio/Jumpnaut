@@ -15,7 +15,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     [SerializeField] PhysicsMaterial2D _standMaterial, _moveMaterial;
     [SerializeField] protected Transform _handTransform;
     [SerializeField] protected GenericHealth _health;
-    Holdable _heldItem;
+    protected Holdable _heldItem;
     protected Vector2 _movement, _slopeNormalPerpendicular,
     _gravity, _moveInput, _previousPosition;
     Rigidbody2D _rigidBody;
@@ -99,10 +99,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         // ---------------------------------
         if (!_nextToLadder || Mathf.Abs(_moveInput.x) > 0.5f || _holdingHeavyObject)
         {
-            if (_climbingLadder) _jumpBuffer = 0f; // The entity should not jump off the ladder if they were going to do it before getting onto the ladder
-            _climbingLadder = false;
-            OnExitLadder();
-            _leftLadderThisFrame = true;
+            ExitLadder();
             return;
         }
         if (Mathf.Abs(_moveInput.y) > 0.2f)
@@ -112,48 +109,55 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             // -------------------------------------------
             if (!_climbingLadder)
             {
-                // Get the bottom and the top of the ladder to stop the entity from climbing beyond them
-                Vector2? ladderBottom = Ladder.GetLadderBottom(_collider, _ladderXCoord);
-                Vector2? ladderTop = Ladder.GetLadderTop(_collider, _ladderXCoord);
-
-                if (ladderBottom == null || ladderTop == null) return; // If the ladder does not have a top and a bottom it probably isn't a ladder and should not be climbed
-
-                Vector2 ladderBottom2;
-                Vector2 ladderTop2;
-                ladderBottom2 = ((Vector2)ladderBottom + Vector2.zero); // This is stupid and I hate it. Why can't I just get the 'y' of a nullable Vector2?????
-                ladderTop2 = ((Vector2)ladderTop + Vector2.zero);
-                _ladderBottom = ladderBottom2.y;
-                _ladderTop = ladderTop2.y;
-
-                _climbingLadder = true;
-                _collider.isTrigger = true; // The entity should not collide with the ground when climbing
-                _movement = Vector2.zero;
-                _currentSpeed = 0f;
-                transform.position = new Vector2(_ladderXCoord, Mathf.Max(transform.position.y, _ladderBottom));
-                OnEnterLadder();
-                _grabbedLadderThisFrame = true;
+                EnterLadder();
             }
             
             if ((transform.position.y > _ladderBottom && _moveInput.y < 0.1f) || (transform.position.y < _ladderTop && _moveInput.y > 0.1f))
             {
+                // Climbing ladder
                 _movement += Vector2.up * _moveInput.y * _climbingSpeed;
             }
         }
     }
 
-    protected virtual void OnEnterLadder()
+    protected virtual void EnterLadder()
     {
+        // Get the bottom and the top of the ladder to stop the entity from climbing beyond them
+        Vector2? ladderBottom = Ladder.GetLadderBottom(_collider, _ladderXCoord);
+        Vector2? ladderTop = Ladder.GetLadderTop(_collider, _ladderXCoord);
 
+        if (ladderBottom == null || ladderTop == null) return; // If the ladder does not have a top and a bottom it probably isn't a ladder and should not be climbed
+
+        Vector2 ladderBottom2;
+        Vector2 ladderTop2;
+        ladderBottom2 = ((Vector2)ladderBottom + Vector2.zero); // This is stupid and I hate it. Why can't I just get the 'y' of a nullable Vector2?????
+        ladderTop2 = ((Vector2)ladderTop + Vector2.zero);
+        _ladderBottom = ladderBottom2.y;
+        _ladderTop = ladderTop2.y;
+
+        _climbingLadder = true;
+        _collider.isTrigger = true; // The entity should not collide with the ground when climbing
+        _movement = Vector2.zero;
+        _currentSpeed = 0f;
+        transform.position = new Vector2(_ladderXCoord, Mathf.Max(transform.position.y, _ladderBottom));
+        _grabbedLadderThisFrame = true;
     }
 
-    protected virtual void OnExitLadder()
+    protected virtual void ExitLadder()
     {
-        
+        if (_climbingLadder) _jumpBuffer = 0f; // The entity should not jump off the ladder if they were going to do it before getting onto the ladder
+            _climbingLadder = false;
+        _leftLadderThisFrame = true;
     }
 
-    protected virtual void OnJump()
+    protected virtual void Jump()
     {
-
+        _coyoteTime = 0f;
+        _grounded = false;
+        _groundedFrames = 0;
+        _gravity = Vector2.zero;
+        _jumpVelocity = _jumpForce;
+        _jumpedThisFrame = true;
     }
 
     protected void SetControl(bool toggle)
@@ -164,7 +168,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _collider.isTrigger = !toggle;
     }
 
-    void Jump()
+    void JumpLogic()
     {
         // No jumping off the ladder but do remember that the entity has tried to jump already
         if (_climbingLadder)
@@ -174,9 +178,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             return;
         }
 
-        // The jump buffer exists for players so that the game feels more responsive
+        // The jump buffer gives the player more leniency on when the player presses jump
         _jumpBuffer -= Time.fixedDeltaTime;
-
         _movement += Vector2.up * _jumpVelocity;
 
         if (_grounded)
@@ -209,13 +212,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
         if (_jumpBuffer > 0f)
         {
-            _coyoteTime = 0f;
-            _grounded = false;
-            _groundedFrames = 0;
-            _gravity = Vector2.zero;
-            _jumpVelocity = _jumpForce;
-            _jumpedThisFrame = true;
-            OnJump();
+            Jump();
         }
     }
 
@@ -239,7 +236,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
                     }
                     else
                     {
-                        CatchLogic(holdable);
+                        Catch(holdable);
                     }
                 }
                 else
@@ -249,7 +246,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             }
             else
             {
-                ThrowLogic();
+                Throw();
             }
         }
         else
@@ -257,12 +254,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _holdingOut = false;
         }
     }
-
-    protected virtual void CatchLogic(Holdable holdable)
-    {
-        Catch(holdable);
-    }
-    protected void Catch(Holdable holdable)
+    protected virtual void Catch(Holdable holdable)
     {
         _heldItem = holdable;
         _handTransform.localScale = new Vector3(1f, 1f, 1f);
@@ -272,13 +264,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _alreadyCaught = true;
         _holdingOut = false;
     }
-
-    protected virtual void ThrowLogic()
-    {
-        Throw();
-    }
-
-    protected void Throw()
+    protected virtual void Throw()
     {
         Vector2 throwVector = Vector2.zero;
         if (!_grounded)
@@ -390,7 +376,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _gravity = Vector2.MoveTowards(_gravity, _maxGravity * Vector2.up, _fallAcceleration * 50f * Time.fixedDeltaTime);
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (GameManager.CurrentlyInUI) return;
         _jumpedThisFrame = false;
@@ -417,18 +403,12 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             CalculateGravity();
             Move();
             ClimbLadder();
-            Jump();
+            JumpLogic();
             TryToCatchOrThrow();
             CheckIfInsideGround();
             _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
             _previousPosition = transform.position;
         }
-        FixedUpdateLogic();
-    }
-
-    protected virtual void FixedUpdateLogic()
-    {
-
     }
 
     protected virtual void CheckFacingLogic()
@@ -438,6 +418,11 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _facingLeft = _moveInput.x < 0f;
 
         if (oldFacing != _facingLeft) FlipLogic();
+    }
+
+    public virtual void DurabilityChanged()
+    {
+
     }
 
     protected virtual void Animate(Animator anim)
@@ -458,14 +443,6 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         {
             anim.ResetTrigger("Jump");
         }
-        /*if (_grabbedLadderThisFrame)
-        {
-            anim.SetTrigger("GrabbedLadder");
-        }
-        else
-        {
-            anim.ResetTrigger("GrabbedLadder");
-        }*/
         if (_leftLadderThisFrame)
         {
             anim.SetTrigger("LeftLadder");
@@ -491,16 +468,10 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             }
         }
         CheckFacingLogic();
-        LateUpdateLogic();
-    }
-
-    protected virtual void LateUpdateLogic()
-    {
-        
     }
 
     public Vector2 MoveInput {get { return _moveInput; }}
-    public void ClearHand()
+    public virtual void ClearHand()
     {
         _holdingSomething = false;
         _holdingHeavyObject = false;
@@ -508,12 +479,6 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _heldItem.transform.parent = null;
         _heldItem.transform.localScale = Vector3.one;
         _heldItem = null;
-        ClearHandLogic();
-    }
-
-    protected virtual void ClearHandLogic()
-    {
-
     }
 
     protected virtual void GetInputs()

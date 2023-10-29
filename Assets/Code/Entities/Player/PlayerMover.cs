@@ -12,6 +12,7 @@ public class PlayerMover : GenericMover
     public ChildDeviceManager Device;
     public int Id;
     Vector2 _cameraPosition;
+    HoldableEventArgs _args;
     bool _pauseInput;//, _throwAnimationStarted;
     bool _isRespawning;
     public float _respawnSpeed = 7f;
@@ -23,10 +24,19 @@ public class PlayerMover : GenericMover
     public float smoothTime = 0;
     private Vector2 velocity = Vector2.zero;
 
+
+    public delegate void ItemPickupEventHandler(object source, HoldableEventArgs args);
+    public delegate void ItemDurabilityChangeEventHandler(object source, HoldableEventArgs args);
+    public delegate void ItemClearedChangeEventHandler(object source, HoldableEventArgs args);
+    public event ItemPickupEventHandler ItemPickup;
+    public event ItemDurabilityChangeEventHandler ItemDurabilityChange;
+    public event ItemClearedChangeEventHandler ItemCleared;
+
     void Start()
     {
         _cameraPosition = Vector2.zero;
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
+        _args = new HoldableEventArgs();
     }
 
     public void AssignPlayer(ChildDeviceManager device, int id)
@@ -52,9 +62,9 @@ public class PlayerMover : GenericMover
         healthBar.GetComponent<PlayerHealthBar>().AssignPlayer(this, _health as PlayerHealth, colour);
     }
 
-    protected override void FixedUpdateLogic()
+    protected override void FixedUpdate()
     {
-
+        base.FixedUpdate();
         OpenPauseMenu();
 
         RaycastHit2D cameraPosition = Physics2D.Raycast(transform.position, Vector2.down, 5f, _groundLayer);
@@ -124,8 +134,9 @@ public class PlayerMover : GenericMover
         _pauseInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pause];
     }
 
-    protected override void OnEnterLadder()
+    protected override void EnterLadder()
     {
+        base.EnterLadder();
         _animator.Play("Climbing");
         _handTransform.parent = _climbArm;
         _handTransform.localScale = Vector3.one;
@@ -133,8 +144,9 @@ public class PlayerMover : GenericMover
         _handTransform.localRotation = Quaternion.identity;
     }
 
-    protected override void OnExitLadder()
+    protected override void ExitLadder()
     {
+        base.ExitLadder();
         if (_holdingHeavyObject || !_facingLeft)
         {
             _handTransform.parent = _rightArm;
@@ -148,8 +160,9 @@ public class PlayerMover : GenericMover
         _handTransform.localRotation = Quaternion.identity;
     }
 
-    protected override void OnJump()
+    protected override void Jump()
     {
+        base.Jump();
         if (_facingLeft)
         {
             _animator.Play("Left Jump Start");
@@ -160,9 +173,9 @@ public class PlayerMover : GenericMover
         }
     }
 
-    protected override void CatchLogic(Holdable holdable)
+    protected override void Catch(Holdable holdable)
     {
-        base.CatchLogic(holdable);
+        base.Catch(holdable);
         if (_holdingHeavyObject)
         {
             _animator.Play("Pickup Two Handed");
@@ -175,9 +188,11 @@ public class PlayerMover : GenericMover
         {
             _animator.Play("Pickup Left");
         }
+        holdable.GetHoldableEventArgs(_args);
+        ItemPickup?.Invoke(this, _args);
     }
 
-    protected override void ThrowLogic()
+    protected override void Throw()
     {
         //_throwAnimationStarted = true;
         //_animator.SetTrigger("Throw");
@@ -189,12 +204,24 @@ public class PlayerMover : GenericMover
         {
             _animator.Play("Throw Left");
         }
-        Throw();
+        _heldItem.GetHoldableEventArgs(_args);
+        ItemCleared?.Invoke(this, _args);
+        base.Throw();
     }
 
-    protected override void ClearHandLogic()
+    public override void ClearHand()
     {
+        base.ClearHand();
         _animator.Play("Empty Hand");
+        _heldItem.GetHoldableEventArgs(_args);
+        ItemCleared?.Invoke(this, _args);
+    }
+
+    public override void DurabilityChanged()
+    {
+        base.DurabilityChanged();
+        _heldItem.GetHoldableEventArgs(_args);
+        ItemDurabilityChange?.Invoke(this, _args);
     }
 
     void OpenPauseMenu()

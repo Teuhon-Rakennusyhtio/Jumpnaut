@@ -21,6 +21,7 @@ public class PlayerHealthBar : MonoBehaviour
     GameObject[] _durabilityPoints;
     int _maxHealth;
     int _currentHealth;
+    int _currentDigitalDurability;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +50,9 @@ public class PlayerHealthBar : MonoBehaviour
 
         health.PlayerDamaged += OnPlayerDamaged;
         health.PlayerDeath += OnPlayerDeath;
+        mover.ItemPickup += OnItemPickup;
+        mover.ItemDurabilityChange += OnItemDurabilityChange;
+        mover.ItemCleared += OnItemCleared;
         _healthPoints = new GameObject[health.MaxHealth];
         _maxHealth = health.MaxHealth;
         _currentHealth = _maxHealth;
@@ -82,7 +86,7 @@ public class PlayerHealthBar : MonoBehaviour
 
     public void OnPlayerDamaged(object source, PlayerHealthEventArgs args)
     {
-        _headIcon.GetComponent<Image>().sprite = _headDamaged;
+        _headIcon.sprite = _headDamaged;
         QuickLerpToColour(_damagedColour);
         StartCoroutine(Shake(GetComponent<RectTransform>()));
         Invoke(nameof(ReturnToNormal), 0.5f);
@@ -103,16 +107,16 @@ public class PlayerHealthBar : MonoBehaviour
             StartCoroutine(Shake(_healthPoints[i].GetComponent<RectTransform>()));
         }
         _currentHealth = 0;
-        _headIcon.GetComponent<Image>().sprite = _headDead;
+        _headIcon.sprite = _headDead;
         QuickLerpToColour(_deadColour);
     }
 
-    public void OnItemPickup(object source, WeaponEventArgs args)
+    public void OnItemPickup(object source, HoldableEventArgs args)
     {
-        if (args.Sprite != null)
+        if (args.ItemIcon != null)
         {
             _heldItemIcon.enabled = true;
-            _heldItemIcon.sprite = args.Sprite;
+            _heldItemIcon.sprite = args.ItemIcon;
         }
         if (_durabilityPoints != null)
         {
@@ -121,19 +125,56 @@ public class PlayerHealthBar : MonoBehaviour
                 Destroy(point);
             }
         }
-        if (args.Durability > 0)
+        if (args.DurabilityType == DurabilityType.digital)
         {
-            _durabilityPoints = new GameObject[args.Durability];
+            _durabilityPoints = new GameObject[args.MaxDigitalDurability];
             for (int i = 0; i < _durabilityPoints.Length; i++)
             {
                 _durabilityPoints[i] = Instantiate(_durabilityPoint, Vector3.zero, Quaternion.identity, _durabilityRect);
+                if (args.DigitalDurability - 1 < i)
+                {
+                    _durabilityPoints[i].GetComponent<Image>().color = Color.clear;
+                }
             }
         }
+        else if (args.DurabilityType == DurabilityType.analog)
+        {
+            SetAnalogDurabilityFullness(args.AnalogDurability);
+        }
+    }
+
+    public void OnItemDurabilityChange(object source, HoldableEventArgs args)
+    {
+        if (args.DurabilityType == DurabilityType.digital)
+        {
+            for (int i = 0; i < args.MaxDigitalDurability - args.DigitalDurability; i++)
+            {
+                _durabilityPoints[i].GetComponent<Image>().color = Color.clear;
+                //StartCoroutine(Shake(_durabilityPoints[i].GetComponent<RectTransform>()));
+            }
+        }
+        else if (args.DurabilityType == DurabilityType.analog)
+        {
+            SetAnalogDurabilityFullness(args.AnalogDurability);
+        }
+    }
+
+    public void OnItemCleared(object source, HoldableEventArgs args)
+    {
+        if (_durabilityPoints != null)
+        {
+            foreach(GameObject point in _durabilityPoints)
+            {
+                Destroy(point);
+            }
+        }
+        SetAnalogDurabilityFullness(0f);
+        _heldItemIcon.enabled = false;
     }
 
     void ReturnToNormal()
     {
-        _headIcon.GetComponent<Image>().sprite = _headNormal;
+        _headIcon.sprite = _headNormal;
         QuickLerpToColour(_playerColour);
     }
 
