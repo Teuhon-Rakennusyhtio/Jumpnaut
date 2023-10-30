@@ -18,7 +18,7 @@ public class Holdable : MonoBehaviour
     [SerializeField] Vector2 _positionInHand;
     [SerializeField] protected Weapon _weapon;
     protected Collider2D _weaponCollider;
-    GenericMover _holder;
+    protected GenericMover _holder;
     SpriteRenderer _renderer;
     protected Rigidbody2D _rigidBody;
     CircleCollider2D _collider;

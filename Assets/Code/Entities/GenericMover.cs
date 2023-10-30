@@ -473,6 +473,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     public Vector2 MoveInput {get { return _moveInput; }}
     public virtual void ClearHand()
     {
+        if (_heldItem == null) return;
         _holdingSomething = false;
         _holdingHeavyObject = false;
         _holdingWeapon = false;

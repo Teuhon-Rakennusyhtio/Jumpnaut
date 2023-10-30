@@ -211,10 +211,10 @@ public class PlayerMover : GenericMover
 
     public override void ClearHand()
     {
-        base.ClearHand();
         _animator.Play("Empty Hand");
         _heldItem.GetHoldableEventArgs(_args);
         ItemCleared?.Invoke(this, _args);
+        base.ClearHand();
     }
 
     public override void DurabilityChanged()
