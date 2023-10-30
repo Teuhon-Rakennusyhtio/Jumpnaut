@@ -13000,7 +13000,7 @@ GameObject:
   - component: {fileID: 710627474}
   - component: {fileID: 710627473}
   m_Layer: 0
-  m_Name: enemybot_layers (1)
+  m_Name: RoboEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25007,8 +25007,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.04399991, y: 0.035650015, z: 0}
-    m_Extent: {x: 3.3943, y: 4.4127502, z: 0}
+    m_Center: {x: 0.054150105, y: 0.04515004, z: 0}
+    m_Extent: {x: 3.39325, y: 4.4064503, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
