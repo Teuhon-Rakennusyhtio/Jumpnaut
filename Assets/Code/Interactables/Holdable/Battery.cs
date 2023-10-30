@@ -26,7 +26,7 @@ public class Battery : Holdable
     {
         _thrown = false;
         BeingHeld = true;
-        GetComponentInParent<PlayerMover>().ClearHand();
+        _holder.ClearHand();
         transform.parent = socket;
         transform.localPosition = Vector2.zero;
         transform.localRotation = Quaternion.identity;
