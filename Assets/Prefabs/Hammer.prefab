@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c894ee0623489440a73c2465c22c258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _positionInHand: {x: 0, y: -0.1}
+  _positionInHand: {x: 0, y: 0.1}
   _weapon: {fileID: 5950758535450732609}
   _weaponUseAnimation: Melee Swing
   _throwFallTime: 1
@@ -180,10 +180,10 @@ MonoBehaviour:
   _flipable: 1
   _isWeapon: 1
   _durabilityType: 1
-  _digitalDurability: 3
+  _digitalDurability: 5
   _analogDurability: 1
   _weaponCooldown: 0.5
-  _weaponAnimationSpeed: 1
+  _weaponAnimationSpeed: 0.5
   _itemIcon: {fileID: 0}
   _swingWeaponHitboxDuration: 0.5
 --- !u!210 &1007635989954282073
