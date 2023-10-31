@@ -6,13 +6,16 @@ public class MeleeWeapon : Holdable
 {
     float _swingDuration;
     bool _alreadyHit;
+    //BreakageDebris[] _debris;
     void Start()
     {
         _weaponUseAnimation = "Melee Swing";
+        //_debris = GetComponentsInChildren<BreakageDebris>();
     }
 
     protected override void OnAttack()
     {
+        _alreadyHit = false;
         _weaponCollider.enabled = true;
         _swingDuration = 0.5f;
     }
@@ -35,6 +38,11 @@ public class MeleeWeapon : Holdable
     {
         base.OnPickup(hand, health);
         _weaponCollider.enabled = false;
+    }
+
+    public override void Break()
+    {
+        base.Break();
     }
 
     void Update()

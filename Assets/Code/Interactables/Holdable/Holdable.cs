@@ -29,6 +29,7 @@ public class Holdable : MonoBehaviour
     public bool BeingHeld { get; set; }
     //public bool IsMeleeWeapon { get { return _isMeleeWeapon; } }
     Vector3 _realSize;
+    protected Vector2 _breakingCollisionPoint;
     
     [SerializeField] protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 1f;
     [SerializeField] protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true, _isWeapon = false;
@@ -37,8 +38,11 @@ public class Holdable : MonoBehaviour
     [SerializeField] float _analogDurability = 1f;
     [SerializeField] float _weaponCooldown;
     [SerializeField] Sprite _itemIcon;
+    protected BreakageDebris[] _debris;
     float _maxAnalogDurability;
     int _maxDigitalDurability;
+    bool _broken;
+    float _debrisAngle = 1.25f;
 
     public Sprite ItemIcon { get { return _itemIcon; } }
     public int DigitalDurability { get { return _digitalDurability; } }
@@ -54,6 +58,7 @@ public class Holdable : MonoBehaviour
         _groundLayer = LayerMask.NameToLayer("Ground");
         _renderer = GetComponent<SpriteRenderer>();
         _rigidBody = GetComponent<Rigidbody2D>();
+        _debris = GetComponentsInChildren<BreakageDebris>();
 
         if (_analogDurability == 0f)
         {
@@ -137,7 +142,7 @@ public class Holdable : MonoBehaviour
 
     protected void RemoveDurability(float removedDurablity)
     {
-        if (_weapon.Alignment == WeaponAlignment.enemy) return; // Enemies will not lose item durability
+        if (_broken || _weapon.Alignment == WeaponAlignment.enemy) return; // Enemies will not lose item durability
         removedDurablity = Mathf.Abs(removedDurablity);
         if (_durabilityType == DurabilityType.digital)
         {
@@ -227,12 +232,13 @@ public class Holdable : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (_thrown && collision.gameObject.layer == _groundLayer)
+        if (_thrown && collision.gameObject.layer == _groundLayer && !_broken)
         {
             if (_breaksOnImpact)
             {
                 _holder?.ClearHand();
                 BeingHeld = true;
+                _breakingCollisionPoint = collision.GetContact(0).point;
                 Break();
             }
             else
@@ -252,7 +258,18 @@ public class Holdable : MonoBehaviour
 
     public virtual void Break()
     {
+        _broken = true;
         _holder?.ClearHand();
+        if (_breakingCollisionPoint != Vector2.zero)
+        {
+            float angle = Vector2.Angle(_breakingCollisionPoint - (Vector2)transform.position, Vector2.right);
+            _debrisAngle -= (angle / 90) - 1;
+        }
+        for (int i = 0; i < _debris.Length; i++)
+        {
+            _debris[i].Break(_debrisAngle);
+            _debrisAngle += 1f / _debris.Length;
+        }
         Destroy(gameObject);
     }
 
