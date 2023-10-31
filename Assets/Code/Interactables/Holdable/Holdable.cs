@@ -17,6 +17,7 @@ public class Holdable : MonoBehaviour
 {
     [SerializeField] Vector2 _positionInHand;
     [SerializeField] protected Weapon _weapon;
+    protected string _weaponUseAnimation;
     protected Collider2D _weaponCollider;
     protected GenericMover _holder;
     SpriteRenderer _renderer;
@@ -34,6 +35,7 @@ public class Holdable : MonoBehaviour
     [SerializeField] DurabilityType _durabilityType = 0;
     [SerializeField] int _digitalDurability = 3;
     [SerializeField] float _analogDurability = 1f;
+    [SerializeField] float _weaponCooldown;
     [SerializeField] Sprite _itemIcon;
     float _maxAnalogDurability;
     int _maxDigitalDurability;
@@ -41,6 +43,7 @@ public class Holdable : MonoBehaviour
     public Sprite ItemIcon { get { return _itemIcon; } }
     public int DigitalDurability { get { return _digitalDurability; } }
     public float AnalogDurability { get { return _analogDurability; } }
+    public string WeaponUseAnimation { get { return _weaponUseAnimation; } }
 
     
     void Awake()
@@ -170,6 +173,11 @@ public class Holdable : MonoBehaviour
             _weapon.Thrown = true;
     }
 
+    public void Attack()
+    {
+        OnAttack();
+    }
+
     protected virtual void OnAttack()
     {
         
@@ -180,7 +188,7 @@ public class Holdable : MonoBehaviour
         Break();
     }
 
-    public void Pickup(Transform hand, GenericMover holder, GenericHealth health, bool isFacingLeft, ref bool heavy, ref bool flipable, ref bool isWeapon)
+    public void Pickup(Transform hand, GenericMover holder, GenericHealth health, bool isFacingLeft, ref bool heavy, ref bool flipable, ref bool isWeapon, ref float weaponCooldown, ref string WeaponUseAnimation)
     {
         _thrown = false;
         _rigidBody.totalTorque = 0f;
@@ -204,6 +212,8 @@ public class Holdable : MonoBehaviour
         heavy = _isHeavy;
         flipable = _flipable;
         isWeapon = _isWeapon;
+        weaponCooldown = _weaponCooldown;
+        WeaponUseAnimation = _weaponUseAnimation;
     }
 
     protected virtual void OnPickup(Transform hand, GenericHealth health)
@@ -242,6 +252,7 @@ public class Holdable : MonoBehaviour
 
     public virtual void Break()
     {
+        _holder?.ClearHand();
         Destroy(gameObject);
     }
 

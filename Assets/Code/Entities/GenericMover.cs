@@ -15,6 +15,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     [SerializeField] PhysicsMaterial2D _standMaterial, _moveMaterial;
     [SerializeField] protected Transform _handTransform;
     [SerializeField] protected GenericHealth _health;
+    [SerializeField] protected Animator _animator;
+    [SerializeField] protected Transform _mainRig, _leftArm, _rightArm, _climbArm;
     protected Holdable _heldItem;
     protected Vector2 _movement, _slopeNormalPerpendicular,
     _gravity, _moveInput, _previousPosition;
@@ -22,7 +24,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     Collider2D _collider;
     float _jumpBuffer = 0f, _coyoteTime = 0f,
      _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord,
-     _ladderBottom, _ladderTop, _currentSpeed;
+     _ladderBottom, _ladderTop, _currentSpeed, _currentWeaponCooldown,
+     _weaponCooldown;
     protected int _groundedFrames = 0;
     bool _isInControl = true;
     protected bool _grounded = true, _alreadyJumped = true,
@@ -31,8 +34,10 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _alreadyCaught = false, _facingLeft = false,
     _holdingHeavyObject = false, _holdingWeapon,
      _grabbedLadderThisFrame, _leftLadderThisFrame,
-    _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut;
+    _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut,
+    _alreadyUsed, _currentlyUsing;
 
+    protected string _weaponUseAnimation;
     protected bool _jumpInput, _useInput, _catchInput;
     
     public bool IsInControl { get { return _isInControl; } }
@@ -84,12 +89,91 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
     }
 
+    protected virtual void UseWeaponLogic()
+    {
+        _currentWeaponCooldown -= Time.deltaTime;
+        if (_useInput && _holdingWeapon && _currentWeaponCooldown < 0f)
+        {
+            if (!_alreadyUsed)
+            {
+                _alreadyUsed = true;
+                _currentWeaponCooldown = _weaponCooldown;
+                if (_weaponUseAnimation != "")
+                {
+                    _animator?.Play(_weaponUseAnimation + (_facingLeft ? " Left" : " Right"), -1, 0f);
+                }
+                StartUsingWeapon();
+            }
+            else
+            {
+                _currentlyUsing = true;
+                ActivelyUsingWeapon();
+            }
+        }
+        else
+        {
+            _alreadyUsed = false;
+            StopUsingWeapon();
+        }
+    }
+
+    protected virtual void StartUsingWeapon()
+    {
+        _heldItem.Attack();
+    }
+
+    protected virtual void ActivelyUsingWeapon()
+    {
+
+    }
+
+    protected virtual void StopUsingWeapon()
+    {
+
+    }
+
     protected virtual void FlipLogic()
     {
-        if (_heldItemIsFlipalbe)
+        /*if (_heldItemIsFlipalbe)
+        {
+            _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
+        }*/
+        if (!_heldItemIsFlipalbe)
         {
             _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
         }
+        if (!_holdingSomething && !_catchInput)
+        {
+            _animator?.Play("Empty Hand");
+        }
+        else if (!_heldItemIsFlipalbe && _handTransform.childCount > 0)
+        {
+            Transform heldItem = _handTransform.GetChild(0).transform;
+            heldItem.localPosition = new Vector2(-heldItem.localPosition.x, heldItem.localPosition.y);
+        }
+        if (_holdingOut)
+        {
+            if (_facingLeft)
+            {
+                _animator?.Play("Hold Out Left", -1, 1f);
+            }
+            else
+            {
+                _animator?.Play("Hold Out Right", -1, 1f);
+            }
+        }
+        
+        if (_holdingHeavyObject || !_facingLeft)
+        {
+            _handTransform.parent = _rightArm;
+            
+        }
+        else
+        {
+            _handTransform.parent = _leftArm;
+        }
+        _handTransform.localPosition = Vector3.right * 0.45f;
+        _handTransform.localRotation = Quaternion.identity;
     }
 
     void ClimbLadder()
@@ -141,6 +225,12 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _currentSpeed = 0f;
         transform.position = new Vector2(_ladderXCoord, Mathf.Max(transform.position.y, _ladderBottom));
         _grabbedLadderThisFrame = true;
+
+        _animator?.Play("Climbing");
+        _handTransform.parent = _climbArm;
+        _handTransform.localScale = Vector3.one;
+        _handTransform.localPosition = Vector3.right * 0.45f;
+        _handTransform.localRotation = Quaternion.identity;
     }
 
     protected virtual void ExitLadder()
@@ -148,6 +238,18 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         if (_climbingLadder) _jumpBuffer = 0f; // The entity should not jump off the ladder if they were going to do it before getting onto the ladder
             _climbingLadder = false;
         _leftLadderThisFrame = true;
+
+        if (_holdingHeavyObject || !_facingLeft)
+        {
+            _handTransform.parent = _rightArm;
+            
+        }
+        else
+        {
+            _handTransform.parent = _leftArm;
+        }
+        _handTransform.localPosition = Vector3.right * 0.45f;
+        _handTransform.localRotation = Quaternion.identity;
     }
 
     protected virtual void Jump()
@@ -158,6 +260,14 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _gravity = Vector2.zero;
         _jumpVelocity = _jumpForce;
         _jumpedThisFrame = true;
+        if (_facingLeft)
+        {
+            _animator?.Play("Left Jump Start");
+        }
+        else
+        {
+            _animator?.Play("Right Jump Start");
+        }
     }
 
     protected void SetControl(bool toggle)
@@ -258,11 +368,23 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         _heldItem = holdable;
         _handTransform.localScale = new Vector3(1f, 1f, 1f);
-        _heldItem.Pickup(_handTransform, this, _health, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe, ref _holdingWeapon); // Puts the item in the entity's hand and checks if the object is heavy
+        _heldItem.Pickup(_handTransform, this, _health, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe, ref _holdingWeapon, ref _weaponCooldown, ref _weaponUseAnimation); // Puts the item in the entity's hand and checks if the object is heavy
         FlipLogic();
         _holdingSomething = true;
         _alreadyCaught = true;
         _holdingOut = false;
+        if (_holdingHeavyObject)
+        {
+            _animator?.Play("Pickup Two Handed");
+        }
+        else if (!_facingLeft)
+        {
+            _animator?.Play("Pickup Right");
+        }
+        else
+        {
+            _animator?.Play("Pickup Left");
+        }
     }
     protected virtual void Throw()
     {
@@ -290,6 +412,14 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _holdingSomething = false;
         _holdingHeavyObject = false;
         _holdingWeapon = false;
+        if (!_facingLeft)
+        {
+            _animator?.Play("Throw Right");
+        }
+        else
+        {
+            _animator?.Play("Throw Left");
+        }
     }
     void CheckIfGrounded()
     {
@@ -402,6 +532,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             CheckSlope();
             CalculateGravity();
             Move();
+            UseWeaponLogic();
             ClimbLadder();
             JumpLogic();
             TryToCatchOrThrow();
@@ -409,15 +540,19 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
             _previousPosition = transform.position;
         }
+        if (_animator != null) Animate(_animator);
     }
 
     protected virtual void CheckFacingLogic()
     {
         bool oldFacing = _facingLeft;
         // Figure out which direction the entity is facing
-        _facingLeft = _moveInput.x < 0f;
+        _facingLeft = _mainRig.localScale.x < 0f;
+        
+        //_facingLeft = _moveInput.x < 0f;
 
         if (oldFacing != _facingLeft) FlipLogic();
+        
     }
 
     public virtual void DurabilityChanged()
@@ -474,6 +609,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     public virtual void ClearHand()
     {
         if (_heldItem == null) return;
+        _animator?.CrossFade("Empty Hand", 0.7f);
         _holdingSomething = false;
         _holdingHeavyObject = false;
         _holdingWeapon = false;

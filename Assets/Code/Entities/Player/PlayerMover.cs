@@ -7,8 +7,8 @@ public class PlayerMover : GenericMover
     [SerializeField] GameObject _playerHealthBar;
     //[SerializeField] PlayerHealth _health;
 
-    [SerializeField] Animator _animator;
-    [SerializeField] Transform _mainRig, _leftArm, _rightArm, _climbArm;
+    //[SerializeField] Animator _animator;
+    //[SerializeField] protected Transform _mainRig, _leftArm, _rightArm, _climbArm;
     public ChildDeviceManager Device;
     public int Id;
     Vector2 _cameraPosition;
@@ -71,56 +71,6 @@ public class PlayerMover : GenericMover
         Debug.DrawRay(transform.position, Vector2.down * 5f, Color.green);
         if (cameraPosition) _cameraPosition = cameraPosition.point;
         else if (transform.position.y < _cameraPosition.y || _climbingLadder) _cameraPosition = transform.position;
-        if (_animator != null) Animate(_animator);
-    }
-
-    protected override void CheckFacingLogic()
-    {
-        bool oldFacing = _facingLeft;
-        // Figure out which direction the player is facing
-        _facingLeft = _mainRig.localScale.x < 0f;
-
-        if (oldFacing != _facingLeft) FlipLogic();
-    }
-
-    protected override void FlipLogic()
-    {
-        if (!_heldItemIsFlipalbe)
-        {
-            _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
-        }
-        if (!_holdingSomething && !_catchInput)
-        {
-            _animator.Play("Empty Hand");
-        }
-        else if (!_heldItemIsFlipalbe && _handTransform.childCount > 0)
-        {
-            Transform heldItem = _handTransform.GetChild(0).transform;
-            heldItem.localPosition = new Vector2(-heldItem.localPosition.x, heldItem.localPosition.y);
-        }
-        if (_holdingOut)
-        {
-            if (_facingLeft)
-            {
-                _animator.Play("Hold Out Left", -1, 1f);
-            }
-            else
-            {
-                _animator.Play("Hold Out Right", -1, 1f);
-            }
-        }
-        
-        if (_holdingHeavyObject || !_facingLeft)
-        {
-            _handTransform.parent = _rightArm;
-            
-        }
-        else
-        {
-            _handTransform.parent = _leftArm;
-        }
-        _handTransform.localPosition = Vector3.right * 0.45f;
-        _handTransform.localRotation = Quaternion.identity;
     }
 
     protected override void GetInputs()
@@ -134,76 +84,20 @@ public class PlayerMover : GenericMover
         _pauseInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pause];
     }
 
-    protected override void EnterLadder()
-    {
-        base.EnterLadder();
-        _animator.Play("Climbing");
-        _handTransform.parent = _climbArm;
-        _handTransform.localScale = Vector3.one;
-        _handTransform.localPosition = Vector3.right * 0.45f;
-        _handTransform.localRotation = Quaternion.identity;
-    }
-
-    protected override void ExitLadder()
-    {
-        base.ExitLadder();
-        if (_holdingHeavyObject || !_facingLeft)
-        {
-            _handTransform.parent = _rightArm;
-            
-        }
-        else
-        {
-            _handTransform.parent = _leftArm;
-        }
-        _handTransform.localPosition = Vector3.right * 0.45f;
-        _handTransform.localRotation = Quaternion.identity;
-    }
-
     protected override void Jump()
     {
         base.Jump();
-        if (_facingLeft)
-        {
-            _animator.Play("Left Jump Start");
-        }
-        else
-        {
-            _animator.Play("Right Jump Start");
-        }
     }
 
     protected override void Catch(Holdable holdable)
     {
         base.Catch(holdable);
-        if (_holdingHeavyObject)
-        {
-            _animator.Play("Pickup Two Handed");
-        }
-        else if (!_facingLeft)
-        {
-            _animator.Play("Pickup Right");
-        }
-        else
-        {
-            _animator.Play("Pickup Left");
-        }
         holdable.GetHoldableEventArgs(_args);
         ItemPickup?.Invoke(this, _args);
     }
 
     protected override void Throw()
     {
-        //_throwAnimationStarted = true;
-        //_animator.SetTrigger("Throw");
-        if (!_facingLeft)
-        {
-            _animator.Play("Throw Right");
-        }
-        else
-        {
-            _animator.Play("Throw Left");
-        }
         _heldItem.GetHoldableEventArgs(_args);
         ItemCleared?.Invoke(this, _args);
         base.Throw();
@@ -211,7 +105,6 @@ public class PlayerMover : GenericMover
 
     public override void ClearHand()
     {
-        _animator.Play("Empty Hand");
         _heldItem.GetHoldableEventArgs(_args);
         ItemCleared?.Invoke(this, _args);
         base.ClearHand();
@@ -220,7 +113,7 @@ public class PlayerMover : GenericMover
     public override void DurabilityChanged()
     {
         base.DurabilityChanged();
-        _heldItem.GetHoldableEventArgs(_args);
+        _heldItem?.GetHoldableEventArgs(_args);
         ItemDurabilityChange?.Invoke(this, _args);
     }
 
