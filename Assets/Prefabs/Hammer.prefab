@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _positionInHand: {x: 0, y: -0.1}
   _weapon: {fileID: 5950758535450732609}
+  _weaponUseAnimation: Melee Swing
   _throwFallTime: 1
   _terminalVelocity: -15
   _fallAcceleration: 1
@@ -182,7 +183,9 @@ MonoBehaviour:
   _digitalDurability: 3
   _analogDurability: 1
   _weaponCooldown: 0.5
+  _weaponAnimationSpeed: 1
   _itemIcon: {fileID: 0}
+  _swingWeaponHitboxDuration: 0.5
 --- !u!210 &1007635989954282073
 SortingGroup:
   m_ObjectHideFlags: 0

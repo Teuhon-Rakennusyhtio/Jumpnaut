@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class MeleeWeapon : Holdable
 {
-    float _swingDuration;
+    [SerializeField] float _swingWeaponHitboxDuration = 0.5f;
+    float _currentSwingDuration;
     bool _alreadyHit;
     //BreakageDebris[] _debris;
     void Start()
     {
-        _weaponUseAnimation = "Melee Swing";
+        //_weaponUseAnimation = "Melee Swing";
         //_debris = GetComponentsInChildren<BreakageDebris>();
     }
 
@@ -17,7 +18,7 @@ public class MeleeWeapon : Holdable
     {
         _alreadyHit = false;
         _weaponCollider.enabled = true;
-        _swingDuration = 0.5f;
+        _currentSwingDuration = _swingWeaponHitboxDuration;
     }
 
     public void WeaponHit()
@@ -47,10 +48,10 @@ public class MeleeWeapon : Holdable
 
     void Update()
     {
-        if (_swingDuration > 0f)
+        if (_currentSwingDuration > 0f)
         {
-            _swingDuration -= Time.deltaTime;
-            if (_swingDuration <= 0f)
+            _currentSwingDuration -= Time.deltaTime;
+            if (_currentSwingDuration <= 0f)
             {
                 _weaponCollider.enabled = false;
                 _alreadyHit = false;

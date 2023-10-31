@@ -17,7 +17,7 @@ public class Holdable : MonoBehaviour
 {
     [SerializeField] Vector2 _positionInHand;
     [SerializeField] protected Weapon _weapon;
-    protected string _weaponUseAnimation;
+    [SerializeField] protected string _weaponUseAnimation;
     protected Collider2D _weaponCollider;
     protected GenericMover _holder;
     SpriteRenderer _renderer;
@@ -37,6 +37,7 @@ public class Holdable : MonoBehaviour
     [SerializeField] int _digitalDurability = 3;
     [SerializeField] float _analogDurability = 1f;
     [SerializeField] float _weaponCooldown;
+    [SerializeField] float _weaponAnimationSpeed = 1f;
     [SerializeField] Sprite _itemIcon;
     protected BreakageDebris[] _debris;
     float _maxAnalogDurability;
@@ -193,7 +194,7 @@ public class Holdable : MonoBehaviour
         Break();
     }
 
-    public void Pickup(Transform hand, GenericMover holder, GenericHealth health, bool isFacingLeft, ref bool heavy, ref bool flipable, ref bool isWeapon, ref float weaponCooldown, ref string WeaponUseAnimation)
+    public void Pickup(Transform hand, GenericMover holder, GenericHealth health, bool isFacingLeft, ref bool heavy, ref bool flipable, ref bool isWeapon, ref float weaponCooldown, ref string weaponUseAnimation, ref float weaponAnimationSpeed)
     {
         _thrown = false;
         _rigidBody.totalTorque = 0f;
@@ -218,7 +219,8 @@ public class Holdable : MonoBehaviour
         flipable = _flipable;
         isWeapon = _isWeapon;
         weaponCooldown = _weaponCooldown;
-        WeaponUseAnimation = _weaponUseAnimation;
+        weaponAnimationSpeed = _weaponAnimationSpeed;
+        weaponUseAnimation = _weaponUseAnimation;
     }
 
     protected virtual void OnPickup(Transform hand, GenericHealth health)

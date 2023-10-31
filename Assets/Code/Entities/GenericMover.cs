@@ -25,7 +25,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     float _jumpBuffer = 0f, _coyoteTime = 0f,
      _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord,
      _ladderBottom, _ladderTop, _currentSpeed, _currentWeaponCooldown,
-     _weaponCooldown;
+     _weaponCooldown, _weaponAnimationSpeed;
     protected int _groundedFrames = 0;
     bool _isInControl = true;
     protected bool _grounded = true, _alreadyJumped = true,
@@ -368,7 +368,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         _heldItem = holdable;
         _handTransform.localScale = new Vector3(1f, 1f, 1f);
-        _heldItem.Pickup(_handTransform, this, _health, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe, ref _holdingWeapon, ref _weaponCooldown, ref _weaponUseAnimation); // Puts the item in the entity's hand and checks if the object is heavy
+        _heldItem.Pickup(_handTransform, this, _health, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe, ref _holdingWeapon, ref _weaponCooldown, ref _weaponUseAnimation, ref _weaponAnimationSpeed); // Puts the item in the entity's hand and checks if the object is heavy
         FlipLogic();
         _holdingSomething = true;
         _alreadyCaught = true;
@@ -567,6 +567,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         anim.SetFloat("HorizontalMoveInput", _moveInput.x);
         anim.SetFloat("VerticalMoveInput", transform.position.y + 0.1f < _ladderTop && transform.position.y - 0.1f > _ladderBottom ? _moveInput.y : 0f);
         anim.SetFloat("WalkSpeed", Mathf.Max(Mathf.Abs(_moveInput.x), 0.2f));
+        anim.SetFloat("WeaponAnimationSpeed", _weaponAnimationSpeed);
         anim.SetBool("Grounded", _grounded);
         anim.SetBool("HoldingOut", _holdingOut);
         anim.SetBool("FacingLeft", _facingLeft);

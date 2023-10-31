@@ -2115,6 +2115,7 @@ MonoBehaviour:
   _digitalDurability: 3
   _analogDurability: 1
   _weaponCooldown: 0
+  _weaponAnimationSpeed: 1
   _itemIcon: {fileID: 0}
 --- !u!50 &467293154
 Rigidbody2D:
@@ -5918,6 +5919,7 @@ MonoBehaviour:
   _digitalDurability: 3
   _analogDurability: 1
   _weaponCooldown: 0
+  _weaponAnimationSpeed: 1
   _itemIcon: {fileID: 0}
 --- !u!50 &1079952162
 Rigidbody2D:
@@ -59736,6 +59738,14 @@ PrefabInstance:
     - target: {fileID: 926660258940846467, guid: 2d97f5bde55c24b4eaf92653b144116f, type: 3}
       propertyPath: m_Name
       value: TestMeleeWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716601817994096108, guid: 2d97f5bde55c24b4eaf92653b144116f, type: 3}
+      propertyPath: _weaponAnimationSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716601817994096108, guid: 2d97f5bde55c24b4eaf92653b144116f, type: 3}
+      propertyPath: _swingWeaponHitboxDuration
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6748123880858760232, guid: 2d97f5bde55c24b4eaf92653b144116f, type: 3}
       propertyPath: m_LocalPosition.x
