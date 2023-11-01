@@ -173,4 +173,17 @@ public class PlayerMover : GenericMover
     {
         Respawning();
     }
+
+    public override void Die()
+    {
+        _isInControl = false;
+        if (_facingLeft)
+        {
+            PlayFullBodyAnimation("Die Left");
+        }
+        else
+        {
+            PlayFullBodyAnimation("Die Right");
+        }
+    }
 }

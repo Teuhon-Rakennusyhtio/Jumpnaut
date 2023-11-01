@@ -2102,6 +2102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _positionInHand: {x: 0, y: 0}
   _weapon: {fileID: 0}
+  _weaponUseAnimation: 
   _throwFallTime: 1
   _terminalVelocity: -15
   _fallAcceleration: 1
@@ -5906,6 +5907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _positionInHand: {x: 0, y: 0}
   _weapon: {fileID: 0}
+  _weaponUseAnimation: 
   _throwFallTime: 1
   _terminalVelocity: -15
   _fallAcceleration: 1

@@ -5559,6 +5559,7 @@ MonoBehaviour:
   _maxHealth: 3
   _maxInvincibilityFrames: 0.5
   _isPlayerAligned: 1
+  _playerMover: {fileID: 4382271523608291103}
 --- !u!61 &1658377281168426225
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5731,13 +5732,13 @@ MonoBehaviour:
   _standMaterial: {fileID: 6200000, guid: f84d71fe17bab5c14ac6fcf270b9da12, type: 2}
   _moveMaterial: {fileID: 6200000, guid: 996a436b0401bb15e9e46f71a6620b4e, type: 2}
   _handTransform: {fileID: 8519695966639916217}
-  _playerHealthBar: {fileID: 6034050332201979032, guid: 9a3bfd40d2f76edc0ad880bcadd9221d, type: 3}
   _health: {fileID: 3153049352299656966}
   _animator: {fileID: 1453185538693503599}
   _mainRig: {fileID: 229368895945592611}
   _leftArm: {fileID: 2354229948972603201}
   _rightArm: {fileID: 5375916267501459406}
   _climbArm: {fileID: 5778146755354177100}
+  _playerHealthBar: {fileID: 6034050332201979032, guid: 9a3bfd40d2f76edc0ad880bcadd9221d, type: 3}
   Device: {fileID: 0}
   Id: 0
   _respawnSpeed: 7

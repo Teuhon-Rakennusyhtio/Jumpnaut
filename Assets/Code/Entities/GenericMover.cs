@@ -27,7 +27,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
      _ladderBottom, _ladderTop, _currentSpeed, _currentWeaponCooldown,
      _weaponCooldown, _weaponAnimationSpeed;
     protected int _groundedFrames = 0;
-    bool _isInControl = true;
+    int _handAnimationBeforeFullBodyAnimation, _bodyAnimationBeforeFullBodyAnimation;
+    bool _fullbodyAnimationIsPlaying;
     protected bool _grounded = true, _alreadyJumped = true,
     _climbingLadder = false, _nextToLadder = false,
     _insideGround = false, _holdingSomething = false,
@@ -35,7 +36,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _holdingHeavyObject = false, _holdingWeapon,
      _grabbedLadderThisFrame, _leftLadderThisFrame,
     _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut,
-    _alreadyUsed, _currentlyUsing;
+    _alreadyUsed, _currentlyUsing, _isInControl = true;
 
     protected string _weaponUseAnimation;
     protected bool _jumpInput, _useInput, _catchInput;
@@ -537,9 +538,14 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             JumpLogic();
             TryToCatchOrThrow();
             CheckIfInsideGround();
-            _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
-            _previousPosition = transform.position;
         }
+        else
+        {
+            _movement = Vector2.zero;
+            _gravity = Vector2.zero;
+        }
+        _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
+        _previousPosition = transform.position;
         if (_animator != null) Animate(_animator);
     }
 
@@ -589,6 +595,27 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
     }
 
+    protected void PlayFullBodyAnimation(string animation)
+    {
+        if (_animator == null) return;
+        if (!_fullbodyAnimationIsPlaying)
+        {
+            _bodyAnimationBeforeFullBodyAnimation = _animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
+            _handAnimationBeforeFullBodyAnimation = _animator.GetCurrentAnimatorStateInfo(1).shortNameHash;
+        }
+        _fullbodyAnimationIsPlaying = true;
+        _animator.CrossFade("Empty Hand", 0.1f);
+        _animator.CrossFade(animation, 0.1f);
+    }
+
+    protected void EndFullBodyAnimation()
+    {
+        if (!_fullbodyAnimationIsPlaying) return;
+        _fullbodyAnimationIsPlaying = false;
+        _animator.CrossFade(_bodyAnimationBeforeFullBodyAnimation, 0.1f);
+        _animator.CrossFade(_handAnimationBeforeFullBodyAnimation, 0.1f);
+    }
+
     void LateUpdate()
     {
         // Stops the entity from climbing off of the ladder
@@ -622,5 +649,10 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     protected virtual void GetInputs()
     {
         
+    }
+
+    public virtual void Die()
+    {
+
     }
 }

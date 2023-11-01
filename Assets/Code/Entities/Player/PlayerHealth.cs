@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerHealth : GenericHealth
 {
+    [SerializeField] PlayerMover _playerMover;
     PlayerHealthEventArgs _args;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class PlayerHealth : GenericHealth
 
     protected override void Die()
     {
+        _playerMover.Die();
         OnPlayerDeath();
     }
 
