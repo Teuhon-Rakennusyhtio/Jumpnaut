@@ -162,9 +162,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _positionInHand: {x: 0.2, y: 0.3}
-  BeingHeld: 0
+  _weapon: {fileID: 0}
+  _weaponUseAnimation: 
+  _throwFallTime: 1
+  _terminalVelocity: -15
+  _fallAcceleration: 1
+  _throwForce: 15
+  _throwTorque: 1
   _breaksOnImpact: 1
   _isHeavy: 1
   _flipable: 0
+  _isWeapon: 0
+  _durabilityType: 0
+  _digitalDurability: 3
+  _analogDurability: 1
+  _weaponCooldown: 0
+  _weaponAnimationSpeed: 1
+  _itemIcon: {fileID: 21300000, guid: 546e70c317aba184d965ee2f0f925a92, type: 3}
   _particleEffect: {fileID: 4756641884696935764, guid: 2590e230dbbc40e41b1dfbc88df94b70, type: 3}
   BatterySpawner: {fileID: 0}
