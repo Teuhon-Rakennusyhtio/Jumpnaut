@@ -183,9 +183,9 @@ MonoBehaviour:
   _digitalDurability: 5
   _analogDurability: 1
   _weaponCooldown: 0.5
-  _weaponAnimationSpeed: 0.5
+  _weaponAnimationSpeed: 1.2
   _itemIcon: {fileID: 21300000, guid: 3e878540928ef26448cc18b612d9efa0, type: 3}
-  _swingWeaponHitboxDuration: 0.5
+  _swingWeaponHitboxDuration: 0.4
 --- !u!210 &1007635989954282073
 SortingGroup:
   m_ObjectHideFlags: 0

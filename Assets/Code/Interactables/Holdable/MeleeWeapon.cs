@@ -23,6 +23,7 @@ public class MeleeWeapon : Holdable
 
     public void WeaponHit()
     {
+        CameraMovement.SetCameraShake(2, 0.7f, 0.5f, 1f);
         if (_alreadyHit) return;
         _alreadyHit = true;
         RemoveDurability(1);

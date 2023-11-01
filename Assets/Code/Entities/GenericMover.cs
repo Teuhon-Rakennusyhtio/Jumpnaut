@@ -568,7 +568,13 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         anim.SetFloat("VerticalMoveInput", transform.position.y + 0.1f < _ladderTop && transform.position.y - 0.1f > _ladderBottom ? _moveInput.y : 0f);
         anim.SetFloat("WalkSpeed", Mathf.Max(Mathf.Abs(_moveInput.x), 0.2f));
         anim.SetFloat("WeaponAnimationSpeed", _weaponAnimationSpeed);
-        anim.SetBool("Grounded", _grounded);
+        //anim.SetBool("Grounded", _grounded);
+        bool test = anim.GetBool("Grounded");
+        if (_coyoteTime > 0f != test)
+        {
+            Debug.Log(test + " " + Time.time);
+        }
+        anim.SetBool("Grounded", _coyoteTime > 0f);
         anim.SetBool("HoldingOut", _holdingOut);
         anim.SetBool("FacingLeft", _facingLeft);
         if (_jumpedThisFrame)

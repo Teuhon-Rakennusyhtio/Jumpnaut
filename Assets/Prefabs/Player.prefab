@@ -5713,7 +5713,7 @@ MonoBehaviour:
   _speed: 7
   _climbingSpeed: 5
   _maxJumpBuffer: 0.2
-  _maxCoyoteTime: 0.1
+  _maxCoyoteTime: 0.15
   _jumpForce: 20
   _jumpApex: 0.3
   _jumpFallSpeed: 3.6
