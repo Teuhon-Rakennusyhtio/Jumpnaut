@@ -513,6 +513,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _jumpedThisFrame = false;
         _leftLadderThisFrame = false;
         _grabbedLadderThisFrame = false;
+        GetInputs();
         if (_isInControl)
         {
             _movement = Vector2.zero;
@@ -526,8 +527,6 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             {
                 _collider.sharedMaterial = _standMaterial;
             }
-
-            GetInputs();
             CheckFacingLogic();
             CheckIfGrounded();
             CheckSlope();
