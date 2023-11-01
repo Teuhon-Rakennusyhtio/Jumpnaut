@@ -6,6 +6,7 @@ Shader "Custom/Player"
         _ReplacedColor ("Replaced Color", Color) = (1, 1, 1, 1)
         _MainTex ("Texture", 2D) = "white" {}
         _SecondaryTex ("Effect Texture", 2D) = "white" {}
+        [PerRenderData]_Whiteness ("Whiteness", float) = 0
     }
     SubShader
     {
@@ -32,6 +33,7 @@ Shader "Custom/Player"
             sampler2D _SecondaryTex;
             fixed4 _Color;
             fixed4 _ReplacedColor;
+            float _Whiteness;
 
             struct appdata
             {
@@ -63,6 +65,7 @@ Shader "Custom/Player"
                 // sample the texture
                 float4 col = tex2D(_MainTex, i.uv);
                 float testForColor = col.gb == float2(0, 0);
+                float4 white = float4(_Whiteness, _Whiteness, _Whiteness, 0);
 
                 //col *= _Color;
                 //col *= i.color;
@@ -70,6 +73,7 @@ Shader "Custom/Player"
                 //col = saturate(col - testForColor) + testForColor * tex2D(_SecondaryTex, i.worldPos.xy);
                 //col = saturate(col - testForColor) + testForColor * _ReplacedColor * col.rrra;
                 col = saturate(col - testForColor) + testForColor * i.color * col.rrra;
+                col += white;
                 return col;
             }
             ENDCG

@@ -538,11 +538,6 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             TryToCatchOrThrow();
             CheckIfInsideGround();
         }
-        else
-        {
-            _movement = Vector2.zero;
-            _gravity = Vector2.zero;
-        }
         _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
         _previousPosition = transform.position;
         if (_animator != null) Animate(_animator);
@@ -651,6 +646,11 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     }
 
     public virtual void Die()
+    {
+
+    }
+
+    public virtual void Damaged(float iFrames)
     {
 
     }

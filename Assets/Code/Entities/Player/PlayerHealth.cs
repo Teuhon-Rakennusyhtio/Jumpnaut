@@ -16,6 +16,7 @@ public class PlayerHealth : GenericHealth
     protected override void DamagedLogic(Weapon weapon)
     {
         _args.Health = _health;
+        _playerMover.Damaged(_maxInvincibilityFrames);
         OnPlayerDamaged();
     }
 

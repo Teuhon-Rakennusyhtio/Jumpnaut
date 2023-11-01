@@ -9,6 +9,7 @@ public class PlayerMover : GenericMover
 
     //[SerializeField] Animator _animator;
     //[SerializeField] protected Transform _mainRig, _leftArm, _rightArm, _climbArm;
+    MaterialPropertyBlock _materialPropertyBlock;
     public ChildDeviceManager Device;
     public int Id;
     Vector2 _cameraPosition;
@@ -17,6 +18,7 @@ public class PlayerMover : GenericMover
     bool _isRespawning;
     public float _respawnSpeed = 7f;
     public GameObject[] playerList;
+    SpriteRenderer[] _sprites;
     public GameObject closestPlayer;
     float distance;
     float closest = 1000;
@@ -37,6 +39,8 @@ public class PlayerMover : GenericMover
         _cameraPosition = Vector2.zero;
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
         _args = new HoldableEventArgs();
+        _materialPropertyBlock = new MaterialPropertyBlock();
+        _sprites = GetComponentsInChildren<SpriteRenderer>(true);
     }
 
     public void AssignPlayer(ChildDeviceManager device, int id)
@@ -45,8 +49,7 @@ public class PlayerMover : GenericMover
         Device = device;
         Id = id;
         Color colour = GameManager.GetPlayerColor(id);
-        SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>(true);
-        foreach (SpriteRenderer sprite in sprites)
+        foreach (SpriteRenderer sprite in _sprites)
         {
             sprite.color = colour;
         }
@@ -173,10 +176,43 @@ public class PlayerMover : GenericMover
     {
         Respawning();
     }
+    public override void Damaged(float iFrames)
+    {
+        StartCoroutine(IEDamaged(iFrames));
+    }
+
+    IEnumerator IEDamaged(float iFrames)
+    {
+        float maxInvinsiblityFrames = iFrames;
+        while(iFrames > 0f)
+        {
+            iFrames -= Time.deltaTime;
+            if (iFrames < 0f) iFrames = 0f;
+            float whiteness = Mathf.Sin(32 * iFrames) / 2 + 0.5f * Mathf.Min(iFrames, 1f) * 1.4f;
+
+            // * (maxInvinsiblityFrames - iFrames)
+            SetPlayerWhiteness(whiteness);
+            yield return new WaitForEndOfFrame();
+        }
+        SetPlayerWhiteness(0f);
+    }
+
+    void SetPlayerWhiteness(float whiteness)
+    {
+        foreach (SpriteRenderer sprite in _sprites)
+        {
+            sprite.GetPropertyBlock(_materialPropertyBlock);
+            _materialPropertyBlock.SetFloat("_Whiteness", whiteness);
+            sprite.SetPropertyBlock(_materialPropertyBlock);
+        }
+    }
 
     public override void Die()
     {
         _isInControl = false;
+        StartCoroutine(IEDamaged(1f));
+        _movement = Vector2.zero;
+        _gravity = Vector2.zero;
         if (_facingLeft)
         {
             PlayFullBodyAnimation("Die Left");

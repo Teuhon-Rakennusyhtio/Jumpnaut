@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class GenericHealth : MonoBehaviour
 {
     [SerializeField] int _maxHealth = 3;
-    [SerializeField] float _maxInvincibilityFrames = 0.1f;
+    [SerializeField] protected float _maxInvincibilityFrames = 0.1f;
     [SerializeField] bool _isPlayerAligned = false;
     protected bool _invincibleToCatchable = false;
     protected int _health;
