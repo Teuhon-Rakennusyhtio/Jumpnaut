@@ -40,7 +40,7 @@ public class PlayerMover : GenericMover
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
         _args = new HoldableEventArgs();
         _materialPropertyBlock = new MaterialPropertyBlock();
-        _sprites = GetComponentsInChildren<SpriteRenderer>(true);
+        if (_sprites == null) _sprites = GetComponentsInChildren<SpriteRenderer>(true);
     }
 
     public void AssignPlayer(ChildDeviceManager device, int id)
@@ -49,6 +49,7 @@ public class PlayerMover : GenericMover
         Device = device;
         Id = id;
         Color colour = GameManager.GetPlayerColor(id);
+        _sprites = GetComponentsInChildren<SpriteRenderer>(true);
         foreach (SpriteRenderer sprite in _sprites)
         {
             sprite.color = colour;
