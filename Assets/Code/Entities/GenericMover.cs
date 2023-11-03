@@ -309,7 +309,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _jumpVelocity -= _jumpForce * Mathf.Lerp(_jumpApex, _jumpFallSpeed, Mathf.Abs(_jumpVelocity) * 0.1f) * Time.fixedDeltaTime;
         }
 
-        if (_jumpInput && !_alreadyJumped)
+        if (_jumpInput && !_alreadyJumped && _isInControl)
         {
             _alreadyJumped = true;
             _jumpBuffer = _maxJumpBuffer;
@@ -513,13 +513,17 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _jumpedThisFrame = false;
         _leftLadderThisFrame = false;
         _grabbedLadderThisFrame = false;
+
+        if (_isInControl) _movement = Vector2.zero;
+
         GetInputs();
+        JumpLogic();
         CheckFacingLogic();
         CheckIfGrounded();
         CheckSlope();
         if (_isInControl)
         {
-            _movement = Vector2.zero;
+            //_movement = Vector2.zero;
 
             // Stops the entity from sliding off of sloped surfaces
             if (_currentSpeed != 0f)
@@ -534,7 +538,6 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             Move();
             UseWeaponLogic();
             ClimbLadder();
-            JumpLogic();
             TryToCatchOrThrow();
             CheckIfInsideGround();
         }
