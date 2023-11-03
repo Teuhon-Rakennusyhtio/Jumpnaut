@@ -237,7 +237,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     protected virtual void ExitLadder()
     {
         if (_climbingLadder) _jumpBuffer = 0f; // The entity should not jump off the ladder if they were going to do it before getting onto the ladder
-            _climbingLadder = false;
+        _climbingLadder = false;
         _leftLadderThisFrame = true;
 
         if (_holdingHeavyObject || !_facingLeft)
@@ -475,7 +475,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _slopeNormalPerpendicular = Vector2.Perpendicular(hit.normal).normalized;
     }
 
-    void CheckIfInsideGround()
+    protected void CheckIfInsideGround()
     {
         if (!_collider.isTrigger && !_climbingLadder) return; // This check is only relevant when the player is climbing
 
@@ -495,7 +495,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
     }
 
-    void CalculateGravity()
+    protected void CalculateGravity()
     {
         // Gravity should not affect entites which are already on ground or are climbing
         if (_groundedFrames >= 5 || _climbingLadder || _jumpVelocity != 0f)
@@ -514,6 +514,9 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _leftLadderThisFrame = false;
         _grabbedLadderThisFrame = false;
         GetInputs();
+        CheckFacingLogic();
+        CheckIfGrounded();
+        CheckSlope();
         if (_isInControl)
         {
             _movement = Vector2.zero;
@@ -527,9 +530,6 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             {
                 _collider.sharedMaterial = _standMaterial;
             }
-            CheckFacingLogic();
-            CheckIfGrounded();
-            CheckSlope();
             CalculateGravity();
             Move();
             UseWeaponLogic();
@@ -647,11 +647,13 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     public virtual void Die()
     {
-
+        
     }
 
     public virtual void Damaged(float iFrames)
     {
-
+        ExitLadder();
+        //_coyoteTime = 0f;
+        _animator?.Play((_facingLeft ? "Left " : "Right ") + "Fall");
     }
 }

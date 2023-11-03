@@ -179,6 +179,7 @@ public class PlayerMover : GenericMover
     }
     public override void Damaged(float iFrames)
     {
+        base.Damaged(iFrames);
         StartCoroutine(IEDamaged(iFrames));
     }
 
@@ -210,8 +211,23 @@ public class PlayerMover : GenericMover
 
     public override void Die()
     {
+        base.Die();
+        ExitLadder();
+        //_coyoteTime = 0f;
+        _animator?.Play((_facingLeft ? "Left " : "Right ") + "Fall");
         _isInControl = false;
         StartCoroutine(IEDamaged(1f));
+        StartCoroutine(IEDie());
+    }
+
+    IEnumerator IEDie()
+    {
+        while (!_grounded)
+        {
+            CheckIfInsideGround();
+            CalculateGravity();
+            yield return new WaitForEndOfFrame();
+        }
         _movement = Vector2.zero;
         _gravity = Vector2.zero;
         if (_facingLeft)
