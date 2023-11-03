@@ -1044,6 +1044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _positionInHand: {x: 0, y: 0}
   _weapon: {fileID: 0}
+  _weaponUseAnimation: 
   _throwFallTime: 1
   _terminalVelocity: -15
   _fallAcceleration: 1
@@ -1056,6 +1057,8 @@ MonoBehaviour:
   _durabilityType: 0
   _digitalDurability: 3
   _analogDurability: 1
+  _weaponCooldown: 0
+  _weaponAnimationSpeed: 1
   _itemIcon: {fileID: 0}
 --- !u!50 &467293154
 Rigidbody2D:

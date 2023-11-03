@@ -1,0 +1,707 @@
+fileFormatVersion: 2
+guid: 4a40f852f763b044996163ffbbb33dbb
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 512
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Slum-Tiles 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -140}
+        - {x: -256, y: -140}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c4fb6383117aae44b67efdd59f50290
+      internalID: 1510803411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -140}
+        - {x: -256, y: -256}
+        - {x: -26, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e0ab444562b1a54aa6e87d0063df6ed
+      internalID: -1075704548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_2
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 158, y: -256}
+        - {x: 158, y: 256}
+        - {x: -144, y: 256}
+        - {x: -144, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df8599e42f22cb5489794834adef90d7
+      internalID: -287137519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e6610e5a6cb296469ed22a824c66028
+      internalID: -1291761338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: 256, y: 1}
+        - {x: 256, y: 115}
+        - {x: -26, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b32d2b05528d9f04cb4a53356e00a739
+      internalID: 1494919088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_5
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 115}
+        - {x: -256, y: 1}
+        - {x: 256, y: -256}
+        - {x: 256, y: -141}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc8381c0f47a20642a88dd81df537123
+      internalID: -1287220665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_6
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7d855df811d5da4c951d6a2228dcecd
+      internalID: 625576410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_7
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -141}
+        - {x: -256, y: -141}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed40a3a2a8eb6c7458a2870a02a9c6a7
+      internalID: 1232656037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_8
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 347ddb046b6c6ba4db9b6c28528a0c82
+      internalID: 1206690181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_9
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f26924058e0c4904fa50387f295b1054
+      internalID: -1797120078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4fefc5bd5597284b93875f1678ebf06
+      internalID: 1457935823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_11
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7ef71d3defc4d847b4b806ba02d85b9
+      internalID: 1302200786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_12
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 26, y: -256}
+        - {x: 256, y: -255.5624}
+        - {x: 256, y: -141}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a12801a5e6d8b4b42a6132a8569987ef
+      internalID: -1239346509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_13
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ba7eb13f2f86e948929d3628302a376
+      internalID: 1025794098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_14
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -75, y: 256}
+        - {x: -26, y: 185}
+        - {x: -26, y: -256}
+        - {x: 31, y: -256}
+        - {x: 31, y: 184}
+        - {x: 75, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 699209d8c2a2f6d4c97ec5280aac369e
+      internalID: -554177986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_15
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38374b8e22ceff448a53c072bd3fb59a
+      internalID: -253445874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_16
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b607ecd49fd0b4e40af211998c5febaa
+      internalID: 758456942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -141}
+        - {x: -256, y: -141}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5179b340a384f894b93fe8f49ddf95f4
+      internalID: -2108161027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_18
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -141}
+        - {x: -256, y: -256}
+        - {x: 256, y: 1}
+        - {x: 256, y: 115}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21787a66808fdc2458a6a16f4b82d4c2
+      internalID: 1047943623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_19
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 26, y: 256}
+        - {x: -256, y: 115}
+        - {x: -256, y: 1}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 091faf934ed5f9045ab5c4227ec6137c
+      internalID: -917497878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_20
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40508a251dd2fa44abadd2ba3eafb9ff
+      internalID: -1514178116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_21
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 31, y: -256}
+        - {x: 31, y: 256}
+        - {x: -26, y: 256}
+        - {x: -26, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64d66efe72b66f24bbb21b084fe63271
+      internalID: 1043228194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_22
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f526444bad76c040bbfb53f8de29b80
+      internalID: -124342047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slum-Tiles 1_23
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2402738e80fce004ba5dc65d310aad04
+      internalID: -2034363106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Slum-Tiles 1_0: 1510803411
+      Slum-Tiles 1_1: -1075704548
+      Slum-Tiles 1_10: 1457935823
+      Slum-Tiles 1_11: 1302200786
+      Slum-Tiles 1_12: -1239346509
+      Slum-Tiles 1_13: 1025794098
+      Slum-Tiles 1_14: -554177986
+      Slum-Tiles 1_15: -253445874
+      Slum-Tiles 1_16: 758456942
+      Slum-Tiles 1_17: -2108161027
+      Slum-Tiles 1_18: 1047943623
+      Slum-Tiles 1_19: -917497878
+      Slum-Tiles 1_2: -287137519
+      Slum-Tiles 1_20: -1514178116
+      Slum-Tiles 1_21: 1043228194
+      Slum-Tiles 1_22: -124342047
+      Slum-Tiles 1_23: -2034363106
+      Slum-Tiles 1_3: -1291761338
+      Slum-Tiles 1_4: 1494919088
+      Slum-Tiles 1_5: -1287220665
+      Slum-Tiles 1_6: 625576410
+      Slum-Tiles 1_7: 1232656037
+      Slum-Tiles 1_8: 1206690181
+      Slum-Tiles 1_9: -1797120078
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
