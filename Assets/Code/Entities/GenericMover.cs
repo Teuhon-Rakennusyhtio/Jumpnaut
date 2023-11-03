@@ -72,9 +72,13 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         {
             _currentSpeed = Mathf.MoveTowards(_currentSpeed, 0f, Time.fixedDeltaTime * decceleration);
         }
-        else
+        else if (_isInControl)
         {
             _currentSpeed = Mathf.MoveTowards(_currentSpeed, _moveInput.x * _speed, Time.fixedDeltaTime * acceleration);
+        }
+        else
+        {
+            _currentSpeed = 0f;
         }
         // If the entity is grounded and moving, walk along the slope
         if (_grounded)
@@ -93,7 +97,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     protected virtual void UseWeaponLogic()
     {
         _currentWeaponCooldown -= Time.deltaTime;
-        if (_useInput && _holdingWeapon && _currentWeaponCooldown < 0f)
+        if (_useInput && _holdingWeapon && _currentWeaponCooldown < 0f && _isInControl)
         {
             if (!_alreadyUsed)
             {
@@ -187,7 +191,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             ExitLadder();
             return;
         }
-        if (Mathf.Abs(_moveInput.y) > 0.2f)
+        if (Mathf.Abs(_moveInput.y) > 0.2f && _isInControl)
         {
             // -------------------------------------------
             // If the entity just grabbed on to the ladder
@@ -282,7 +286,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     void JumpLogic()
     {
         // No jumping off the ladder but do remember that the entity has tried to jump already
-        if (_climbingLadder)
+        // Also don't do jump logic when the entity is being moved by external forces.
+        if (_climbingLadder || !_isInControl)
         {
             _jumpVelocity = 0f;
             _alreadyJumped = true;
@@ -309,7 +314,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _jumpVelocity -= _jumpForce * Mathf.Lerp(_jumpApex, _jumpFallSpeed, Mathf.Abs(_jumpVelocity) * 0.1f) * Time.fixedDeltaTime;
         }
 
-        if (_jumpInput && !_alreadyJumped && _isInControl)
+        if (_jumpInput && !_alreadyJumped)
         {
             _alreadyJumped = true;
             _jumpBuffer = _maxJumpBuffer;
@@ -332,7 +337,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         if (_climbingLadder) return; // Can't catch or throw stuff while on the ladder
         if (!_catchInput) _alreadyCaught = false;
 
-        if (_catchInput && !_alreadyCaught)
+        if (_catchInput && !_alreadyCaught && _isInControl)
         {
             // If the entity is holding something throw it, else try to pick up an item
             if (!_holdingSomething)
@@ -514,14 +519,33 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _leftLadderThisFrame = false;
         _grabbedLadderThisFrame = false;
 
-        if (_isInControl) _movement = Vector2.zero;
+        _movement = Vector2.zero;
 
         GetInputs();
         JumpLogic();
         CheckFacingLogic();
         CheckIfGrounded();
         CheckSlope();
+        // Stops the entity from sliding off of sloped surfaces
+        if (_currentSpeed != 0f)
+        {
+            _collider.sharedMaterial = _moveMaterial;
+        }
+        else
+        {
+            _collider.sharedMaterial = _standMaterial;
+        }
         if (_isInControl)
+        {
+            CalculateGravity();
+            CheckIfInsideGround();
+        }
+        Move();
+        UseWeaponLogic();
+        ClimbLadder();
+        TryToCatchOrThrow();
+
+        /*if (_isInControl)
         {
             //_movement = Vector2.zero;
 
@@ -540,7 +564,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             ClimbLadder();
             TryToCatchOrThrow();
             CheckIfInsideGround();
-        }
+        }*/
         _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
         _previousPosition = transform.position;
         if (_animator != null) Animate(_animator);
