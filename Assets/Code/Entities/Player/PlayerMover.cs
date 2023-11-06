@@ -150,6 +150,7 @@ public class PlayerMover : GenericMover
 
         if (collision.gameObject.tag == "Checkpoint")
         {
+            spawnpoint = transform.position;
             _regroup = true;
 
         }
@@ -164,9 +165,13 @@ public class PlayerMover : GenericMover
             transform.position = Vector3.MoveTowards(transform.position, closestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
         }
     
-        if (_regroup == true)
+        if (_regroup == true && transform.position.y < spawnpoint.y - 2)
         {
-            transform.position = Vector3.MoveTowards(transform.position, spawnpoint, _respawnSpeed * Time.deltaTime);
+            for (int i = 0; i < playerList.Length; i++)
+            {
+                SetControl(false);
+                transform.position = Vector3.MoveTowards(transform.position, spawnpoint, _respawnSpeed * Time.deltaTime);
+            }
         }
     }
 
@@ -190,6 +195,7 @@ public class PlayerMover : GenericMover
     {
         Respawning();
     }
+
     public override void Damaged(float iFrames)
     {
         base.Damaged(iFrames);
