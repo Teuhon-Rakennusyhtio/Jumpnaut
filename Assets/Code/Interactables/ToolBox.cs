@@ -20,7 +20,7 @@ public class ToolBox : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"{newHoldableObject.name} is not a holdable item and should not be use with a tool box!");
+            Debug.LogError($"{newHoldableObject.name} is not a holdable item and should not be used with a tool box!");
         }
     }
 }

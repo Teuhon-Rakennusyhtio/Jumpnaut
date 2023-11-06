@@ -15,7 +15,7 @@ public class PlayerHealthBar : MonoBehaviour
     [SerializeField] Image _heldItemIcon, _headIcon;
     [SerializeField] GameObject _healthPoint, _durabilityPoint;
     [SerializeField] RectMask2D _analogDurablityMask;
-    Color _playerColour, _damagedColour, _deadColour, _currentColour;
+    Color _playerColour, _damagedColour, _deadColour, _currentColour, _healedColour;
     PlayerMover _mover;
     GameObject[] _healthPoints;
     GameObject[] _durabilityPoints;
@@ -45,11 +45,13 @@ public class PlayerHealthBar : MonoBehaviour
         _playerColour = colour;
         _damagedColour = Color.Lerp(_playerColour, new Color(0.125f, 0f, 0.25f), 0.2f);
         _deadColour = Color.Lerp(_playerColour, new Color(0.125f, 0f, 0.25f), 0.7f);
+        _healedColour = Color.Lerp(_playerColour, Color.white, 0.7f);
 
         _mover = mover;
 
         health.PlayerDamaged += OnPlayerDamaged;
         health.PlayerDeath += OnPlayerDeath;
+        health.PlayerHealed += OnPlayerHealed;
         mover.ItemPickup += OnItemPickup;
         mover.ItemDurabilityChange += OnItemDurabilityChange;
         mover.ItemCleared += OnItemCleared;
@@ -109,6 +111,19 @@ public class PlayerHealthBar : MonoBehaviour
         _currentHealth = 0;
         _headIcon.sprite = _headDead;
         QuickLerpToColour(_deadColour);
+    }
+
+    public void OnPlayerHealed(object source, PlayerHealthEventArgs args)
+    {
+        QuickLerpToColour(_healedColour);
+        StartCoroutine(Shake(GetComponent<RectTransform>()));
+        Invoke(nameof(ReturnToNormal), 0.5f);
+        for (int i = _currentHealth - 1; i <= args.Health; i++)
+        {
+            _healthPoints[i].GetComponent<Image>().color = _playerColour;
+            StartCoroutine(Shake(_healthPoints[i].GetComponent<RectTransform>()));
+        }
+        _currentHealth = args.Health;
     }
 
     public void OnItemPickup(object source, HoldableEventArgs args)
