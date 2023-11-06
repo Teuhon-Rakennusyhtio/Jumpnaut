@@ -29,6 +29,7 @@ public class PlayerHealth : GenericHealth
     public override void Heal(int amount)
     {
         base.Heal(amount);
+        _args.Health = _health;
         OnPlayerHealed();
     }
 

@@ -115,15 +115,15 @@ public class PlayerHealthBar : MonoBehaviour
 
     public void OnPlayerHealed(object source, PlayerHealthEventArgs args)
     {
-        QuickLerpToColour(_healedColour);
-        StartCoroutine(Shake(GetComponent<RectTransform>()));
-        Invoke(nameof(ReturnToNormal), 0.5f);
-        for (int i = _currentHealth; i <= args.Health + 1; i++)
+        //StartCoroutine(Shake(GetComponent<RectTransform>()));
+        for (int i = _currentHealth; i < args.Health; i++)
         {
             _healthPoints[i].GetComponent<Image>().color = _playerColour;
-            StartCoroutine(Shake(_healthPoints[i].GetComponent<RectTransform>()));
+            StartCoroutine(Raise(_healthPoints[i].GetComponent<RectTransform>()));
         }
         _currentHealth = args.Health;
+        QuickLerpToColour(_healedColour);
+        Invoke(nameof(ReturnToNormal), 0.5f);
     }
 
     public void OnItemPickup(object source, HoldableEventArgs args)
@@ -201,6 +201,23 @@ public class PlayerHealthBar : MonoBehaviour
         while (duration > 0f)
         {
             Vector3 shake = new Vector3(Mathf.Sin(duration * 16), Mathf.Sin(duration * 32) * 2, 0) * magnitude * duration;
+
+            rt.localPosition = originalPosition + shake;
+            yield return new WaitForEndOfFrame();
+            duration -= Time.deltaTime;
+        }
+
+        rt.localPosition = originalPosition;
+    }
+
+    IEnumerator Raise(RectTransform rt, float magnitude = 2f)
+    {
+        Vector3 originalPosition = rt.localPosition;
+        float duration = 0.5f;
+
+        while (duration > 0f)
+        {
+            Vector3 shake = new Vector3(0, Mathf.Sin(duration * 32) * 2, 0) * magnitude * duration;
 
             rt.localPosition = originalPosition + shake;
             yield return new WaitForEndOfFrame();
