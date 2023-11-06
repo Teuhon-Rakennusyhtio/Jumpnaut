@@ -44,11 +44,13 @@ public class Holdable : MonoBehaviour
     int _maxDigitalDurability;
     bool _broken;
     float _debrisAngle = 1.25f;
+    protected bool _isHelmet = false;
 
     public Sprite ItemIcon { get { return _itemIcon; } }
     public int DigitalDurability { get { return _digitalDurability; } }
     public float AnalogDurability { get { return _analogDurability; } }
     public string WeaponUseAnimation { get { return _weaponUseAnimation; } }
+    public bool IsHelmet { get { return _isHelmet; } }
 
     
     void Awake()

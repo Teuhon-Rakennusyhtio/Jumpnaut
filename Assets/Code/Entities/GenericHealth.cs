@@ -75,6 +75,11 @@ public abstract class GenericHealth : MonoBehaviour
         DamagedLogic(weapon);
     }
 
+    public void Heal(int amount)
+    {
+        Debug.Log($"Healed {amount}");
+    }
+
     public WeaponAlignment Alignment
     {
         get

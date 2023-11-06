@@ -13,11 +13,11 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _groundDecceleration = 1f, _airDecceleration = 1f;
     [SerializeField] protected LayerMask _groundLayer, _holdableLayer;
     [SerializeField] PhysicsMaterial2D _standMaterial, _moveMaterial;
-    [SerializeField] protected Transform _handTransform;
+    [SerializeField] protected Transform _handTransform, _headTransform;
     [SerializeField] protected GenericHealth _health;
     [SerializeField] protected Animator _animator;
     [SerializeField] protected Transform _mainRig, _leftArm, _rightArm, _climbArm;
-    protected Holdable _heldItem;
+    protected Holdable _heldItem, _helmet;
     protected Vector2 _movement, _slopeNormalPerpendicular,
     _gravity, _moveInput, _previousPosition;
     Rigidbody2D _rigidBody;
@@ -125,6 +125,16 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     protected virtual void StartUsingWeapon()
     {
         _heldItem.Attack();
+        if (_heldItem.IsHelmet)
+        {
+            _health.Heal(3);
+            _helmet = _heldItem;
+            ClearHand();
+            _helmet.transform.parent = _headTransform;
+            _helmet.transform.localPosition = Vector3.zero;
+            _helmet.transform.localScale = Vector3.one;
+            _helmet.transform.localRotation = Quaternion.identity;
+        }
     }
 
     protected virtual void ActivelyUsingWeapon()
@@ -139,10 +149,6 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     protected virtual void FlipLogic()
     {
-        /*if (_heldItemIsFlipalbe)
-        {
-            _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
-        }*/
         if (!_heldItemIsFlipalbe)
         {
             _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
