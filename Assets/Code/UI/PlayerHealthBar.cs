@@ -118,7 +118,7 @@ public class PlayerHealthBar : MonoBehaviour
         QuickLerpToColour(_healedColour);
         StartCoroutine(Shake(GetComponent<RectTransform>()));
         Invoke(nameof(ReturnToNormal), 0.5f);
-        for (int i = _currentHealth - 1; i <= args.Health; i++)
+        for (int i = _currentHealth; i <= args.Health + 1; i++)
         {
             _healthPoints[i].GetComponent<Image>().color = _playerColour;
             StartCoroutine(Shake(_healthPoints[i].GetComponent<RectTransform>()));
