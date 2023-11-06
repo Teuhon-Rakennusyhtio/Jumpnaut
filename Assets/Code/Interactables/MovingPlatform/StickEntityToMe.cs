@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StickEntityToMe : MonoBehaviour
 {
-    Vector2 _oldPosition;
+    /*Vector2 _oldPosition;
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 7)
@@ -32,5 +32,5 @@ public class StickEntityToMe : MonoBehaviour
             child.position = (Vector2)child.position + (Vector2)transform.position - _oldPosition;
         }
         _oldPosition = transform.position;
-    }
+    }*/
 }
