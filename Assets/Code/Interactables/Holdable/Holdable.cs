@@ -18,6 +18,7 @@ public class Holdable : MonoBehaviour
     [SerializeField] Vector2 _positionInHand;
     [SerializeField] protected Weapon _weapon;
     [SerializeField] protected string _weaponUseAnimation;
+    ToolBox _toolbox;
     protected Collider2D _weaponCollider;
     protected GenericMover _holder;
     SpriteRenderer _renderer;
@@ -51,6 +52,20 @@ public class Holdable : MonoBehaviour
     public float AnalogDurability { get { return _analogDurability; } }
     public string WeaponUseAnimation { get { return _weaponUseAnimation; } }
     public bool IsHelmet { get { return _isHelmet; } }
+    public ToolBox ToolBox
+    {
+        get
+        {
+            return _toolbox;
+        }
+        set
+        {
+            if (_toolbox == null)
+            {
+                _toolbox = value;
+            }
+        }
+    }
 
     
     void Awake()
@@ -227,6 +242,8 @@ public class Holdable : MonoBehaviour
 
     protected virtual void OnPickup(Transform hand, GenericHealth health)
     {
+        _toolbox?.SpawnNewHoldable();
+        _toolbox = null;
         if (health != null && _weapon != null)
         {
             _weapon.Alignment = health.Alignment;

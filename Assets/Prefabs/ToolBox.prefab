@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1324417690737550717}
   - component: {fileID: 6228730164437919894}
+  - component: {fileID: 1351471348227895023}
   m_Layer: 0
   m_Name: ToolBox
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4be0eaa83bcf51d4baec1970e4b18244, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -85,6 +86,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1351471348227895023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223915083577016812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1d399e2f51f1848b27f6a214b2a16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _holdable: {fileID: 926660258940846467, guid: f812c8f1427526a44a02aeac10fa315d, type: 3}
 --- !u!1 &5610019854293472222
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,8 +165,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.011200011, y: 0.5502, z: 0}
-    m_Extent: {x: 1.3889999, y: 1.252, z: 0}
+    m_Center: {x: 0.0059500337, y: 0.54415, z: 0}
+    m_Extent: {x: 1.38925, y: 1.25725, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
