@@ -26,10 +26,18 @@ public class PlayerHealth : GenericHealth
         OnPlayerDeath();
     }
 
+    public override void Heal(int amount)
+    {
+        base.Heal(amount);
+        OnPlayerHealed();
+    }
+
     public delegate void PlayerDamagedEventHandler(object source, PlayerHealthEventArgs args);
     public delegate void PlayerDeathEventHandler(object source, PlayerHealthEventArgs args);
+    public delegate void PlayerHealedEventHandler(object source, PlayerHealthEventArgs args);
     public event PlayerDamagedEventHandler PlayerDamaged;
     public event PlayerDeathEventHandler PlayerDeath;
+    public event PlayerHealedEventHandler PlayerHealed;
 
     protected virtual void OnPlayerDamaged()
     {
@@ -39,6 +47,11 @@ public class PlayerHealth : GenericHealth
     protected virtual void OnPlayerDeath()
     {
         PlayerDeath?.Invoke(this, _args);
+    }
+
+    protected virtual void OnPlayerHealed()
+    {
+        PlayerHealed?.Invoke(this, _args);
     }
 }
 

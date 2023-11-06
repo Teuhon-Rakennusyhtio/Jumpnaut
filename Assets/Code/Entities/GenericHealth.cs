@@ -22,6 +22,14 @@ public abstract class GenericHealth : MonoBehaviour
         }
     }
 
+    public int CurrentHealth
+    {
+        get
+        {
+            return _health;
+        }
+    }
+
     void Awake()
     {
         _weaponLayer = LayerMask.NameToLayer("Weapon");
@@ -53,7 +61,7 @@ public abstract class GenericHealth : MonoBehaviour
         _weapons.Remove(weapon);
     }
 
-    public void Damaged(Weapon weapon, Vector2 position)
+    public virtual void Damaged(Weapon weapon, Vector2 position)
     {
         /*if (
             (_isPlayerAligned && weapon.Alignment == 0) ||
@@ -75,9 +83,14 @@ public abstract class GenericHealth : MonoBehaviour
         DamagedLogic(weapon);
     }
 
-    public void Heal(int amount)
+    protected virtual void DamagedLogic(Weapon weapon)
     {
-        Debug.Log($"Healed {amount}");
+        
+    }
+
+    public virtual void Heal(int amount)
+    {
+        _health = Mathf.Min(_maxHealth, _health + amount);
     }
 
     public WeaponAlignment Alignment
@@ -88,27 +101,16 @@ public abstract class GenericHealth : MonoBehaviour
         }
     }
 
-    protected virtual void DamagedLogic(Weapon weapon)
-    {
-
-    }
-
     protected virtual void Die()
     {
         
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (_invincibilityFrames > 0f)
         {
             _invincibilityFrames -= Time.deltaTime;
         }
-        UpdateLogic();
-    }
-
-    protected virtual void UpdateLogic()
-    {
-        
     }
 }

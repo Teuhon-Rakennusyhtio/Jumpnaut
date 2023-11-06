@@ -17,7 +17,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     [SerializeField] protected GenericHealth _health;
     [SerializeField] protected Animator _animator;
     [SerializeField] protected Transform _mainRig, _leftArm, _rightArm, _climbArm;
-    protected Holdable _heldItem, _helmet;
+    protected Holdable _heldItem;
     protected Vector2 _movement, _slopeNormalPerpendicular,
     _gravity, _moveInput, _previousPosition;
     Rigidbody2D _rigidBody;
@@ -37,6 +37,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
      _grabbedLadderThisFrame, _leftLadderThisFrame,
     _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut,
     _alreadyUsed, _currentlyUsing, _isInControl = true;
+    [SerializeField] SpriteRenderer _helmetMain, _helmetClimb;
 
     protected string _weaponUseAnimation;
     protected bool _jumpInput, _useInput, _catchInput;
@@ -127,13 +128,15 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _heldItem.Attack();
         if (_heldItem.IsHelmet)
         {
-            _health.Heal(3);
-            _helmet = _heldItem;
-            ClearHand();
-            _helmet.transform.parent = _headTransform;
-            _helmet.transform.localPosition = Vector3.zero;
-            _helmet.transform.localScale = Vector3.one;
-            _helmet.transform.localRotation = Quaternion.identity;
+            if (_helmetMain != null && _health.CurrentHealth < _health.MaxHealth)
+            {
+                _health.Heal(3);
+                Destroy(_heldItem.gameObject);
+                ClearHand();
+                _animator?.Play("Equip Helmet" + (_facingLeft ? " Left" : " Right"), -1, 0f);
+                _helmetMain.enabled = true;
+                _helmetClimb.enabled = true;
+            }
         }
     }
 
@@ -688,5 +691,10 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         ExitLadder();
         //_coyoteTime = 0f;
         _animator?.Play((_facingLeft ? "Left " : "Right ") + "Fall");
+        if (_health.CurrentHealth <= 1 && _helmetMain != null)
+        {
+            _helmetMain.enabled = false;
+            _helmetClimb.enabled = false;
+        }
     }
 }
