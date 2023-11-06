@@ -16,6 +16,7 @@ public class PlayerMover : GenericMover
     HoldableEventArgs _args;
     bool _pauseInput;//, _throwAnimationStarted;
     bool _isRespawning;
+    bool _regroup;
     public float _respawnSpeed = 7f;
     public GameObject[] playerList;
     SpriteRenderer[] _sprites;
@@ -23,6 +24,7 @@ public class PlayerMover : GenericMover
     float distance;
     float closest = 1000;
     private Transform targetPlayer;
+    private Vector2 spawnpoint;
     public float smoothTime = 0;
     private Vector2 velocity = Vector2.zero;
 
@@ -145,15 +147,26 @@ public class PlayerMover : GenericMover
             SetControl(true);
             Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
         }  
+
+        if (collision.gameObject.tag == "Checkpoint")
+        {
+            _regroup = true;
+
+        }
     }
 
     void Respawning()
     {
 
-    if (_isRespawning == true)
+        if (_isRespawning == true)
         {
             float distance = Vector3.Distance(transform.position, closestPlayer.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, closestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
+        }
+    
+        if (_regroup == true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, spawnpoint, _respawnSpeed * Time.deltaTime);
         }
     }
 
