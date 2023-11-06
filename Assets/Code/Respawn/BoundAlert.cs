@@ -19,7 +19,7 @@ public class BoundAlert : MonoBehaviour
         {
             respawning = true;
         }
-        else if (col.gameObject.name == "SpawnPivot")
+        else if (col.gameObject.tag == "Player")
         {
             respawning = false;
         }

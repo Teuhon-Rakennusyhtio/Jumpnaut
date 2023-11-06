@@ -15,8 +15,9 @@ public class PlayerMover : GenericMover
     Vector2 _cameraPosition;
     HoldableEventArgs _args;
     bool _pauseInput;//, _throwAnimationStarted;
-    bool _isRespawning;
+    bool _isRegrouping;
     bool _regroup;
+    bool _isDead;
     public float _respawnSpeed = 7f;
     public GameObject[] playerList;
     SpriteRenderer[] _sprites;
@@ -24,7 +25,7 @@ public class PlayerMover : GenericMover
     float distance;
     float closest = 1000;
     private Transform targetPlayer;
-    private Vector2 spawnpoint;
+    private GameObject spawnpoint;
     public float smoothTime = 0;
     private Vector2 velocity = Vector2.zero;
 
@@ -43,6 +44,7 @@ public class PlayerMover : GenericMover
         _args = new HoldableEventArgs();
         _materialPropertyBlock = new MaterialPropertyBlock();
         if (_sprites == null) _sprites = GetComponentsInChildren<SpriteRenderer>(true);
+        spawnpoint = GameObject.Find("Spawnpoint");
     }
 
     public void AssignPlayer(ChildDeviceManager device, int id)
@@ -133,46 +135,53 @@ public class PlayerMover : GenericMover
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("MainCamera"))
+        if (collision.CompareTag("MainCamera") && _isDead == false)
         {
-            _isRespawning = true;
+            _isRegrouping = true;
             SetControl(false);
             Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
             FindClosestPlayer();
         }
 
-        if (collision.gameObject.tag == "SpawnPivot" && _isRespawning == true)
+        if (collision.gameObject.tag == "SpawnPivot" && _isRegrouping == true)
         {
-            _isRespawning = false;
+            _isRegrouping = false;
             SetControl(true);
             Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
         }  
 
         if (collision.gameObject.tag == "Checkpoint")
         {
-            spawnpoint = transform.position;
-            _regroup = true;
+            spawnpoint.transform.position = transform.position;
+            Debug.Log("Spawnpoint set");
+        }
 
+        if (collision.gameObject.tag == "Player" && _isDead == true)
+        {
+            _isDead = false;
+            Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
         }
     }
 
     void Respawning()
     {
-
-        if (_isRespawning == true)
+        if (_isRegrouping == true)
         {
             float distance = Vector3.Distance(transform.position, closestPlayer.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, closestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
         }
-    
-        if (_regroup == true && transform.position.y < spawnpoint.y - 2)
+
+        if (_isDead == true)
         {
-            for (int i = 0; i < playerList.Length; i++)
-            {
-                SetControl(false);
-                transform.position = Vector3.MoveTowards(transform.position, spawnpoint, _respawnSpeed * Time.deltaTime);
-            }
+            StartCoroutine(IEMourn());
+            Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
         }
+    }
+
+    IEnumerator IEMourn()
+    {
+        yield return new WaitForSeconds(5);
+        transform.position = spawnpoint.transform.position;
     }
 
     void FindClosestPlayer()
@@ -234,7 +243,7 @@ public class PlayerMover : GenericMover
         ExitLadder();
         //_coyoteTime = 0f;
         _animator?.Play((_facingLeft ? "Left " : "Right ") + "Fall");
-        _isInControl = false;
+        SetControl(false);
         StartCoroutine(IEDamaged(1f));
         StartCoroutine(IEDie());
     }
@@ -257,5 +266,6 @@ public class PlayerMover : GenericMover
         {
             PlayFullBodyAnimation("Die Right");
         }
+        _isDead = true;
     }
 }
