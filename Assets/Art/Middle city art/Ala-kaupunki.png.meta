@@ -1,0 +1,1029 @@
+fileFormatVersion: 2
+guid: c64b54bef39ae984bbb8c2d38e895c70
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 512
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ala-kaupunki_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e072e4201124ecc43bf2024d10ad9875
+      internalID: 1188842665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cd2dd2082441c1458efa2640bb9968f
+      internalID: 638914009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_2
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c88e1ae5b6bea7f47b11fc8aea583c6c
+      internalID: -1972844126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_3
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 211ad40fcc20b064985a8ad30390b2d2
+      internalID: 1888759179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_4
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 121}
+        - {x: 229, y: 155}
+        - {x: 208, y: 188}
+        - {x: 178, y: 214}
+        - {x: 148, y: 234}
+        - {x: 106, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1259b0ecc38e8984e95d504660e8c3b9
+      internalID: -623223967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cd52387755362748895f005396bf28b
+      internalID: -2086439975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1de78017e1131604a8c630fe5fa5e83c
+      internalID: -551038404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_7
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3eaaff377e54daf489c626809f1a242c
+      internalID: 461206369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_8
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bcc7523fbae68642b4607f5a079cb5a
+      internalID: -726089150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_9
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 44, y: 256}
+        - {x: 45, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03ead0826542eb34e846a9937d3780a0
+      internalID: 703948087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_10
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: -44, y: -256}
+        - {x: -44, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8907cc094d9a194eb4d93517e3ed2ea
+      internalID: -1750651029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ece04db46be3a0429a974a0291eb9c4
+      internalID: -1908771617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_12
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c20c9fb220896484fab4f7e929982f5a
+      internalID: -1808718105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_13
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 256, y: 256}
+        - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aef3e22bea29a4c4b8163bd2dea8562b
+      internalID: -289603322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_14
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8ba217f776303c46863d699ea56d1b2
+      internalID: 1036407973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_15
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -85}
+        - {x: -256, y: -85}
+      - - {x: 42.50006, y: 256}
+        - {x: 44.00006, y: 252}
+        - {x: 256, y: 252}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6b6a75968f114a48b7770001cb3db09
+      internalID: -924498551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_16
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5163b86b8658f643ab0d54038acba46
+      internalID: 1402006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 256, y: -256}
+        - {x: 256, y: 256}
+        - {x: -256, y: 256}
+        - {x: -256, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e76610cf0fefcb141b9e1a6439b37799
+      internalID: 1473255792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_18
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0104414086b4d444a140433f645a581
+      internalID: 168302098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_19
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61f7e0dc18ffd5b4b84286641f570f11
+      internalID: 712213705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_20
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -147, y: 256}
+        - {x: -146, y: 212}
+        - {x: -129, y: 170}
+        - {x: -97, y: 130}
+        - {x: -59, y: 108}
+        - {x: -24, y: 90}
+        - {x: -23, y: -256}
+        - {x: 28, y: -256}
+        - {x: 28, y: 91}
+        - {x: 82, y: 116}
+        - {x: 120, y: 151}
+        - {x: 149, y: 211}
+        - {x: 153, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a299c509cc8b1f24698d3ae46832867c
+      internalID: -1802147322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_21
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 60, y: -256}
+        - {x: 256, y: -255.49997}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebafbd477e3d647408612b09854e22f7
+      internalID: 364903473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_22
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: -60, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac7e51606b8f71f48b4f1c1d682ed5c5
+      internalID: -1569149526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 122}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+        - {x: -106, y: 256}
+        - {x: -146, y: 234}
+        - {x: -181, y: 211}
+        - {x: -211, y: 185}
+        - {x: -236, y: 148}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 114539b89e69c3243976625402f1a77c
+      internalID: -1401582357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_24
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04bbebe776f9df248b9d3accad36dd3f
+      internalID: 152332733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_25
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23, y: 256}
+        - {x: -22, y: -256}
+        - {x: 28, y: -256}
+        - {x: 28, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d5f92e42758ca1429d517b5ae568fcd
+      internalID: -1528508126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_26
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 60, y: 256}
+        - {x: -107, y: -182}
+        - {x: -256, y: -183}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e2c62ec7f0f5fc4886de89fab9c9846
+      internalID: 1083366525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_27
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -60, y: 256}
+        - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -183}
+        - {x: 108, y: -183}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 490e36c166516d3458468d49cec3a489
+      internalID: -901434977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -141, y: 256}
+        - {x: -135, y: 201}
+        - {x: -120, y: 165}
+        - {x: -98, y: 132}
+        - {x: -67, y: 99}
+        - {x: -18, y: 71}
+        - {x: 45, y: 57}
+        - {x: 46, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6310c0c54b28794a8c1874a52676fc9
+      internalID: -101498323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_29
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: -256}
+        - {x: -46, y: -256}
+        - {x: -44, y: 55}
+        - {x: 1, y: 63}
+        - {x: 54, y: 88}
+        - {x: 99, y: 131}
+        - {x: 123, y: 166}
+        - {x: 138, y: 213}
+        - {x: 143, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f58503bdb0d4c184c883c484cd9eb03a
+      internalID: 103365048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_30
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -85}
+        - {x: -256, y: -85}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae733e129a3c0f94e86d37054fc62807
+      internalID: 550769593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_31
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -22, y: 256}
+        - {x: -21, y: 68}
+        - {x: -46, y: 61}
+        - {x: -86, y: 37}
+        - {x: -118, y: -4}
+        - {x: -135, y: -52}
+        - {x: -135, y: -85}
+        - {x: -256, y: -85}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -86}
+        - {x: 156, y: -86}
+        - {x: 156, y: -62}
+        - {x: 153, y: -40}
+        - {x: 139, y: -2}
+        - {x: 100, y: 43}
+        - {x: 54, y: 65}
+        - {x: 28, y: 70}
+        - {x: 28, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7899405a7b1fcbe45a5244b6bc353dca
+      internalID: 799236302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_32
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -86}
+        - {x: -256, y: -85}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92e426fb6b82bcc488596e82e3053eac
+      internalID: 1615586109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_33
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 374260ef4b7573a49aab75d4449e4ab6
+      internalID: -1495121518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Ala-kaupunki_0: 1188842665
+      Ala-kaupunki_1: 638914009
+      Ala-kaupunki_10: -1750651029
+      Ala-kaupunki_11: -1908771617
+      Ala-kaupunki_12: -1808718105
+      Ala-kaupunki_13: -289603322
+      Ala-kaupunki_14: 1036407973
+      Ala-kaupunki_15: -924498551
+      Ala-kaupunki_16: 1402006
+      Ala-kaupunki_17: 1473255792
+      Ala-kaupunki_18: 168302098
+      Ala-kaupunki_19: 712213705
+      Ala-kaupunki_2: -1972844126
+      Ala-kaupunki_20: -1802147322
+      Ala-kaupunki_21: 364903473
+      Ala-kaupunki_22: -1569149526
+      Ala-kaupunki_23: -1401582357
+      Ala-kaupunki_24: 152332733
+      Ala-kaupunki_25: -1528508126
+      Ala-kaupunki_26: 1083366525
+      Ala-kaupunki_27: -901434977
+      Ala-kaupunki_28: -101498323
+      Ala-kaupunki_29: 103365048
+      Ala-kaupunki_3: 1888759179
+      Ala-kaupunki_30: 550769593
+      Ala-kaupunki_31: 799236302
+      Ala-kaupunki_32: 1615586109
+      Ala-kaupunki_33: -1495121518
+      Ala-kaupunki_4: -623223967
+      Ala-kaupunki_5: -2086439975
+      Ala-kaupunki_6: -551038404
+      Ala-kaupunki_7: 461206369
+      Ala-kaupunki_8: -726089150
+      Ala-kaupunki_9: 703948087
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
