@@ -2929,7 +2929,7 @@ GameObject:
   - component: {fileID: 2501000971960019370}
   - component: {fileID: 4410037986217429199}
   - component: {fileID: 6231953176952283961}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2995,7 +2995,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -4942,16 +4942,16 @@ MonoBehaviour:
   _speed: 7
   _climbingSpeed: 5
   _maxJumpBuffer: 0.2
-  _maxCoyoteTime: 0.1
-  _jumpForce: 13
-  _jumpApex: 0.2
-  _jumpFallSpeed: 3
+  _maxCoyoteTime: 0.15
+  _jumpForce: 20
+  _jumpApex: 0.3
+  _jumpFallSpeed: 3.6
   _fallAcceleration: 1
-  _maxGravity: -15
-  _groundAcceleration: 1
-  _airAcceleration: 1
-  _groundDecceleration: 1
-  _airDecceleration: 1
+  _maxGravity: -12
+  _groundAcceleration: 80
+  _airAcceleration: 70
+  _groundDecceleration: 60
+  _airDecceleration: 40
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
