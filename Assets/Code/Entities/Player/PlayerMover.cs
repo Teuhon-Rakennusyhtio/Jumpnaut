@@ -156,11 +156,11 @@ public class PlayerMover : GenericMover
             Debug.Log("Spawnpoint set");
         }
 
-        if (collision.gameObject.tag == "Player" && _isDead == true)
+        /*if (collision.gameObject.tag == "Player" && _isDead == true)
         {
             _isDead = false;
             Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
-        }
+        }*/
     }
 
     void Respawning()
