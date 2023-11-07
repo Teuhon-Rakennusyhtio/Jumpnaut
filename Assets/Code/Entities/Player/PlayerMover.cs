@@ -24,6 +24,7 @@ public class PlayerMover : GenericMover
     public GameObject closestPlayer;
     float distance;
     float closest = 1000;
+    private DeathManager dm;
     private Transform targetPlayer;
     private GameObject spawnpoint;
     public float smoothTime = 0;
@@ -45,6 +46,7 @@ public class PlayerMover : GenericMover
         _materialPropertyBlock = new MaterialPropertyBlock();
         if (_sprites == null) _sprites = GetComponentsInChildren<SpriteRenderer>(true);
         spawnpoint = GameObject.Find("Spawnpoint");
+        dm = GameObject.FindObjectOfType<DeathManager>();
     }
 
     public void AssignPlayer(ChildDeviceManager device, int id)
@@ -173,7 +175,10 @@ public class PlayerMover : GenericMover
 
         if (_isDead == true)
         {
-            StartCoroutine(IEMourn());
+            if (dm.DeathToll(playerList.Length) == true)
+            {
+                StartCoroutine(IEMourn());
+            }
             Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
         }
     }
@@ -267,5 +272,7 @@ public class PlayerMover : GenericMover
             PlayFullBodyAnimation("Die Right");
         }
         _isDead = true;
+        dm.DeathCount();
+        playerList = GameObject.FindGameObjectsWithTag("Player");
     }
 }
