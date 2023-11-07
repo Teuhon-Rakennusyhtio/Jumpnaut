@@ -18,10 +18,10 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     [SerializeField] protected Animator _animator;
     [SerializeField] protected Transform _mainRig, _leftArm, _rightArm, _climbArm;
     protected Holdable _heldItem;
-    protected Vector2 _movement, _slopeNormalPerpendicular,
+    protected Vector2 _movement, _slopeNormal, _slopeNormalPerpendicular,
     _gravity, _moveInput, _previousPosition;
     Rigidbody2D _rigidBody;
-    Collider2D _collider;
+    protected Collider2D _collider;
     float _jumpBuffer = 0f, _coyoteTime = 0f,
      _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord,
      _ladderBottom, _ladderTop, _currentSpeed, _currentWeaponCooldown,
@@ -485,7 +485,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         {
             hit = hitBehind;
         }
-
+        _slopeNormal = hit.normal.normalized;
         _slopeNormalPerpendicular = Vector2.Perpendicular(hit.normal).normalized;
     }
 
