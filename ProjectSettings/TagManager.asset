@@ -9,6 +9,7 @@ TagManager:
   - SpawnPivot
   - Enemy
   - Checkpoint
+  - Audio
   layers:
   - Default
   - TransparentFX
