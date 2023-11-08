@@ -37,7 +37,9 @@ public class EnemyMover : GenericMover
     Vector2 _potentialLadderPos;
     Vector2 _waypoint;
     Transform _target;
+    Vector2 _targetOldPosition;
     float _aggroTime, _idleTime;
+    Holdable _targetHoldable;
     EnemyState _enemyState = EnemyState.StandingStill;
 
     /*void Start()
@@ -63,11 +65,11 @@ public class EnemyMover : GenericMover
         switch (_enemyState)
         {
             case EnemyState.StandingStill:
-                if (_canSearchForWeapons && Time.frameCount % 8 == 0 && _idleTime > 1f && CheckForWeaponsNearby())
+                if (WeaponCheck())
                 {
                     SetState(EnemyState.SearchingForWeapon);
                 }
-                else if (_patrolsWhenIdle && _idleTime > 2f)
+                else if (_patrolsWhenIdle && _idleTime > 0.2f)
                     SetState(EnemyState.Patrolling);
                 break;
             case EnemyState.Patrolling:
@@ -83,7 +85,7 @@ public class EnemyMover : GenericMover
                     }
                 }
                 _moveInput = (Vector2.right * (_waypoint - (Vector2)transform.position).x).normalized * 0.7f;
-                if (_canSearchForWeapons && Time.frameCount % 20 == 0 && CheckForWeaponsNearby())
+                if (WeaponCheck())
                     SetState(EnemyState.SearchingForWeapon);
                 break;
             case EnemyState.ChasingPlayer:
@@ -93,8 +95,10 @@ public class EnemyMover : GenericMover
             case EnemyState.EscapingPlayer:
                 break;
             case EnemyState.SearchingForWeapon:
+                if (_targetHoldable.BeingHeld)
+                    _target = null;
                 PathFindToTarget();
-                if (NearToPoint((Vector2)_target.position, 0.5f))
+                if (_target != null && NearToPoint((Vector2)_target.position, 0.5f))
                 {
                     _catchInput = true;
                 }
@@ -149,6 +153,7 @@ public class EnemyMover : GenericMover
                     if (holdable != null && !holdable.BeingHeld && holdable.GetType() != typeof(Helmet))
                     {
                         _target = holdable.transform;
+                        _targetHoldable = holdable;
                     }
                 }
                 if (_target == null)
@@ -211,6 +216,13 @@ public class EnemyMover : GenericMover
                 {
                     if (!_newLadderFound || Mathf.Abs(ladderRaycast.point.x - _target.position.x) < Mathf.Abs(_potentialLadderPos.x - _target.position.x))
                     {
+                        float ladderPosition = (int)(ladderRaycast.point.x) + 0.5f;
+                        if (!Physics2D.OverlapPoint(new Vector2(ladderPosition, ladderRaycast.point.y)))
+                        {
+                            ladderPosition -= 1;
+                        }
+                        
+                        Debug.Log(ladderPosition);
                         _newLadderFound = true;
                         _ladderDirection = direction;
                         _potentialLadderPos = ladderRaycast.point;
@@ -243,13 +255,24 @@ public class EnemyMover : GenericMover
 
     void PathFindToTarget()
     {
-        Debug.DrawLine(transform.position, _waypoint, Color.red);
-        if (_waypoint != Vector2.zero && !NearToPoint(_waypoint))
+        // Can't pathfind to target because it doesn't exist anymore;
+        if (_target == null)
         {
-            if (_newLadderFound && _nextToLadder && NearToPoint(_potentialLadderPos, 0.2f))
+            SetState(EnemyState.StandingStill);
+            return;
+        }
+
+        Debug.DrawLine(transform.position, _waypoint, Color.red);
+
+        // Move to the waypoint
+        if (_waypoint != Vector2.zero && !NearToPoint(_waypoint) && ((Vector2)_target.position - _targetOldPosition).sqrMagnitude < 0.2f)
+        {
+            if (_newLadderFound && _nextToLadder && Mathf.Abs(_potentialLadderPos.x - transform.position.x) < 0.1f)
             {
                 _newLadderFound = false;
                 _moveInput = Vector2.up;
+                Vector2? ladderEnd = _target.position.y > transform.position.y ? Ladder.GetLadderTop(_collider, _ladderXCoord) : Ladder.GetLadderBottom(_collider, _ladderXCoord);
+                _waypoint = (Vector2)ladderEnd;
             }
             else if (!_climbingLadder)
             {
@@ -260,19 +283,22 @@ public class EnemyMover : GenericMover
                 _moveInput = (Vector2.up * (_waypoint - (Vector2)transform.position).y).normalized;
             }
         }
+
+        // Find a new waypoint
         else
         {
             _moveInput = Vector2.right;
             _newLadderFound = false;
             Vector2 leftWaypoint = FindEndOfPlatformTargetOrLadder(ToLeft);
             Vector2 rightWaypoint = FindEndOfPlatformTargetOrLadder(ToRight);
-            
             if (leftWaypoint == (Vector2)_target.position)
             {
+                _newLadderFound = false;
                 _waypoint = leftWaypoint;
             }
             else if (rightWaypoint == (Vector2)_target.position)
             {
+                _newLadderFound = false;
                 _waypoint = rightWaypoint;
             }
             else if (_newLadderFound)
@@ -287,7 +313,7 @@ public class EnemyMover : GenericMover
             {
                 _waypoint = rightWaypoint;
             }
-
+            _targetOldPosition = _target.position;
         }
     }
 
@@ -304,6 +330,20 @@ public class EnemyMover : GenericMover
             }
         }
         return weaponsNearby;
+    }
+
+    bool WeaponCheck()
+    {
+        if (!_canSearchForWeapons)
+            return false;
+        if (_heldItem != null)
+            return false;
+        if ((int)(Time.time * 10) % 8 != 0)
+            return false;
+        if (!CheckForWeaponsNearby())
+            return false;
+        return true;
+        
     }
 
     bool NearToPoint(Vector2 point, float nearness = 0.01f)
