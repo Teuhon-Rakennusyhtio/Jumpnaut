@@ -10,8 +10,6 @@ public class DeathManager : MonoBehaviour
     public void DeathCount()
     {
         playerDead += 1;
-        Debug.Log("Jippii se kuoli");
-        Debug.Log(playerDead);
     }
 
     public void DeathReducer()
