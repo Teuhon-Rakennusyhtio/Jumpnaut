@@ -162,6 +162,7 @@ public class PlayerMover : GenericMover
         {
             _isDead = false;
             Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
+            SetControl(true);
         }*/
     }
 
