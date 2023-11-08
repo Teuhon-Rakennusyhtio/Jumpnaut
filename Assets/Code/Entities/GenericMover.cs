@@ -5,7 +5,7 @@ using UnityEngine.Accessibility;
 
 public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 {
-    [SerializeField] float _speed = 7f, _climbingSpeed = 5f,
+    [SerializeField] protected float _speed = 7f, _climbingSpeed = 5f,
     _maxJumpBuffer = 0.2f, _maxCoyoteTime = 0.1f,
     _jumpForce = 13f, _jumpApex = 0.2f, _jumpFallSpeed = 3f,
     _fallAcceleration = 1f, _maxGravity = -15f,
@@ -22,7 +22,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _gravity, _moveInput, _previousPosition;
     Rigidbody2D _rigidBody;
     protected Collider2D _collider;
-    float _jumpBuffer = 0f, _coyoteTime = 0f,
+    protected float _jumpBuffer = 0f, _coyoteTime = 0f,
      _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord,
      _ladderBottom, _ladderTop, _currentSpeed, _currentWeaponCooldown,
      _weaponCooldown, _weaponAnimationSpeed;

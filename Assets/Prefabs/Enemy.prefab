@@ -4970,6 +4970,9 @@ MonoBehaviour:
   _climbArm: {fileID: 599828832579068184}
   _helmetMain: {fileID: 0}
   _helmetClimb: {fileID: 0}
+  _ladderLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   _patrolsWhenIdle: 1
   _targetsPlayers: 1
   _canUseLadders: 1

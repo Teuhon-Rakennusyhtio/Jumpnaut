@@ -17,6 +17,7 @@ public class EnemyMover : GenericMover
 {
     const bool ToLeft = false;
     const bool ToRight = true;
+    [SerializeField] LayerMask _ladderLayer;
     [SerializeField] bool _patrolsWhenIdle = true;
     [SerializeField] bool _targetsPlayers = true;
     [SerializeField] bool _canUseLadders = true;
@@ -32,23 +33,25 @@ public class EnemyMover : GenericMover
     [SerializeField] Transform _preDefinedPatrolPoint1;
     [SerializeField] Transform _preDefinedPatrolPoint2;
     Vector2 _patrolPoint1, _patrolPoint2;
-    Vector2 _target, _waypoint;
-    float _aggroTime;
+    bool _newLadderFound = false, _ladderDirection;
+    Vector2 _potentialLadderPos;
+    Vector2 _waypoint;
+    Transform _target;
+    float _aggroTime, _idleTime;
     EnemyState _enemyState = EnemyState.StandingStill;
 
-    void Start()
+    /*void Start()
     {
         StartCoroutine(Tester());
     }
+
 
     IEnumerator Tester()
     {
         yield return new WaitForSeconds(2);
         //Debug.Log(FindEndOfPlatformOrLadder(ToLeft));
-        CalculatePatrolPoints();
-        _waypoint = _patrolPoint1;
-        _enemyState = EnemyState.Patrolling;
-    }
+        SetState(EnemyState.Patrolling);
+    }*/
 
     protected override void GetInputs()
     {
@@ -56,10 +59,16 @@ public class EnemyMover : GenericMover
         //_useInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.use];
         //_catchInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pickup];
         //_pauseInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pause];
-
+        _catchInput = false;
         switch (_enemyState)
         {
             case EnemyState.StandingStill:
+                if (_canSearchForWeapons && Time.frameCount % 8 == 0 && _idleTime > 1f && CheckForWeaponsNearby())
+                {
+                    SetState(EnemyState.SearchingForWeapon);
+                }
+                else if (_patrolsWhenIdle && _idleTime > 2f)
+                    SetState(EnemyState.Patrolling);
                 break;
             case EnemyState.Patrolling:
                 if (((Vector2)transform.position - _waypoint).sqrMagnitude < 0.01f)
@@ -74,6 +83,8 @@ public class EnemyMover : GenericMover
                     }
                 }
                 _moveInput = (Vector2.right * (_waypoint - (Vector2)transform.position).x).normalized * 0.7f;
+                if (_canSearchForWeapons && Time.frameCount % 20 == 0 && CheckForWeaponsNearby())
+                    SetState(EnemyState.SearchingForWeapon);
                 break;
             case EnemyState.ChasingPlayer:
                 break;
@@ -82,27 +93,87 @@ public class EnemyMover : GenericMover
             case EnemyState.EscapingPlayer:
                 break;
             case EnemyState.SearchingForWeapon:
+                PathFindToTarget();
+                if (NearToPoint((Vector2)_target.position, 0.5f))
+                {
+                    _catchInput = true;
+                }
+                if (_heldItem != null)
+                {
+                    SetState(EnemyState.StandingStill);
+                }
                 break;
             case EnemyState.ThrowingBarrels:
                 break;
         }
 
-        _catchInput = true;
+        //_catchInput = true;
         //_moveInput = Vector2.right * Random.Range(-1f, 1f);
 
         
         //Debug.Log((_waypoint - (Vector2)transform.position).x);
     }
 
+    void SetState(EnemyState state)
+    {
+        _idleTime = 0f;
+        switch (state)
+        {
+            case EnemyState.StandingStill:
+                _moveInput = Vector2.zero;
+                break;
+            case EnemyState.Patrolling:
+                if (_grounded)
+                {
+                    CalculatePatrolPoints();
+                    _waypoint = _patrolPoint1;
+                }
+                else
+                {
+                    SetState(EnemyState.StandingStill);
+                    return;
+                }
+                break;
+            case EnemyState.ChasingPlayer:
+                break;
+            case EnemyState.EngagingPlayer:
+                break;
+            case EnemyState.EscapingPlayer:
+                break;
+            case EnemyState.SearchingForWeapon:
+                _target = null;
+                Collider2D[] holdableColliders = Physics2D.OverlapCircleAll(transform.position, 10f, _holdableLayer);
+                foreach (Collider2D holdableCollider in holdableColliders)
+                {
+                    Holdable holdable = holdableCollider.GetComponent<Holdable>();
+                    if (holdable != null && !holdable.BeingHeld && holdable.GetType() != typeof(Helmet))
+                    {
+                        _target = holdable.transform;
+                    }
+                }
+                if (_target == null)
+                {
+                    SetState(EnemyState.StandingStill);
+                    return;
+                }
+                break;
+            case EnemyState.ThrowingBarrels:
+                break;
+        }
+        _enemyState = state;
+    }
+
     void Update()
     {
-        
+        Debug.DrawLine(_patrolPoint1, _patrolPoint2, Color.red);
+        _idleTime += Time.deltaTime;
     }
 
     void CalculatePatrolPoints()
     {
-        if (((Vector2)transform.position - _patrolPoint1).sqrMagnitude < 4f ||
-            ((Vector2)transform.position - _patrolPoint2).sqrMagnitude < 4f
+        if (_preDefinedPatrolPoint1 != null &&
+            (((Vector2)transform.position - (Vector2)_preDefinedPatrolPoint1.position).sqrMagnitude < 4f ||
+            ((Vector2)transform.position - (Vector2)_preDefinedPatrolPoint2.position).sqrMagnitude < 4f)
         )
         {
             _patrolPoint1 = _preDefinedPatrolPoint1.position;
@@ -110,43 +181,134 @@ public class EnemyMover : GenericMover
         }
         else
         {
-            _patrolPoint1 = FindEndOfPlatformOrLadder(ToLeft, true);
-            _patrolPoint2 = FindEndOfPlatformOrLadder(ToRight, true);
+            _patrolPoint1 = FindEndOfPlatformTargetOrLadder(ToLeft, true, false);
+            _patrolPoint2 = FindEndOfPlatformTargetOrLadder(ToRight, true, false);
         }
     }
 
     //[SerializeField] GameObject testteastet;
-    Vector2 FindEndOfPlatformOrLadder(bool direction, bool ignoreLadders = false)
+    Vector2 FindEndOfPlatformTargetOrLadder(bool direction, bool ignoreLadders = false, bool stopAtTarget = true)
     {
         float castDirection = 0.05f * (direction ? -1f : 1f);
         Vector2 target = (Vector2)transform.position;
         Vector2 slopeNormal = _slopeNormal;
+        Vector2 oldSlopeNormal = slopeNormal;
         Vector2 slopeNormalPerpendicular = _slopeNormalPerpendicular;
         for (int i = 0; i < 1000; i++)
         {
             target += slopeNormalPerpendicular * castDirection;
-            //Instantiate(testteastet, target, Quaternion.identity);
-            RaycastHit2D raycast = Physics2D.Raycast(target, slopeNormal, -_collider.bounds.extents.y - 0.1f, _groundLayer);
+            RaycastHit2D raycast = Physics2D.Raycast(target, slopeNormal, -_collider.bounds.extents.y - 0.3f, _groundLayer);
+
+            if (stopAtTarget && ((Vector2)_target.position - target).sqrMagnitude < 0.5f)
+            {
+                return (Vector2)_target.position;
+            }
+
+            if (!ignoreLadders && _target != null)
+            {
+                RaycastHit2D ladderRaycast = Physics2D.Raycast(target, Vector2.down, _collider.bounds.extents.y + 0.5f, _ladderLayer);
+                if (ladderRaycast)
+                {
+                    if (!_newLadderFound || Mathf.Abs(ladderRaycast.point.x - _target.position.x) < Mathf.Abs(_potentialLadderPos.x - _target.position.x))
+                    {
+                        _newLadderFound = true;
+                        _ladderDirection = direction;
+                        _potentialLadderPos = ladderRaycast.point;
+                    }
+                }
+            }
+
             if (!raycast || Physics2D.OverlapPoint(target, _groundLayer))
             {
                 i = 1000;
             }
             else
             {
-                slopeNormal = raycast.normal.normalized;
+                oldSlopeNormal = slopeNormal;
+                slopeNormal = Physics2D.Raycast(target, Vector2.down, _collider.bounds.extents.y + 0.5f, _groundLayer).normal.normalized;
                 slopeNormalPerpendicular = Vector2.Perpendicular(slopeNormal);
             }
+            
 
             if (i == 999)
             {
-                Debug.LogError($"{gameObject.name} could not find the end of the platform or a ladder!");
+                Debug.LogError($"{gameObject.name} could not find the end of the platform!");
                 return direction ? Vector2.left : Vector2.right;
             }
         }
-
-        target += slopeNormalPerpendicular * (0.8f + _collider.bounds.extents.x) * (direction ? 1f : -1f);
-        //Instantiate(testteastet, target, Quaternion.identity);
+        slopeNormalPerpendicular = Vector2.Perpendicular(oldSlopeNormal);
+        target += slopeNormalPerpendicular * (0.4f + _collider.bounds.extents.x) * (direction ? 1f : -1f);
         return target;
+    }
+
+    void PathFindToTarget()
+    {
+        Debug.DrawLine(transform.position, _waypoint, Color.red);
+        if (_waypoint != Vector2.zero && !NearToPoint(_waypoint))
+        {
+            if (_newLadderFound && _nextToLadder && NearToPoint(_potentialLadderPos, 0.2f))
+            {
+                _newLadderFound = false;
+                _moveInput = Vector2.up;
+            }
+            else if (!_climbingLadder)
+            {
+                _moveInput = (Vector2.right * (_waypoint - (Vector2)transform.position).x).normalized;
+            }
+            else if (_climbingLadder)
+            {
+                _moveInput = (Vector2.up * (_waypoint - (Vector2)transform.position).y).normalized;
+            }
+        }
+        else
+        {
+            _moveInput = Vector2.right;
+            _newLadderFound = false;
+            Vector2 leftWaypoint = FindEndOfPlatformTargetOrLadder(ToLeft);
+            Vector2 rightWaypoint = FindEndOfPlatformTargetOrLadder(ToRight);
+            
+            if (leftWaypoint == (Vector2)_target.position)
+            {
+                _waypoint = leftWaypoint;
+            }
+            else if (rightWaypoint == (Vector2)_target.position)
+            {
+                _waypoint = rightWaypoint;
+            }
+            else if (_newLadderFound)
+            {
+                _waypoint = _ladderDirection ? rightWaypoint : leftWaypoint;
+            }
+            else if (Mathf.Abs(leftWaypoint.x - _target.position.x) < Mathf.Abs(rightWaypoint.x - _target.position.x))
+            {
+                _waypoint = leftWaypoint;
+            }
+            else
+            {
+                _waypoint = rightWaypoint;
+            }
+
+        }
+    }
+
+    bool CheckForWeaponsNearby()
+    {
+        bool weaponsNearby = false;
+        Collider2D[] holdableColliders = Physics2D.OverlapCircleAll(transform.position, 10f, _holdableLayer);
+        foreach (Collider2D holdableCollider in holdableColliders)
+        {
+            Holdable holdable = holdableCollider.GetComponent<Holdable>();
+            if (holdable != null && !holdable.BeingHeld && holdable.GetType() != typeof(Helmet))
+            {
+                weaponsNearby = true;
+            }
+        }
+        return weaponsNearby;
+    }
+
+    bool NearToPoint(Vector2 point, float nearness = 0.01f)
+    {
+        return ((Vector2)transform.position - point).sqrMagnitude < nearness;
     }
 }
 
