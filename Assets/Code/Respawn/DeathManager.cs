@@ -10,6 +10,7 @@ public class DeathManager : MonoBehaviour
     public void DeathCount()
     {
         playerDead += 1;
+        Debug.Log(playerDead);
     }
 
     public void DeathReducer()
@@ -17,7 +18,7 @@ public class DeathManager : MonoBehaviour
         playerDead -= 1;
     }
 
-    public bool DeathToll(float deathLimit)
+    public bool DeathToll(int deathLimit)
     {
         if (playerDead == deathLimit)
         {

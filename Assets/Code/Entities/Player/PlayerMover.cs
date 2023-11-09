@@ -166,28 +166,38 @@ public class PlayerMover : GenericMover
         }*/
     }
 
-    void Respawning()
+    void Regroup()
     {
         if (_isRegrouping == true)
         {
             float distance = Vector3.Distance(transform.position, closestPlayer.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, closestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
         }
+    }
 
+    void Revive()
+    {
         if (_isDead == true)
         {
+            FindClosestPlayer();
+            
             if (dm.DeathToll(playerList.Length) == true)
             {
                 StartCoroutine(IEMourn());
+                _isDead = false;
             }
-            Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
         }
     }
 
     IEnumerator IEMourn()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         transform.position = spawnpoint.transform.position;
+        EndFullBodyAnimation();
+        SetControl(true);
+        _health.Heal(3);
+        dm.DeathReducer();
+        Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
     }
 
     void FindClosestPlayer()
@@ -208,7 +218,8 @@ public class PlayerMover : GenericMover
 
     void Update()
     {
-        Respawning();
+        Regroup();
+        Revive();
     }
 
     public override void Damaged(float iFrames)
@@ -274,6 +285,6 @@ public class PlayerMover : GenericMover
         }
         _isDead = true;
         dm.DeathCount();
-        playerList = GameObject.FindGameObjectsWithTag("Player");
+        Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
     }
 }
