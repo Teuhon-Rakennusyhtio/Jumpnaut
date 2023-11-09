@@ -17,7 +17,7 @@ public class EnemyMover : GenericMover
 {
     const bool ToLeft = false;
     const bool ToRight = true;
-    [SerializeField] LayerMask _ladderLayer;
+    [SerializeField] LayerMask _ladderLayer, _entityLayer;
     [SerializeField] bool _patrolsWhenIdle = true;
     [SerializeField] bool _targetsPlayers = true;
     [SerializeField] bool _canUseLadders = true;
@@ -41,6 +41,8 @@ public class EnemyMover : GenericMover
     float _aggroTime, _idleTime;
     Holdable _targetHoldable;
     EnemyState _enemyState = EnemyState.StandingStill;
+    Collider2D[] _nearbyPlayers;
+    Transform _closestPlayer;
 
     /*void Start()
     {
@@ -62,6 +64,14 @@ public class EnemyMover : GenericMover
         //_catchInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pickup];
         //_pauseInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pause];
         _catchInput = false;
+        if ((int)(Time.time * 10) % 9 == 0)
+        {
+            CheckForNearbyPlayers();
+            if (_heldItem == null && _runsAwayWhenCloseToPlayerWhenWithoutWeapon && _nearbyPlayers.Length > 0)
+            {
+                SetState(EnemyState.EscapingPlayer);
+            }
+        }
         switch (_enemyState)
         {
             case EnemyState.StandingStill:
@@ -93,6 +103,9 @@ public class EnemyMover : GenericMover
             case EnemyState.EngagingPlayer:
                 break;
             case EnemyState.EscapingPlayer:
+                _moveInput = (Vector2.left * (_closestPlayer.position - transform.position).x).normalized * 1f;
+                if (_nearbyPlayers.Length == 0)
+                    SetState(EnemyState.StandingStill);
                 break;
             case EnemyState.SearchingForWeapon:
                 if (_targetHoldable.BeingHeld)
@@ -130,7 +143,7 @@ public class EnemyMover : GenericMover
                 if (_grounded)
                 {
                     CalculatePatrolPoints();
-                    _waypoint = _patrolPoint1;
+                    _waypoint = _facingLeft ? _patrolPoint1 : _patrolPoint2;
                 }
                 else
                 {
@@ -172,6 +185,29 @@ public class EnemyMover : GenericMover
     {
         Debug.DrawLine(_patrolPoint1, _patrolPoint2, Color.red);
         _idleTime += Time.deltaTime;
+    }
+
+    void CheckForNearbyPlayers()
+    {
+        Collider2D[] nearbyEntities = Physics2D.OverlapBoxAll(transform.position, new Vector2(_aggroRadius, 4), 0, _entityLayer);
+        int nearbyPlayerCount = 0;
+        for (int i = 0; i < nearbyEntities.Length; i++)
+        {
+            if (nearbyEntities[i].CompareTag("Player")) nearbyPlayerCount++;
+        }
+        _nearbyPlayers = new Collider2D[nearbyPlayerCount];
+        nearbyPlayerCount = 0;
+        for (int i = 0; i < nearbyEntities.Length; i++)
+        {
+            if (nearbyEntities[i].CompareTag("Player"))
+            {
+                _nearbyPlayers[nearbyPlayerCount] = nearbyEntities[i];
+                if (_closestPlayer == null || Vector2.Distance(transform.position, _closestPlayer.position) > Vector2.Distance(transform.position, nearbyEntities[i].transform.position))
+                    _closestPlayer = nearbyEntities[i].transform;
+                nearbyPlayerCount++;
+            }
+        }
+        
     }
 
     void CalculatePatrolPoints()
