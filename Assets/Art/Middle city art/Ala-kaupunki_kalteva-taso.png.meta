@@ -1,0 +1,789 @@
+fileFormatVersion: 2
+guid: 5806895b47c3f4044b3f2428aa078ff6
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 512
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_0
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -171}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51f27cef6c809194bb29750cc0600930
+      internalID: -768323300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -171}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -85}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1329be8b84d4fb843ad081ea00a1d90b
+      internalID: 1064644330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 256, y: -171}
+        - {x: 256, y: 1}
+        - {x: -256, y: -85}
+        - {x: -256, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e42bc701f0852a419ba4546f72a82a8
+      internalID: 1259020286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_3
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 256, y: -85}
+        - {x: 256, y: 86}
+        - {x: -256, y: 1}
+        - {x: -256, y: -171}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 922f4aca498553145917500a9f7f5b4f
+      internalID: 909819841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_4
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 86}
+        - {x: -256, y: -85}
+        - {x: 256, y: 0}
+        - {x: 256, y: 171}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 993a8f1903d23bc4da807a335272eb67
+      internalID: -1451575287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_5
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 256, y: 86}
+        - {x: 256, y: 256}
+        - {x: -256, y: 171}
+        - {x: -256, y: 0}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a37462b92ed45e468345f1e3b9f9684
+      internalID: 537244303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_6
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 256, y: 171}
+        - {x: 256, y: 256}
+        - {x: -256, y: 256}
+        - {x: -256, y: 86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c49acb2ed204a34418bd79f47a983c59
+      internalID: 1773883563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 256, y: 256}
+        - {x: -256, y: 256}
+        - {x: -256, y: 170}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: add71100cfc1fe840b2247a4c1c43e34
+      internalID: 324815730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89e7d402367b2a140b27b67ae54202ad
+      internalID: -1809007683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_9
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 827f495077213a84188248d8eecaf49b
+      internalID: 681562916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_10
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -86}
+        - {x: -256, y: -86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e33134082f4986d4383ea563aca5279b
+      internalID: 1981649105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_11
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f65f71a116c7a7a40962ccaff84cf902
+      internalID: 1020751565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_12
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -86}
+        - {x: -256, y: -86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e91ada5b23e25d74291ac0d8977dc2c6
+      internalID: -1965954105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -170}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09956fa0588e3cb4c8c7a6d89a78b81a
+      internalID: -1504465136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_14
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9dc6cc772224994790bbe3edef024d2
+      internalID: -1136620139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_15
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2973a1bc5b33098408347203c661f20a
+      internalID: 79526619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_16
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ca46c51af634948a7ad4b5b41658f3
+      internalID: 946503921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_17
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6b32cbe8be8836478f97d8609d72980
+      internalID: -456725726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_18
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da3a635f5b38e9543ac7e5522520e2d5
+      internalID: 1858440305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: 172}
+        - {x: 256, y: 86}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 285b50d4592045249843a03b37c351a6
+      internalID: -1446501327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_20
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: -256, y: 87}
+        - {x: 256, y: 1}
+        - {x: 256, y: 171}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ee21640c0e84cb41bde39bd6ecbdffc
+      internalID: 21279759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_21
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 171}
+        - {x: -256, y: 0}
+        - {x: 256, y: -84}
+        - {x: 256, y: 86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4762f6b1cf7fc0b4db5185557ce87f6f
+      internalID: 386130566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_22
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -85}
+        - {x: 256, y: -171}
+        - {x: 256, y: 1}
+        - {x: -256, y: 86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 528f6cb9d4e29f0439be1fba9b772b23
+      internalID: -898052902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_23
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 1}
+        - {x: -255.99994, y: -173.49998}
+        - {x: 256, y: -256}
+        - {x: 256, y: -84}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0409f373520684141893b5929e2fb5f0
+      internalID: 1038016841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_24
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: -84}
+        - {x: -256, y: -256}
+        - {x: 256, y: -256}
+        - {x: 256, y: -171}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38f3aba476020b34aa5a67815fedf9b7
+      internalID: 687167511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_25
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0d78991db282804f951dfdc01f0934c
+      internalID: 703764544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ala-kaupunki_kalteva-taso_26
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -256, y: 256}
+        - {x: 256, y: 172}
+        - {x: 256, y: 256}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5b116d6781c28d4b887d415a02e223d
+      internalID: -857566888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Ala-kaupunki_kalteva-taso_0: -768323300
+      Ala-kaupunki_kalteva-taso_1: 1064644330
+      Ala-kaupunki_kalteva-taso_10: 1981649105
+      Ala-kaupunki_kalteva-taso_11: 1020751565
+      Ala-kaupunki_kalteva-taso_12: -1965954105
+      Ala-kaupunki_kalteva-taso_13: -1504465136
+      Ala-kaupunki_kalteva-taso_14: -1136620139
+      Ala-kaupunki_kalteva-taso_15: 79526619
+      Ala-kaupunki_kalteva-taso_16: 946503921
+      Ala-kaupunki_kalteva-taso_17: -456725726
+      Ala-kaupunki_kalteva-taso_18: 1858440305
+      Ala-kaupunki_kalteva-taso_19: -1446501327
+      Ala-kaupunki_kalteva-taso_2: 1259020286
+      Ala-kaupunki_kalteva-taso_20: 21279759
+      Ala-kaupunki_kalteva-taso_21: 386130566
+      Ala-kaupunki_kalteva-taso_22: -898052902
+      Ala-kaupunki_kalteva-taso_23: 1038016841
+      Ala-kaupunki_kalteva-taso_24: 687167511
+      Ala-kaupunki_kalteva-taso_25: 703764544
+      Ala-kaupunki_kalteva-taso_26: -857566888
+      Ala-kaupunki_kalteva-taso_3: 909819841
+      Ala-kaupunki_kalteva-taso_4: -1451575287
+      Ala-kaupunki_kalteva-taso_5: 537244303
+      Ala-kaupunki_kalteva-taso_6: 1773883563
+      Ala-kaupunki_kalteva-taso_7: 324815730
+      Ala-kaupunki_kalteva-taso_8: -1809007683
+      Ala-kaupunki_kalteva-taso_9: 681562916
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
