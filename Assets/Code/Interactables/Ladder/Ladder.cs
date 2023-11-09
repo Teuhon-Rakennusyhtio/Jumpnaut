@@ -124,7 +124,7 @@ public class Ladder : MonoBehaviour
             {
                 if (i == 1)
                 {
-                    Debug.LogError($"There is no ladder at [{top.x}; {top.y}]");
+                    //Debug.LogError($"There is no ladder at [{top.x}; {top.y}]");
                     return null;
                 }
             }

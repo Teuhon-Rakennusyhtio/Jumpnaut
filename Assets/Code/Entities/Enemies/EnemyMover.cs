@@ -84,7 +84,7 @@ public class EnemyMover : GenericMover
                         _waypoint = _patrolPoint1;
                     }
                 }
-                _moveInput = (Vector2.right * (_waypoint - (Vector2)transform.position).x).normalized * 0.7f;
+                _moveInput = (Vector2.right * (_waypoint - (Vector2)transform.position).x).normalized * 0.5f;
                 if (WeaponCheck())
                     SetState(EnemyState.SearchingForWeapon);
                 break;
@@ -220,12 +220,25 @@ public class EnemyMover : GenericMover
                         if (!Physics2D.OverlapPoint(new Vector2(ladderPosition, ladderRaycast.point.y)))
                         {
                             ladderPosition -= 1;
+                            if (!Physics2D.OverlapPoint(new Vector2(ladderPosition, ladderRaycast.point.y)))
+                                ladderPosition += 2;
                         }
-                        
-                        Debug.Log(ladderPosition);
-                        _newLadderFound = true;
-                        _ladderDirection = direction;
-                        _potentialLadderPos = ladderRaycast.point;
+                        //Debug.Log(ladderPosition);
+                        Vector2? ladderTop = Ladder.GetLadderTop(_collider, ladderPosition);
+                        Vector2? ladderBottom = Ladder.GetLadderTop(_collider, ladderPosition);
+                        if (ladderTop != null && ladderBottom != null)
+                        {
+                            float ladderTopYCoord = ((Vector2)ladderTop).y;
+                            float ladderBottomYCoord = ((Vector2)ladderBottom).y;
+                            bool targetIsBelow = target.y > _target.position.y;
+                            if ((targetIsBelow && ladderBottomYCoord < target.y) ||
+                                (!targetIsBelow && ladderTopYCoord > target.y))
+                            {
+                                _newLadderFound = true;
+                                _ladderDirection = direction;
+                                _potentialLadderPos = ladderRaycast.point;
+                            }
+                        }
                     }
                 }
             }
@@ -255,8 +268,9 @@ public class EnemyMover : GenericMover
 
     void PathFindToTarget()
     {
-        // Can't pathfind to target because it doesn't exist anymore;
-        if (_target == null)
+        // Can't pathfind to target because it doesn't exist anymore
+        // Or can't walk to the target
+        if (_target == null || !_climbingLadder && _waypoint.y > transform.position.y)
         {
             SetState(EnemyState.StandingStill);
             return;
