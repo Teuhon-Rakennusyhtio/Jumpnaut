@@ -67,17 +67,17 @@ public class Ladder : MonoBehaviour
         ladderInteractable.OnLadderExit();
     }
 
-    public static Vector2? GetLadderBottom(Collider2D collider, float ladderXCoord)
+    public static Vector2? GetLadderBottom(Collider2D collider, float ladderXCoord, float yOffset = 0f)
     {
         Vector2 bottom = Vector2.zero;
         for (int i = -1; i < 2; i++)
         {
-            bottom = new Vector2(ladderXCoord, collider.transform.position.y + collider.bounds.extents.y * i);
+            bottom = new Vector2(ladderXCoord, collider.transform.position.y + yOffset + collider.bounds.extents.y * i);
             if (Physics2D.OverlapPoint(bottom, _ladderLayer) == null)
             {
                 if (i == 1)
                 {
-                    Debug.LogError($"There is no ladder at [{bottom.x}; {bottom.y}]");
+                    //Debug.LogError($"There is no ladder at [{bottom.x}; {bottom.y}]");
                     return null;
                 }
             }
@@ -114,12 +114,12 @@ public class Ladder : MonoBehaviour
         return bottom;
     }
 
-    public static Vector2? GetLadderTop(Collider2D collider, float ladderXCoord)
+    public static Vector2? GetLadderTop(Collider2D collider, float ladderXCoord, float yOffset = 0f)
     {
         Vector2 top = Vector2.zero;
         for (int i = -1; i < 2; i++)
         {
-            top = new Vector2(ladderXCoord, collider.transform.position.y + collider.bounds.extents.y * i);
+            top = new Vector2(ladderXCoord, collider.transform.position.y + yOffset + collider.bounds.extents.y * i);
             if (Physics2D.OverlapPoint(top, _ladderLayer) == null)
             {
                 if (i == 1)
