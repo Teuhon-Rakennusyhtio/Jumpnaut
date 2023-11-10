@@ -28792,7 +28792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1174074533754256770, guid: 99eac1a6598fbc449ada58f6ae8f5f83, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3291916369870698853, guid: 99eac1a6598fbc449ada58f6ae8f5f83, type: 3}
       propertyPath: CollisionModule.maxKillSpeed
