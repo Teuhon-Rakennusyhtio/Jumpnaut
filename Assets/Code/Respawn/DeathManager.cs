@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeathManager : MonoBehaviour
 {
     public int playerDead = 0;
-    public bool AllAreDead = false;
+    //public bool AllAreDead = false;
 
     public void DeathCount()
     {
