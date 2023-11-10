@@ -351,7 +351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9164091599806605282}
   m_Layer: 0
-  m_Name: EndPoint
+  m_Name: Point (2)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -421,6 +421,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movesOnItsOwn: 0
   _movingOnOwnDelay: 2
+  _whenTheLastPointIsReached: 1
+  _waitAtEveryPathPoint: 0
+  _pathPoints:
+  - {fileID: 359449533710822522}
+  - {fileID: 9164091599806605282}
   Speed: 3
 --- !u!1 &5798317990952368907
 GameObject:
@@ -432,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 359449533710822522}
   m_Layer: 0
-  m_Name: StartPoint
+  m_Name: Point (1)
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
