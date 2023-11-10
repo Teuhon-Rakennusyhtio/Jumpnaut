@@ -10364,6 +10364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _positionInHand: {x: 0.32, y: 0.17}
   _weapon: {fileID: 7457137685786729961}
+  _weaponUseAnimation: 
   _throwFallTime: 1
   _terminalVelocity: -15
   _fallAcceleration: 1
@@ -10376,6 +10377,8 @@ MonoBehaviour:
   _durabilityType: 2
   _digitalDurability: 3
   _analogDurability: 10
+  _weaponCooldown: 0
+  _weaponAnimationSpeed: 1
   _itemIcon: {fileID: 21300000, guid: 77bd69c2be2c6c147ae3e80e07e3b2bb, type: 3}
   _animator: {fileID: 6771181495548449103}
   _sparks: {fileID: 8461948141730751273}

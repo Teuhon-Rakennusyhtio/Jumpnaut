@@ -160,12 +160,15 @@ public class PlayerMover : GenericMover
             Debug.Log("Spawnpoint set");
         }
 
-        /*if (collision.gameObject.tag == "Player" && _isDead == true)
+        if (collision.gameObject.tag == "Player" && _isDead == true)
         {
-            _isDead = false;
-            Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
+            EndFullBodyAnimation();
             SetControl(true);
-        }*/
+            _health.Heal(1);
+            dm.DeathReducer();
+            Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
+            _isDead = false;
+        }
     }
 
     void Regroup()
