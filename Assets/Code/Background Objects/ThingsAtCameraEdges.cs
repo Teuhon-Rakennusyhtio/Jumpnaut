@@ -6,6 +6,7 @@ public class ThingsAtCameraEdges : MonoBehaviour
 {
     [SerializeField] bool _leftEdge;
     [SerializeField] float _offset;
+    [SerializeField] float _clamp = float.NegativeInfinity;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,7 @@ public class ThingsAtCameraEdges : MonoBehaviour
 
     public void ScreenSizeChanged()
     {
-        float screenEdge = (Camera.main.aspect * Camera.main.orthographicSize + _offset) * (_leftEdge ? -1 : 1);
+        float screenEdge = Mathf.Max((Camera.main.aspect * Camera.main.orthographicSize + _offset), _clamp) * (_leftEdge ? -1 : 1);
         transform.position = new Vector3(screenEdge, transform.position.y, transform.position.z);
     }
 }
