@@ -139,7 +139,7 @@ public class PlayerMover : GenericMover
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("MainCamera") && _isDead == false)
+        if (collision.CompareTag("MainCamera") && _isDead == false && playerList.Length < 1)
         {
             _isRegrouping = true;
             SetControl(false);
