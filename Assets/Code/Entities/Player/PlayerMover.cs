@@ -25,6 +25,7 @@ public class PlayerMover : GenericMover
     float distance;
     float closest = 1000;
     private DeathManager dm;
+    private UFORespawn ufo;
     private Transform targetPlayer;
     private GameObject spawnpoint;
     public float smoothTime = 0;
@@ -47,6 +48,7 @@ public class PlayerMover : GenericMover
         if (_sprites == null) _sprites = GetComponentsInChildren<SpriteRenderer>(true);
         spawnpoint = GameObject.Find("Spawnpoint");
         dm = GameObject.FindObjectOfType<DeathManager>();
+        ufo = GameObject.FindObjectOfType<UFORespawn>();
     }
 
     public void AssignPlayer(ChildDeviceManager device, int id)
@@ -170,8 +172,13 @@ public class PlayerMover : GenericMover
     {
         if (_isRegrouping == true)
         {
+            ufo.UfoActive();
             float distance = Vector3.Distance(transform.position, closestPlayer.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, closestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
+        }
+        else if (_isRegrouping == false)
+        {
+            ufo.UfoInactive();
         }
     }
 
@@ -196,6 +203,8 @@ public class PlayerMover : GenericMover
         EndFullBodyAnimation();
         SetControl(true);
         _health.Heal(3);
+        _helmetMain.enabled = true;
+        _helmetClimb.enabled = true;
         dm.DeathReducer();
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
     }

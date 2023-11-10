@@ -37,7 +37,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
      _grabbedLadderThisFrame, _leftLadderThisFrame,
     _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut,
     _alreadyUsed, _currentlyUsing, _isInControl = true;
-    [SerializeField] SpriteRenderer _helmetMain, _helmetClimb;
+    public SpriteRenderer _helmetMain, _helmetClimb;
 
     protected string _weaponUseAnimation;
     protected bool _jumpInput, _useInput, _catchInput;
