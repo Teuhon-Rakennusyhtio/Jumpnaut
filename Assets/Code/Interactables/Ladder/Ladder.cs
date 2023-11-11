@@ -86,14 +86,14 @@ public class Ladder : MonoBehaviour
                 i = 2;
             }
         }
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 2000; i++)
         {
             if (Physics2D.OverlapPoint(bottom + Vector2.down * 0.2f * i, _ladderLayer) == null)
             {
                 bottom += Vector2.down * 0.2f * i;
-                i = 1000;
+                i = 2000;
             }
-            if (i == 999)
+            if (i == 1999)
             {
                 Debug.LogError($"Could not find the bottom of the ladder at [{bottom.x}; {bottom.y}]");
                 return null;
@@ -133,14 +133,14 @@ public class Ladder : MonoBehaviour
                 i = 2;
             }
         }
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 2000; i++)
         {
             if (Physics2D.OverlapPoint(top + Vector2.up * 0.2f * i, _ladderLayer) == null)
             {
                 top += Vector2.up * 0.2f * i;
-                i = 1000;
+                i = 2000;
             }
-            if (i == 999)
+            if (i == 1999)
             {
                 Debug.LogError($"Could not find the top of the ladder at [{top.x}; {top.y}]");
                 return null;

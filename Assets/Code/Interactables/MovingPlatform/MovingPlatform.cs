@@ -49,7 +49,7 @@ public class MovingPlatform : MonoBehaviour
         if (_pathPoints.Length == 0) return;
         if (direction > 0f)
         {
-            if (_currentStartPoint + 1 == _pathPoints.Length)
+            if (_currentStartPoint + 2 == _pathPoints.Length)
             {
                 if (_whenTheLastPointIsReached == MovingPlatformPathTypes.GoDirectlyToStartPoint)
                 {
@@ -112,7 +112,7 @@ public class MovingPlatform : MonoBehaviour
         //_progress = Mathf.MoveTowards(_progress, _target, Speed * Time.fixedDeltaTime);
         if ((_platfrom.position - (Vector2)_endPoint.position).sqrMagnitude < 0.01f && _direction == 1f)
         {
-            bool backTrackNow = (_currentStartPoint == _pathPoints.Length - 2 && _whenTheLastPointIsReached == MovingPlatformPathTypes.BacktrackToStartPoint);
+            bool backTrackNow = (_currentStartPoint == _pathPoints.Length - 2 && _whenTheLastPointIsReached == MovingPlatformPathTypes.BacktrackToStartPoint && _movesOnItsOwn);
             if (_waitAtEveryPathPoint || backTrackNow)
             {
                 _direction = 0f;
@@ -120,7 +120,7 @@ public class MovingPlatform : MonoBehaviour
                 {
                     StartCoroutine(StartMovingOnOwnWithDelay(-1f, _movingOnOwnDelay));
                 }
-                else
+                else if (_movesOnItsOwn)
                 {
                     GetNewTargetPoints(1f);
                     StartCoroutine(StartMovingOnOwnWithDelay(1f, _movingOnOwnDelay));
@@ -139,7 +139,7 @@ public class MovingPlatform : MonoBehaviour
                 StartCoroutine(StartMovingOnOwnWithDelay(1f, _movingOnOwnDelay));
             }*/
 
-            bool backTrackNow = (_currentStartPoint == 0 && _whenTheLastPointIsReached == MovingPlatformPathTypes.BacktrackToStartPoint);
+            bool backTrackNow = (_currentStartPoint == 0 && _whenTheLastPointIsReached == MovingPlatformPathTypes.BacktrackToStartPoint && _movesOnItsOwn);
             if (_waitAtEveryPathPoint || backTrackNow)
             {
                 _direction = 0f;
@@ -147,7 +147,7 @@ public class MovingPlatform : MonoBehaviour
                 {
                     StartCoroutine(StartMovingOnOwnWithDelay(1f, _movingOnOwnDelay));
                 }
-                else
+                else if (_movesOnItsOwn)
                 {
                     GetNewTargetPoints(-1f);
                     StartCoroutine(StartMovingOnOwnWithDelay(-1f, _movingOnOwnDelay));

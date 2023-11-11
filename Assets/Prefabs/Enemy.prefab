@@ -4903,6 +4903,7 @@ GameObject:
   - component: {fileID: 7778230961904520742}
   - component: {fileID: 3569988330714163145}
   - component: {fileID: 363541542142214946}
+  - component: {fileID: 1052710828055616970}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -4979,7 +4980,6 @@ MonoBehaviour:
   _patrolsWhenIdle: 1
   _targetsPlayers: 1
   _canUseLadders: 1
-  _canJump: 1
   _canUseWeapons: 1
   _canThrowWeapons: 1
   _canCatchWeapons: 1
@@ -4988,6 +4988,8 @@ MonoBehaviour:
   _canThrowBarrels: 0
   _maxAggroTime: 5
   _aggroRadius: 25
+  _attackDelay: 0.2
+  _spawnItem: {fileID: 0}
   _preDefinedPatrolPoint1: {fileID: 0}
   _preDefinedPatrolPoint2: {fileID: 0}
 --- !u!61 &3569988330714163145
@@ -5062,6 +5064,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!210 &1052710828055616970
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9144660066773919769}
+  m_Enabled: 1
+  m_SortingLayerID: -842871665
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &9159554707524688438
 GameObject:
   m_ObjectHideFlags: 0
