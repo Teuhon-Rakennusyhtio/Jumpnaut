@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
 
     // Settings
     public static float ShakeIntensity = 1;
+
+
+    // Ladder Song
+    public static AudioClip LadderSong;
     
     void Start()
     {
@@ -30,6 +34,8 @@ public class GameManager : MonoBehaviour
         {
             CurrentlyInUI = false;
         }
+
+        LadderSong = Resources.Load<AudioClip>("LadderSong");
     }
 
     public static Color GetPlayerColor(int id)

@@ -49,6 +49,7 @@ public class PlayerMover : GenericMover
         spawnpoint = GameObject.Find("Spawnpoint");
         dm = GameObject.FindObjectOfType<DeathManager>();
         ufo = GameObject.FindObjectOfType<UFORespawn>();
+        _ladderSongExists = GameManager.LadderSong != null;
     }
 
     public void AssignPlayer(ChildDeviceManager device, int id)
@@ -228,8 +229,13 @@ public class PlayerMover : GenericMover
         }
     }
 
+    bool _ladderSongExists;
     void Update()
     {
+        if (_ladderSongExists)
+        {
+            _climbingSpeed = transform.position.y > 190f ? 2.5f : 5f;
+        }
         Regroup();
         Revive();
     }
