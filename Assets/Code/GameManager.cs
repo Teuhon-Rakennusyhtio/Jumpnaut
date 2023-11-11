@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
 
     // Ladder Song
-    public static AudioClip LadderSong;
+    public static AudioClip LadderSongClip;
     
     void Start()
     {
@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
         {
             CurrentlyInUI = false;
         }
-
-        LadderSong = Resources.Load<AudioClip>("LadderSong");
+        
+        StartCoroutine(LadderSong.GetSong());
     }
 
     public static Color GetPlayerColor(int id)

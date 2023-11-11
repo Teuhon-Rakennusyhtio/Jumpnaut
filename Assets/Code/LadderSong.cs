@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using System.IO;
 
 public class LadderSong : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class LadderSong : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameManager.LadderSong == null)
+        if (GameManager.LadderSongClip == null)
         {
             Destroy(gameObject);
         }
@@ -27,12 +29,37 @@ public class LadderSong : MonoBehaviour
         if (collider.CompareTag("Player") && !_songStarted)
         {
             _songStarted = true;
-            _audioSource.PlayOneShot(GameManager.LadderSong);
+            _audioSource.PlayOneShot(GameManager.LadderSongClip);
         }
     }
 
     void Update()
     {
-        transform.position = _cameraTransform.position;
+        if (_songStarted)
+            transform.position = _cameraTransform.position;
+    }
+
+    public static IEnumerator GetSong()
+    {
+        string path = Path.Combine(Application.streamingAssetsPath, "LadderSong.ogg");
+        if (File.Exists(path))
+        {
+            path = "file://" + path;
+            using (UnityWebRequest songFile = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.OGGVORBIS))
+            {
+                yield return songFile.SendWebRequest();
+
+                if (songFile.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    Debug.LogError(songFile.error);
+                }
+                else
+                {
+                    GameManager.LadderSongClip = DownloadHandlerAudioClip.GetContent(songFile);
+                }
+            }
+
+        }
+        //song = null;
     }
 }
