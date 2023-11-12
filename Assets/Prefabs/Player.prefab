@@ -4070,7 +4070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779eacceffc454349864b819bf5f2d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ufoRenderer: {fileID: 0}
+  ufoRenderer: {fileID: 2804466622549616454}
 --- !u!1 &6463086588733136227
 GameObject:
   m_ObjectHideFlags: 0
