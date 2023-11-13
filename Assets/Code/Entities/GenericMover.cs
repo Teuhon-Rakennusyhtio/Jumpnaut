@@ -270,6 +270,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     protected virtual void Jump()
     {
+        Debug.Log("jump" + Time.frameCount);
         _coyoteTime = 0f;
         _grounded = false;
         _groundedFrames = 0;
@@ -309,7 +310,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _jumpBuffer -= Time.fixedDeltaTime;
         _movement += Vector2.up * _jumpVelocity;
 
-        if (_grounded)
+        if (_groundedFrames > 3f)
         {
             _jumpVelocity = 0f;
         }
@@ -339,6 +340,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
         if (_jumpBuffer > 0f)
         {
+            _jumpBuffer = 0f;
             Jump();
         }
     }

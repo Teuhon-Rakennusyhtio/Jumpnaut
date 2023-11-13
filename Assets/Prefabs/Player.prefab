@@ -5769,7 +5769,7 @@ MonoBehaviour:
   _maxCoyoteTime: 0.15
   _jumpForce: 20
   _jumpApex: 0.3
-  _jumpFallSpeed: 3.6
+  _jumpFallSpeed: 3
   _fallAcceleration: 1
   _maxGravity: -12
   _groundAcceleration: 80
