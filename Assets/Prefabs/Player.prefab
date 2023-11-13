@@ -3948,7 +3948,6 @@ GameObject:
   - component: {fileID: 684989265118888685}
   - component: {fileID: 7819817906084684438}
   - component: {fileID: 2804466622549616454}
-  - component: {fileID: 1989506511628399954}
   m_Layer: 0
   m_Name: SpawnPivot
   m_TagString: SpawnPivot
@@ -4058,19 +4057,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1989506511628399954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6437110152566330030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 779eacceffc454349864b819bf5f2d21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ufoRenderer: {fileID: 2804466622549616454}
 --- !u!1 &6463086588733136227
 GameObject:
   m_ObjectHideFlags: 0
@@ -5808,12 +5794,14 @@ MonoBehaviour:
   _climbArm: {fileID: 5778146755354177100}
   _helmetMain: {fileID: 8744336245443789613}
   _helmetClimb: {fileID: 1617449661004494204}
+  audioManager: {fileID: 0}
   _playerHealthBar: {fileID: 6034050332201979032, guid: 9a3bfd40d2f76edc0ad880bcadd9221d, type: 3}
   Device: {fileID: 0}
   Id: 0
   _respawnSpeed: 7
   playerList: []
   closestPlayer: {fileID: 0}
+  ufoRenderer: {fileID: 2804466622549616454}
   smoothTime: 0
 --- !u!61 &7545643569282281466
 BoxCollider2D:

@@ -25,9 +25,9 @@ public class PlayerMover : GenericMover
     float distance;
     float closest = 1000;
     private DeathManager dm;
-    private UFORespawn ufo;
     private Transform targetPlayer;
     private GameObject spawnpoint;
+    public SpriteRenderer ufoRenderer;
     public float smoothTime = 0;
     private Vector2 velocity = Vector2.zero;
 
@@ -47,8 +47,8 @@ public class PlayerMover : GenericMover
         _materialPropertyBlock = new MaterialPropertyBlock();
         if (_sprites == null) _sprites = GetComponentsInChildren<SpriteRenderer>(true);
         spawnpoint = GameObject.Find("Spawnpoint");
+        ufoRenderer.enabled = false;
         dm = GameObject.FindObjectOfType<DeathManager>();
-        ufo = GameObject.FindObjectOfType<UFORespawn>();
         _ladderSongExists = GameManager.LadderSongClip != null;
     }
 
@@ -176,13 +176,13 @@ public class PlayerMover : GenericMover
     {
         if (_isRegrouping == true)
         {
-            ufo.UfoActive();
+            ufoRenderer.enabled = true;
             float distance = Vector3.Distance(transform.position, closestPlayer.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, closestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
         }
         else if (_isRegrouping == false)
         {
-            ufo.UfoInactive();
+            ufoRenderer.enabled = false;
         }
     }
 
