@@ -38,7 +38,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut,
     _alreadyUsed, _currentlyUsing, _isInControl = true;
     public SpriteRenderer _helmetMain, _helmetClimb;
-    public AudioManager audioManager;
+    public AudioManager _AudioManager;
 
     protected string _weaponUseAnimation;
     protected bool _jumpInput, _useInput, _catchInput;
@@ -51,7 +51,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _groundCastHeight = _collider.bounds.extents.y + 0.05f;
         _gravity = Vector2.zero;
         _previousPosition = transform.position;
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        _AudioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     public void OnLadderEnter(float xCoord)
@@ -270,7 +270,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     protected virtual void Jump()
     {
-        Debug.Log("jump" + Time.frameCount);
+        _AudioManager.PlaySFX(_AudioManager.jump);
         _coyoteTime = 0f;
         _grounded = false;
         _groundedFrames = 0;
