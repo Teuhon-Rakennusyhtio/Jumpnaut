@@ -336,7 +336,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _alreadyJumped = false;
         }
 
-        if (!_grounded && _coyoteTime <= 0f) return;
+        if (!_grounded || _coyoteTime <= 0f) return;
 
         if (_jumpBuffer > 0f)
         {
