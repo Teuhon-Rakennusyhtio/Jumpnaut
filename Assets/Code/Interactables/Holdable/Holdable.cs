@@ -46,6 +46,7 @@ public class Holdable : MonoBehaviour
     bool _broken;
     float _debrisAngle = 1.25f;
     protected bool _isHelmet = false;
+    protected WeaponAlignment _alignment;
 
     public Sprite ItemIcon { get { return _itemIcon; } }
     public int DigitalDurability { get { return _digitalDurability; } }
@@ -244,9 +245,13 @@ public class Holdable : MonoBehaviour
     {
         _toolbox?.SpawnNewHoldable();
         _toolbox = null;
-        if (health != null && _weapon != null)
+        if (health != null)
         {
-            _weapon.Alignment = health.Alignment;
+            _alignment = health.Alignment;
+        }
+        if (_weapon != null)
+        {
+            _weapon.Alignment = _alignment;
             _weapon.Thrown = false;
         } 
     }

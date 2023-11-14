@@ -30,6 +30,14 @@ public abstract class GenericHealth : MonoBehaviour
         }
     }
 
+    public bool InvincibleToCatchable
+    {
+        get
+        {
+            return _invincibleToCatchable;
+        }
+    }
+
     void Awake()
     {
         _weaponLayer = LayerMask.NameToLayer("Weapon");
