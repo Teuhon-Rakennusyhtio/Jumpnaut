@@ -18,6 +18,7 @@ public class EnemyMover : GenericMover
 {
     const bool ToLeft = false;
     const bool ToRight = true;
+    [SerializeField] GameObject _barrel;
     [SerializeField] LayerMask _ladderLayer, _entityLayer;
     [SerializeField] bool _patrolsWhenIdle = true;
     [SerializeField] bool _targetsPlayers = true;
@@ -35,6 +36,7 @@ public class EnemyMover : GenericMover
     [SerializeField] GameObject _spawnItem;
     [SerializeField] Transform _preDefinedPatrolPoint1;
     [SerializeField] Transform _preDefinedPatrolPoint2;
+    [SerializeField] bool _barrelDirectionIsToTheLeft;
     Vector2 _patrolPoint1, _patrolPoint2;
     bool _newLadderFound = false, _ladderDirection;
     Vector2 _potentialLadderPos;
@@ -54,6 +56,10 @@ public class EnemyMover : GenericMover
         {
             Instantiate(_spawnItem, transform.position, Quaternion.identity);
             _catchInput = true;
+        }
+        if (_canThrowBarrels)
+        {
+            SetState(EnemyState.ThrowingBarrels);
         }
     }
 
@@ -202,6 +208,12 @@ public class EnemyMover : GenericMover
                 }
                 break;
             case EnemyState.ThrowingBarrels:
+                if (_idleTime > _attackDelay)
+                {
+                    _idleTime = 0f;
+                    GameObject newBarrel = Instantiate(_barrel, transform.position - Vector3.up * _collider.bounds.extents.y / 2, Quaternion.identity);
+                    newBarrel.GetComponent<Barrel>().Push(_barrelDirectionIsToTheLeft ? -1f : 1f);
+                }
                 break;
         }
     }
@@ -270,6 +282,8 @@ public class EnemyMover : GenericMover
                 }
                 break;
             case EnemyState.ThrowingBarrels:
+                if (_barrelDirectionIsToTheLeft)
+                    TurnToDirection(-1f);
                 break;
         }
         _enemyState = state;
@@ -519,6 +533,18 @@ public class EnemyMover : GenericMover
     bool NearToPoint(Vector2 point, float nearness = 0.08f)
     {
         return ((Vector2)transform.position - point).sqrMagnitude < nearness;
+    }
+
+    void TurnToDirection(float direction)
+    {
+        StartCoroutine(IETurnToDirection(direction));
+    }
+
+    IEnumerator IETurnToDirection(float direction)
+    {
+        _moveInput = Vector2.right * direction;
+        yield return new WaitForSeconds(0.01f);
+        _moveInput = Vector2.zero;
     }
 
     public override void Damaged(float iFrames)

@@ -192,6 +192,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             _handTransform.parent = _leftArm;
         }
         _handTransform.localPosition = Vector3.right * 0.45f;
+        _handTransform.localScale = Vector3.one;
         _handTransform.localRotation = Quaternion.identity;
     }
 
@@ -269,6 +270,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
         _handTransform.localPosition = Vector3.right * 0.45f;
         _handTransform.localRotation = Quaternion.identity;
+        _handTransform.localScale = Vector3.one;
     }
 
     protected virtual void Jump()
@@ -389,7 +391,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     protected virtual void Catch(Holdable holdable)
     {
         _heldItem = holdable;
-        _handTransform.localScale = new Vector3(1f, 1f, 1f);
+        //_handTransform.localScale = new Vector3(1f, 1f, 1f);
         _heldItem.Pickup(_handTransform, this, _health, _facingLeft, ref _holdingHeavyObject, ref _heldItemIsFlipalbe, ref _holdingWeapon, ref _weaponCooldown, ref _weaponUseAnimation, ref _weaponAnimationSpeed); // Puts the item in the entity's hand and checks if the object is heavy
         FlipLogic();
         _holdingSomething = true;

@@ -202,6 +202,11 @@ public class Barrel : MonoBehaviour, ILadderInteractable
         _nextToLadders = false;
     }
 
+    public void Push(float direction)
+    {
+        _direction = direction;
+    }
+
     void Update()
     {
         _rollingSprite.transform.localRotation = Quaternion.Euler(0, 0, -1000 * _direction * Time.time);
