@@ -5,6 +5,8 @@ using UnityEngine;
 public class Battery : Holdable
 {
     [SerializeField] GameObject _particleEffect;
+    [SerializeField] BatteryCollidedWithHurtbox _hurtboxCollider;
+    [SerializeField] Collider2D _explosionCollider;
     public BatterySpawner BatterySpawner;
     bool _exploded = false, _firstTimePickup = true;
     void Start()
@@ -34,6 +36,9 @@ public class Battery : Holdable
 
     protected override void OnPickup(Transform hand, GenericHealth health)
     {
+        base.OnPickup(hand, health);
+        _hurtboxCollider.Alignment = _alignment;
+        _hurtboxCollider.enabled = false;
         if (BatterySpawner != null && _firstTimePickup)
         {
             _firstTimePickup = false;
@@ -41,8 +46,16 @@ public class Battery : Holdable
         }
     }
 
+    protected override void OnThrow(Vector2 direction)
+    {
+        base.OnThrow(direction);
+        _hurtboxCollider.enabled = true;
+    }
+
     IEnumerator Explode()
     {
+        _explosionCollider.GetComponent<Weapon>().Alignment = _alignment;
+        _explosionCollider.enabled = true;
         CameraMovement.SetCameraShake(3, 5, 1, 1f);
         GameObject explosionEffectObject = Instantiate(_particleEffect, transform.position, Quaternion.identity);
         ParticleSystem explosionEffect = explosionEffectObject.GetComponent<ParticleSystem>();
