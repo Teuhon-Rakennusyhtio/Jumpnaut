@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum EnemyState
@@ -45,6 +46,7 @@ public class EnemyMover : GenericMover
     EnemyState _enemyState = EnemyState.StandingStill;
     Collider2D[] _nearbyPlayers;
     Transform _closestPlayer;
+    bool _isDead = false;
 
     void Start()
     {
@@ -57,6 +59,7 @@ public class EnemyMover : GenericMover
 
     protected override void GetInputs()
     {
+        if (!_isInControl) return;
         //_jumpInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.jump];
         //_useInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.use];
         //_catchInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pickup];
@@ -276,6 +279,13 @@ public class EnemyMover : GenericMover
     {
         Debug.DrawLine(_patrolPoint1, _patrolPoint2, Color.green);
         _idleTime += Time.deltaTime;
+        if (_isDead)
+        {
+            if (transform.position.y < Camera.main.transform.position.y - 50f)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     void CheckForNearbyPlayers()
@@ -509,6 +519,26 @@ public class EnemyMover : GenericMover
     bool NearToPoint(Vector2 point, float nearness = 0.08f)
     {
         return ((Vector2)transform.position - point).sqrMagnitude < nearness;
+    }
+
+    public override void Damaged(float iFrames)
+    {
+        base.Damaged(iFrames);
+    }
+    public override void Die()
+    {
+        _isInControl = false;
+        _useRigidbodyNormally = true;
+        _collider.isTrigger = true;
+        _rigidBody.gravityScale = 3f;
+        _rigidBody.angularDrag = 1f;
+        _rigidBody.mass = 1f;
+        _rigidBody.drag = 1f;
+        _rigidBody.constraints = RigidbodyConstraints2D.None;
+        float direction = (_facingLeft && _enemyState == EnemyState.EngagingPlayer) || (!_facingLeft && _enemyState != EnemyState.EngagingPlayer) ? 1 : -1;
+        _facingLeft = direction > 0;
+        _rigidBody.AddTorque(-direction * 50f);
+        _rigidBody.AddForce(new Vector2(direction, 3f) * 6f, ForceMode2D.Impulse);
     }
 }
 
