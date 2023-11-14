@@ -20,7 +20,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     protected Holdable _heldItem;
     protected Vector2 _movement, _slopeNormal, _slopeNormalPerpendicular,
     _gravity, _moveInput, _previousPosition;
-    Rigidbody2D _rigidBody;
+    protected Rigidbody2D _rigidBody;
+    protected bool _useRigidbodyNormally = false;
     protected Collider2D _collider;
     protected float _jumpBuffer = 0f, _coyoteTime = 0f,
      _jumpVelocity = 0f, _groundCastHeight, _ladderXCoord,
@@ -578,7 +579,8 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             TryToCatchOrThrow();
             CheckIfInsideGround();
         }*/
-        _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
+        if (!_useRigidbodyNormally)
+            _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
         _previousPosition = transform.position;
         if (_animator != null) Animate(_animator);
     }

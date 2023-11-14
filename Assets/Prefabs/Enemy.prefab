@@ -2966,6 +2966,7 @@ MonoBehaviour:
   _maxHealth: 3
   _maxInvincibilityFrames: 0.1
   _isPlayerAligned: 0
+  _mover: {fileID: 7778230961904520742}
 --- !u!61 &6231953176952283961
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4971,7 +4972,7 @@ MonoBehaviour:
   _climbArm: {fileID: 599828832579068184}
   _helmetMain: {fileID: 0}
   _helmetClimb: {fileID: 0}
-  audioManager: {fileID: 0}
+  _AudioManager: {fileID: 0}
   _ladderLayer:
     serializedVersion: 2
     m_Bits: 2048
