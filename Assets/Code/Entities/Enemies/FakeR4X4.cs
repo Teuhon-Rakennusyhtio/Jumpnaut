@@ -10,12 +10,15 @@ public class FakeR4X4 : MonoBehaviour
     Vector3 _healthBarTargetPos;
     bool _doTheThingWithHealthBar = false;
     Rigidbody2D _rigidbody;
+
+    SpeedRunTimer _timer;
     // Start is called before the first frame update
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _healthBarTargetPos = _healthBar.localPosition;
         _healthBar.localPosition += Vector3.left * 50f; 
+        _timer = GameObject.FindObjectOfType<SpeedRunTimer>();
     }
 
     // Update is called once per frame
@@ -43,6 +46,7 @@ public class FakeR4X4 : MonoBehaviour
         _rigidbody.bodyType = RigidbodyType2D.Dynamic;
         _rigidbody.AddForce(Vector2.one * 20f, ForceMode2D.Impulse);
         _rigidbody.AddTorque(-15f, ForceMode2D.Impulse);
+        _timer.StopTimer();
         StartCoroutine(Winner());
     }
 

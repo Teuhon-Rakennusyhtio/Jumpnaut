@@ -22,9 +22,18 @@ public class SpeedRunTimer : MonoBehaviour
         if (stopwatchActive == true)
         {
             currentTime = currentTime + Time.deltaTime;
+            TimeSpan time = TimeSpan.FromSeconds(currentTime);
+            currentTimeText.text = time.ToString(@"hh\:mm\:ss");
         }
-        TimeSpan time = TimeSpan.FromSeconds(currentTime);
-        currentTimeText.text = time.ToString(@"hh\:mm\:ss");
-        
+    }
+
+    public void StopTimer()
+    {
+        stopwatchActive = false;
+    }
+
+    public void StartTimer()
+    {
+        stopwatchActive = true;
     }
 }
