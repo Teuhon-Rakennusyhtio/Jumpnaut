@@ -52,7 +52,9 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _groundCastHeight = _collider.bounds.extents.y + 0.05f;
         _gravity = Vector2.zero;
         _previousPosition = transform.position;
-        _AudioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _AudioManager = audioManagerGameObject.GetComponent<AudioManager>();
     }
 
     public void OnLadderEnter(float xCoord)
@@ -271,7 +273,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     protected virtual void Jump()
     {
-        _AudioManager.PlaySFX(_AudioManager.jump);
+        _AudioManager?.PlaySFX(_AudioManager.jump);
         _coyoteTime = 0f;
         _grounded = false;
         _groundedFrames = 0;

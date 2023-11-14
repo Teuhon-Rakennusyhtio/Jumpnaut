@@ -54,6 +54,11 @@ public class Battery : Holdable
 
     IEnumerator Explode()
     {
+        RaycastHit2D[] potentialBatteryBreakables = Physics2D.CircleCastAll(transform.position, 2, Vector2.zero);
+        foreach (RaycastHit2D potentialBreakable in potentialBatteryBreakables)
+        {
+            potentialBreakable.collider.GetComponent<IBatteryDamageable>()?.HitByBattery();
+        }
         _explosionCollider.GetComponent<Weapon>().Alignment = _alignment;
         _explosionCollider.enabled = true;
         CameraMovement.SetCameraShake(3, 5, 1, 1f);
