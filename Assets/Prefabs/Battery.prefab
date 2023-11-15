@@ -358,6 +358,8 @@ MonoBehaviour:
   _isHeavy: 1
   _flipable: 0
   _isWeapon: 0
+  _startsFloatingWhenThrown: 1
+  _startFloatingWhenSpawned: 0
   _durabilityType: 0
   _digitalDurability: 3
   _analogDurability: 1

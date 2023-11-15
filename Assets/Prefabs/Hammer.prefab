@@ -179,6 +179,8 @@ MonoBehaviour:
   _isHeavy: 0
   _flipable: 1
   _isWeapon: 1
+  _startsFloatingWhenThrown: 1
+  _startFloatingWhenSpawned: 1
   _durabilityType: 1
   _digitalDurability: 5
   _analogDurability: 1
@@ -896,7 +898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Alignment: 0
-  _damage: 1
+  _damage: 2
   _knockbackForce: 1
   _weaponHit:
     m_PersistentCalls:

@@ -157,10 +157,6 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     protected virtual void FlipLogic()
     {
-        if (!_heldItemIsFlipalbe)
-        {
-            _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
-        }
         if (!_holdingSomething && !_catchInput)
         {
             _animator?.Play("Empty Hand");
@@ -191,22 +187,30 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         {
             _handTransform.parent = _leftArm;
         }
-        _handTransform.localPosition = Vector3.right * 0.45f;
         _handTransform.localScale = Vector3.one;
+        if (!_heldItemIsFlipalbe)
+        {
+            _handTransform.localScale = new Vector3((_facingLeft ? -1f : 1f), 1f, 1f);
+        }
+        _handTransform.localPosition = Vector3.right * 0.45f;
         _handTransform.localRotation = Quaternion.identity;
     }
 
     void ClimbLadder()
     {
+        if (!_nextToLadder || _holdingHeavyObject)
+        {
+            return;
+        }
+
         // ---------------------------------
         // If the entity has left the ladder
         // ---------------------------------
-        if (!_nextToLadder || Mathf.Abs(_moveInput.x) > 0.5f || _holdingHeavyObject)
+        if (Mathf.Abs(_moveInput.x) > 0.5f && _climbingLadder && Mathf.Abs(_moveInput.y) <= 0.2f)
         {
             ExitLadder();
-            return;
         }
-        if (Mathf.Abs(_moveInput.y) > 0.2f && _isInControl)
+        else if (Mathf.Abs(_moveInput.y) > 0.2f && _isInControl)
         {
             // -------------------------------------------
             // If the entity just grabbed on to the ladder
@@ -270,7 +274,14 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         }
         _handTransform.localPosition = Vector3.right * 0.45f;
         _handTransform.localRotation = Quaternion.identity;
-        _handTransform.localScale = Vector3.one;
+        if (!_heldItemIsFlipalbe)
+        {
+            _handTransform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        else
+        {
+            _handTransform.localScale = Vector3.one;
+        }
     }
 
     protected virtual void Jump()

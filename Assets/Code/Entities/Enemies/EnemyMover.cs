@@ -158,6 +158,14 @@ public class EnemyMover : GenericMover
                         SetState(EnemyState.ChasingPlayer);
                 }
                 Vector2 fightPosition = target + Vector2.right * (_facingLeft ? 1f : -1f);
+
+                bool aimedAtAPlayer = false;
+                RaycastHit2D[] entitiesHit = Physics2D.RaycastAll(transform.position, _slopeNormalPerpendicular, _aggroRadius, _entityLayer);
+                foreach (RaycastHit2D entityHit in entitiesHit)
+                {
+                    if (entityHit.collider.CompareTag("Player"))
+                        aimedAtAPlayer = true;
+                }
                 if (NearToPoint(fightPosition) && _attackTime <= 0f)
                 {
                     _attackTime = _attackDelay;
@@ -167,7 +175,7 @@ public class EnemyMover : GenericMover
                         {
                             _useInput = true;
                         }
-                        else if (_canThrowWeapons && Physics2D.Raycast(transform.position, _slopeNormalPerpendicular, _aggroRadius * 0.8f, _entityLayer))
+                        else if (_canThrowWeapons && aimedAtAPlayer)
                         {
                             _catchInput = true;
                         }
@@ -177,7 +185,7 @@ public class EnemyMover : GenericMover
                         // TODO: Funny animation
                     }
                 }
-                else if ((!_canUseWeapons || !_holdingWeapon) && _attackTime <= 0f && _canThrowWeapons && Physics2D.Raycast(transform.position, _slopeNormalPerpendicular, _aggroRadius, _entityLayer))
+                else if ((!_canUseWeapons || !_holdingWeapon) && _attackTime <= 0f && _canThrowWeapons && aimedAtAPlayer)
                 {
                     _catchInput = true;
                 }

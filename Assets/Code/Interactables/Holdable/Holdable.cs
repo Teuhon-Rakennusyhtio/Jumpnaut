@@ -1,7 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public enum DurabilityType
 {
@@ -24,16 +24,19 @@ public class Holdable : MonoBehaviour
     SpriteRenderer _renderer;
     protected Rigidbody2D _rigidBody;
     CircleCollider2D _collider;
+    int _groundLayerId;
     LayerMask _groundLayer;
     protected bool _thrown = false;
+    protected bool _floating = false;
     float _xVelocity = 0f, _yVelocity = 0f, _outOfViewTime = 0f, _timeSinceThrown = 0f;
     public bool BeingHeld { get; set; }
     //public bool IsMeleeWeapon { get { return _isMeleeWeapon; } }
     Vector3 _realSize;
+    Vector3 _floatingPosition;
     protected Vector2 _breakingCollisionPoint;
     
     [SerializeField] protected float _throwFallTime = 1f, _terminalVelocity = -15f, _fallAcceleration = 1f, _throwForce = 15f, _throwTorque = 1f;
-    [SerializeField] protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true, _isWeapon = false;
+    [SerializeField] protected bool _breaksOnImpact = false, _isHeavy = false, _flipable = true, _isWeapon = false, _startsFloatingWhenThrown = true, _startFloatingWhenSpawned = true;
     [SerializeField] DurabilityType _durabilityType = 0;
     [SerializeField] int _digitalDurability = 3;
     [SerializeField] float _analogDurability = 1f;
@@ -47,6 +50,12 @@ public class Holdable : MonoBehaviour
     float _debrisAngle = 1.25f;
     protected bool _isHelmet = false;
     protected WeaponAlignment _alignment;
+    GameObject _glowEffect;
+    ParticleSystem _glowParticles;
+    Light2D _glowLight;
+    float _timeStoodStill = 0f;
+    Vector3 _oldPosition;
+    float _timeOffset;
 
     public Sprite ItemIcon { get { return _itemIcon; } }
     public int DigitalDurability { get { return _digitalDurability; } }
@@ -74,10 +83,15 @@ public class Holdable : MonoBehaviour
         _maxAnalogDurability = _analogDurability;
         _maxDigitalDurability = _digitalDurability;
         _realSize = transform.localScale;
-        _groundLayer = LayerMask.NameToLayer("Ground");
+        _groundLayerId = LayerMask.NameToLayer("Ground");
+        _groundLayer = LayerMask.GetMask("Ground");
         _renderer = GetComponent<SpriteRenderer>();
         _rigidBody = GetComponent<Rigidbody2D>();
         _debris = GetComponentsInChildren<BreakageDebris>();
+        _glowEffect = Instantiate(Resources.Load<GameObject>("Prefabs/HoldableGlow"), transform);
+        _glowParticles = _glowEffect.GetComponent<ParticleSystem>();
+        _glowLight = _glowEffect.GetComponent<Light2D>();
+        _timeOffset = Random.Range(-1f, 1f);
 
         if (_analogDurability == 0f)
         {
@@ -86,6 +100,12 @@ public class Holdable : MonoBehaviour
         }
         if (_weapon != null)
             _weaponCollider = _weapon.GetComponent<Collider2D>();
+        
+        if (_startFloatingWhenSpawned)
+        {
+            StartFloating();
+            transform.position = _floatingPosition;
+        }
     }
 
     void FixedUpdate()
@@ -102,12 +122,30 @@ public class Holdable : MonoBehaviour
                 _xVelocity = Mathf.MoveTowards(_xVelocity, 0f, _fallAcceleration * 25f * Time.fixedDeltaTime);
             }
 
+            if ((transform.position - _oldPosition).sqrMagnitude < 0.00001f)
+            {
+                _timeStoodStill += Time.deltaTime;
+            }
+            else
+            {
+                _timeStoodStill = 0f;
+            }
+            _oldPosition = transform.position;
+
+            if (_startsFloatingWhenThrown && _timeStoodStill > 1f)
+            {
+                _thrown = false;
+                Invoke(nameof(StartFloating), 0.5f);
+            }
+
             _rigidBody.velocity = new Vector2(_xVelocity, _yVelocity);
             // If the thrown holdable hasn't been seen in 30 seconds it probably doesn't need to exist anymore.
             if (!_renderer.isVisible) _outOfViewTime += Time.fixedDeltaTime;
             else _outOfViewTime = 0f;
         }
         if (_outOfViewTime > 30f) Break();
+        if (_floating)
+            Floating();
     }
 
     public void Throw(Vector2 direction)
@@ -122,6 +160,7 @@ public class Holdable : MonoBehaviour
         _yVelocity = throwVector.y;
         _rigidBody.AddTorque(_throwTorque * (direction.x < 0f ? 1f : -1f), ForceMode2D.Impulse);
         _timeSinceThrown = 0f;
+        _timeStoodStill = 0f;
         _thrown = true;
         BeingHeld = false;
         _holder = null;
@@ -214,6 +253,7 @@ public class Holdable : MonoBehaviour
 
     public void Pickup(Transform hand, GenericMover holder, GenericHealth health, bool isFacingLeft, ref bool heavy, ref bool flipable, ref bool isWeapon, ref float weaponCooldown, ref string weaponUseAnimation, ref float weaponAnimationSpeed)
     {
+        StopFloating();
         _thrown = false;
         _rigidBody.totalTorque = 0f;
         _rigidBody.freezeRotation = true;
@@ -258,7 +298,7 @@ public class Holdable : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (_thrown && collision.gameObject.layer == _groundLayer && !_broken)
+        if (_thrown && collision.gameObject.layer == _groundLayerId && !_broken)
         {
             if (_breaksOnImpact)
             {
@@ -277,9 +317,42 @@ public class Holdable : MonoBehaviour
                 {
                     _timeSinceThrown = _throwFallTime;
                 }
-
             }
         }
+    }
+
+    protected void StartFloating()
+    {
+        if (_holder != null) return;
+        _rigidBody.isKinematic = true;
+        _rigidBody.velocity = Vector2.zero;
+        _rigidBody.angularVelocity = 0f;
+        _thrown = false;
+        _floating = true;
+        _glowParticles.Play();
+        RaycastHit2D groundRaycast = Physics2D.Raycast(transform.position, Vector2.down, 2f, _groundLayer);
+        if (groundRaycast)
+        {
+            _floatingPosition = groundRaycast.point + Vector2.up;
+        }
+        else
+        {
+            _floatingPosition = transform.position;
+        }
+    }
+
+    protected void StopFloating()
+    {
+        _floating = false;
+        _glowLight.intensity = 0f;
+        _glowParticles.Stop();
+    }
+
+    void Floating()
+    {
+        transform.localEulerAngles = new Vector3(0, 0, Mathf.MoveTowardsAngle(transform.localEulerAngles.z, Mathf.Sin((Time.time + _timeOffset) * 0.7f) * 5f, Time.deltaTime * 25f));
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, _floatingPosition + Vector3.up * Mathf.Sin(Time.time + _timeOffset) * 0.2f, Time.deltaTime * 0.4f);
+        _glowLight.intensity = Mathf.MoveTowards(_glowLight.intensity, Mathf.Sin((Time.time + _timeOffset) * 0.85f) / 2 + 1f, Time.deltaTime);
     }
 
     public virtual void Break()
@@ -309,7 +382,7 @@ public class Holdable : MonoBehaviour
     }
 }
 
-public class HoldableEventArgs : EventArgs
+public class HoldableEventArgs : System.EventArgs
 {
     public Sprite ItemIcon { get; set; }
     public DurabilityType DurabilityType { get; set; }

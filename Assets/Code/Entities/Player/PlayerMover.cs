@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerMover : GenericMover
 {
     [SerializeField] GameObject _playerHealthBar;
+    [SerializeField] Light2D[] _playerLights;
     //[SerializeField] PlayerHealth _health;
 
     //[SerializeField] Animator _animator;
@@ -309,6 +311,31 @@ public class PlayerMover : GenericMover
         _isDead = true;
         dm.DeathCount();
         Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
+    }
+
+    public void SnuffOutLightForSeconds(float seconds)
+    {
+        float oldIntensity = _playerLights[0].intensity;
+        if (oldIntensity < 0f)
+            oldIntensity = 1f;
+        foreach (Light2D playerLight in _playerLights)
+        {
+            playerLight.intensity = 0f;
+        }
+        StartCoroutine(IESnuffOutLightForSeconds(seconds, oldIntensity));
+    }
+    
+    IEnumerator IESnuffOutLightForSeconds(float seconds, float oldIntensity)
+    {
+        yield return new WaitForSeconds(seconds);
+        while (_playerLights[0].intensity < oldIntensity)
+        {
+            foreach (Light2D playerLight in _playerLights)
+            {
+                playerLight.intensity = Mathf.MoveTowards(playerLight.intensity, oldIntensity, Time.deltaTime);
+            }
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     public void PlayCutscene(CutsceneMovement[] cutscene)
