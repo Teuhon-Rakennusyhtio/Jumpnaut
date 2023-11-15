@@ -1312,6 +1312,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 1478702626878013673}
     m_Position: {x: -15, y: 695, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 8097551883030433183}
+    m_Position: {x: 20, y: 760, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 2070967834862696173}
@@ -2138,7 +2141,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 02f03191e0d8a47478e5da0d0142ec62, type: 2}
+  m_Motion: {fileID: 7400000, guid: ffe37199d25e05643bcd95e50ecf8e48, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -2863,6 +2866,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &8097551883030433183
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: EHR_Throw
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 2f92455450bdb1d43a7600f277ece47d, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &8181774981942268328
 AnimatorState:
   serializedVersion: 6
@@ -2884,7 +2913,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 02f03191e0d8a47478e5da0d0142ec62, type: 2}
+  m_Motion: {fileID: 7400000, guid: 15bc3ab5da576d74a863792fe9e080cd, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
