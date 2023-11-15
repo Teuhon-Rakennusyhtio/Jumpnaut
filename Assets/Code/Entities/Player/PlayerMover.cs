@@ -18,6 +18,7 @@ public class PlayerMover : GenericMover
     bool _isRegrouping;
     bool _regroup;
     bool _isDead;
+    bool _isInCutscene;
     public float _respawnSpeed = 7f;
     public GameObject[] playerList;
     SpriteRenderer[] _sprites;
@@ -88,13 +89,17 @@ public class PlayerMover : GenericMover
 
     protected override void GetInputs()
     {
-        if (Device == null) return;
-        if (Device.GetMoveAnalogInput.magnitude > 0.2f) _moveInput = Device.GetMoveAnalogInput;
-        else _moveInput = Device.GetMoveInput;
-        _jumpInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.jump];
-        _useInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.use];
-        _catchInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pickup];
-        _pauseInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pause];
+        if (!_isInCutscene)
+        {
+            if (Device == null) return;
+            if (Device.GetMoveAnalogInput.magnitude > 0.2f) _moveInput = Device.GetMoveAnalogInput;
+            else _moveInput = Device.GetMoveInput;
+            _jumpInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.jump];
+            _useInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.use];
+            _catchInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pickup];
+            _pauseInput = Device.GetInputs[(int) ChildDeviceManager.InputTypes.pause];
+        }
+        
     }
 
     protected override void Jump()
@@ -305,4 +310,47 @@ public class PlayerMover : GenericMover
         dm.DeathCount();
         Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
     }
+
+    public void PlayCutscene(CutsceneMovement[] cutscene)
+    {
+        if (_isInCutscene) return;
+        _isInCutscene = true;
+        StartCoroutine(IEPlayCutscene(cutscene));
+    }
+
+    IEnumerator IEPlayCutscene(CutsceneMovement[] cutscene)
+    {
+        foreach (CutsceneMovement movement in cutscene)
+        {
+            if (movement.Animation != "")
+                PlayFullBodyAnimation(movement.Animation);
+            
+            _moveInput = movement.MoveInput;
+            _jumpInput = movement.JumpInput;
+            _useInput = movement.UseInput;
+            _catchInput = movement.CatchInput;
+            yield return new WaitForSeconds(movement.Duration);
+        }
+        _isInCutscene = false;
+    }
+}
+
+[System.Serializable]
+public struct CutsceneMovement
+{
+    public CutsceneMovement(float duration, Vector2 moveInput, bool jumpInput, bool useInput, bool catchInput, string animation)
+    {
+        Duration = duration;
+        MoveInput = moveInput;
+        JumpInput = jumpInput;
+        UseInput = useInput;
+        CatchInput = catchInput;
+        Animation = animation;
+    }
+    public float Duration;
+    public Vector2 MoveInput;
+    public bool JumpInput;
+    public bool UseInput;
+    public bool CatchInput;
+    public string Animation;
 }

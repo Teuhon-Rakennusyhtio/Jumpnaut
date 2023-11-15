@@ -19538,8 +19538,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.05159998, y: 0.045000076, z: 0}
-    m_Extent: {x: 3.3933, y: 4.4121, z: 0}
+    m_Center: {x: 0.043300033, y: 0.041199923, z: 0}
+    m_Extent: {x: 3.3934999, y: 4.4193, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -19574,7 +19574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1195130058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25992,6 +25992,10 @@ PrefabInstance:
     - target: {fileID: 5192261981595122278, guid: d3d3134debd0b2445a6607ffac5d24ab, type: 3}
       propertyPath: m_Name
       value: BatteryFactoryBase (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5192261981595122278, guid: d3d3134debd0b2445a6607ffac5d24ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -85446,19 +85450,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1753293263063494236, guid: de64e9f233d7c19428afe53e0b1fa093, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.56225187
+      value: 0.6226004
       objectReference: {fileID: 0}
     - target: {fileID: 1753293263063494236, guid: de64e9f233d7c19428afe53e0b1fa093, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.82696605
+      value: -0.78254
       objectReference: {fileID: 0}
     - target: {fileID: 2793094020238891161, guid: de64e9f233d7c19428afe53e0b1fa093, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0051010232
+      value: -0.07997051
       objectReference: {fileID: 0}
     - target: {fileID: 2793094020238891161, guid: de64e9f233d7c19428afe53e0b1fa093, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.999987
+      value: -0.9967972
       objectReference: {fileID: 0}
     - target: {fileID: 3540156858875961251, guid: de64e9f233d7c19428afe53e0b1fa093, type: 3}
       propertyPath: m_LocalRotation.w
@@ -85536,6 +85540,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.w
       value: -0.5364462
       objectReference: {fileID: 0}
+    - target: {fileID: 8015271972027896431, guid: de64e9f233d7c19428afe53e0b1fa093, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.8439345
+      objectReference: {fileID: 0}
     - target: {fileID: 8529458384910204609, guid: de64e9f233d7c19428afe53e0b1fa093, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.99997085
@@ -85564,6 +85572,10 @@ PrefabInstance:
     - target: {fileID: 2393250508303169315, guid: a414799474dfad9409780f3bb909a3ec, type: 3}
       propertyPath: m_Name
       value: Planet
+      objectReference: {fileID: 0}
+    - target: {fileID: 2393250508303169315, guid: a414799474dfad9409780f3bb909a3ec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3687995605016669917, guid: a414799474dfad9409780f3bb909a3ec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -85719,6 +85731,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ToolBox
       objectReference: {fileID: 0}
+    - target: {fileID: 5223915083577016812, guid: 6700be2e2c563a64c9dec48b4c5acb45, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -85829,6 +85845,10 @@ PrefabInstance:
     - target: {fileID: 7737552835089795738, guid: cd3d981286000354f8913a13124f9c0c, type: 3}
       propertyPath: m_Name
       value: Clouds
+      objectReference: {fileID: 0}
+    - target: {fileID: 7737552835089795738, guid: cd3d981286000354f8913a13124f9c0c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8363633904720640621, guid: cd3d981286000354f8913a13124f9c0c, type: 3}
       propertyPath: m_LocalPosition.x
