@@ -35,7 +35,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     _insideGround = false, _holdingSomething = false,
     _alreadyCaught = false, _facingLeft = false,
     _holdingHeavyObject = false, _holdingWeapon,
-     _grabbedLadderThisFrame, _leftLadderThisFrame,
+     _grabbedLadderThisFrame, _leftLadder,
     _heldItemIsFlipalbe, _jumpedThisFrame, _holdingOut,
     _alreadyUsed, _currentlyUsing, _isInControl = true;
     public SpriteRenderer _helmetMain, _helmetClimb;
@@ -249,7 +249,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         _currentSpeed = 0f;
         transform.position = new Vector2(_ladderXCoord, Mathf.Max(transform.position.y, _ladderBottom));
         _grabbedLadderThisFrame = true;
-
+        _leftLadder = false;
         _animator?.Play("Climbing");
         _handTransform.parent = _climbArm;
         _handTransform.localScale = Vector3.one;
@@ -261,7 +261,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         if (_climbingLadder) _jumpBuffer = 0f; // The entity should not jump off the ladder if they were going to do it before getting onto the ladder
         _climbingLadder = false;
-        _leftLadderThisFrame = true;
+        _leftLadder = true;
 
         if (_holdingHeavyObject || !_facingLeft)
         {
@@ -545,7 +545,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     {
         if (GameManager.CurrentlyInUI) return;
         _jumpedThisFrame = false;
-        _leftLadderThisFrame = false;
+        //_leftLadderThisFrame = false;
         _grabbedLadderThisFrame = false;
 
         _movement = Vector2.zero;
@@ -636,7 +636,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         {
             anim.ResetTrigger("Jump");
         }
-        if (_leftLadderThisFrame)
+        if (_leftLadder)
         {
             anim.SetTrigger("LeftLadder");
         }
