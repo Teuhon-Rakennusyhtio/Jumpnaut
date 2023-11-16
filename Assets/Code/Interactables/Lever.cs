@@ -21,7 +21,9 @@ public class Lever : MonoBehaviour
         _useTipBubble = _useTipBubbleGraphic.gameObject.transform;
         _useTipBubbleYCoord = _useTipBubble.position.y;
         _movers = new List<PlayerMover>();
-        _singlePlayer = GameManager.PlayerDevices.Count == 1 && _goneInSinglePlayer;
+
+        if (GameManager.Instance != null)
+            _singlePlayer = GameManager.PlayerDevices.Count == 1 && _goneInSinglePlayer;
 
         if (_singlePlayer)
         {

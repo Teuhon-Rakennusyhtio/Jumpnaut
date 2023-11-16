@@ -5794,8 +5794,11 @@ MonoBehaviour:
   _climbArm: {fileID: 5778146755354177100}
   _helmetMain: {fileID: 8744336245443789613}
   _helmetClimb: {fileID: 1617449661004494204}
-  audioManager: {fileID: 0}
+  _AudioManager: {fileID: 0}
   _playerHealthBar: {fileID: 6034050332201979032, guid: 9a3bfd40d2f76edc0ad880bcadd9221d, type: 3}
+  _playerLights:
+  - {fileID: 6665794013257521696}
+  - {fileID: 3475257179821220136}
   Device: {fileID: 0}
   Id: 0
   _respawnSpeed: 7
