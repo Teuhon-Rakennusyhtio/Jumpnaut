@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Checkpoint
   - Audio
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
