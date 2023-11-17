@@ -165,6 +165,7 @@ public class PlayerMover : GenericMover
         if (collision.gameObject.tag == "Checkpoint")
         {
             spawnpoint.transform.position = transform.position;
+            dm.HearseService();
             Debug.Log("Spawnpoint set");
         }
 
@@ -173,7 +174,7 @@ public class PlayerMover : GenericMover
             EndFullBodyAnimation();
             SetControl(true);
             _health.Heal(1);
-            dm.DeathReducer();
+            dm.DeathReducer(this);
             Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
             _isDead = false;
         }
@@ -216,7 +217,7 @@ public class PlayerMover : GenericMover
         _health.Heal(3);
         _helmetMain.enabled = true;
         _helmetClimb.enabled = true;
-        dm.DeathReducer();
+        dm.DeathReducer(this);
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
     }
 
@@ -309,7 +310,7 @@ public class PlayerMover : GenericMover
             PlayFullBodyAnimation("Die Right");
         }
         _isDead = true;
-        dm.DeathCount();
+        dm.DeathCount(this);
         Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
     }
 

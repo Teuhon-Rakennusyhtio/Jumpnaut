@@ -5,16 +5,26 @@ using UnityEngine;
 public class DeathManager : MonoBehaviour
 {
     public int playerDead = 0;
-    //public bool AllAreDead = false;
+    List<PlayerMover> _obituary;
+    GameObject spawnPoint;
 
-    public void DeathCount()
+    void Awake()
+    {
+        _obituary = new List<PlayerMover>();
+        spawnPoint = GameObject.Find("Spawnpoint");
+
+    }
+    
+    public void DeathCount(PlayerMover player)
     {
         playerDead += 1;
+        _obituary.Add(player);
     }
 
-    public void DeathReducer()
+    public void DeathReducer(PlayerMover player)
     {
         playerDead -= 1;
+        _obituary.Remove(player);
     }
 
     public bool DeathToll(int deathLimit)
@@ -28,4 +38,14 @@ public class DeathManager : MonoBehaviour
             return false;
         }
     }
+
+    public void HearseService()
+    {
+        foreach (PlayerMover player in _obituary)
+        {
+            player.transform.position = spawnPoint.transform.position;
+        }
+    }
+
+
 }
