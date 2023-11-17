@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static bool CurrentlyInUI = true;
     public static List<ChildDeviceManager> PlayerDevices;
     [SerializeField] Color[] playerColors;
+    public static int score;
 
     // -1 means any input device can use the current UI
     public static int UIOwnerId = -1;
@@ -57,6 +58,12 @@ public class GameManager : MonoBehaviour
         Camera.main.GetComponent<CameraMovement>().ReturnToMainMenu();
         PlayerDevices.Clear();
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+    public static void AddScore(int points)
+    {
+        score += points;
+        Debug.Log(score);
     }
 
     void Update()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHealth : GenericHealth
 {
     [SerializeField] EnemyMover _mover;
+    int pointWorth = 500;
     float _damageDirection;
 
     public override void Damaged(Weapon weapon, Vector2 position)
@@ -15,6 +16,7 @@ public class EnemyHealth : GenericHealth
     }
     protected override void Die()
     {
+        GameManager.AddScore(pointWorth);
         base.Die();
         _mover.Die();
     }
