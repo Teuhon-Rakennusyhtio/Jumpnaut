@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
 
     [Header(" - - - Audio Clip - - - ")]
     public AudioClip background;
+    public AudioClip title;
     public AudioClip jump;
     public AudioClip damage;
     public AudioClip death;
@@ -24,5 +25,24 @@ public class AudioManager : MonoBehaviour
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
+    }
+
+    public void PlayMenuMusic()
+    {
+        StopAllMusic();
+        musicSource.clip = title;
+        musicSource.Play();
+    }
+
+    public void PlayStageMusic()
+    {
+        StopAllMusic();
+        //musicSource.clip = background;
+        //musicSource.Play();
+    }
+
+    public void StopAllMusic()
+    {
+        musicSource.Stop();
     }
 }

@@ -26087,6 +26087,7 @@ MonoBehaviour:
   musicSource: {fileID: 1968711327}
   SFXSource: {fileID: 335826749}
   background: {fileID: 0}
+  title: {fileID: 8300000, guid: d6a899864d6578742a5a6a10d117b3eb, type: 3}
   jump: {fileID: 8300000, guid: 31e1c98c07b9c744b96fb84f753ed4be, type: 3}
   damage: {fileID: 0}
   death: {fileID: 0}
@@ -32717,7 +32718,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

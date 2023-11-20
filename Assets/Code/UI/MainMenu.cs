@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject _start, _joinGame, _settings, _startGameButton;
     GameObject _lastSelectedButtonInStart;
+    public AudioManager _AudioManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,10 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1.0f;
         ToggleAllButtons(_joinGame, false);
         ToggleAllButtons(_settings, false);
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _AudioManager = audioManagerGameObject.GetComponent<AudioManager>();
+        _AudioManager?.PlayMenuMusic();
     }
 
     // Update is called once per frame
