@@ -207,11 +207,11 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         // ---------------------------------
         // If the entity has left the ladder
         // ---------------------------------
-        if (Mathf.Abs(_moveInput.x) > 0.5f && _climbingLadder && Mathf.Abs(_moveInput.y) <= 0.2f)
+        if (Mathf.Abs(_moveInput.x) > 0.6f && _climbingLadder && Mathf.Abs(_moveInput.y) < 0.5f)
         {
             ExitLadder();
         }
-        else if (Mathf.Abs(_moveInput.y) > 0.2f && _isInControl)
+        else if (Mathf.Abs(_moveInput.y) > 0.5f && _isInControl)
         {
             // -------------------------------------------
             // If the entity just grabbed on to the ladder
