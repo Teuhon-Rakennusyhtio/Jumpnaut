@@ -359,6 +359,7 @@ public class PlayerMover : GenericMover
             _catchInput = movement.CatchInput;
             yield return new WaitForSeconds(movement.Duration);
         }
+        EndFullBodyAnimation();
         _moveInput = Vector2.zero;
         _jumpInput = false;
         _useInput = false;
@@ -377,6 +378,16 @@ public struct CutsceneMovement
         JumpInput = jumpInput;
         UseInput = useInput;
         CatchInput = catchInput;
+        Animation = animation;
+    }
+
+    public CutsceneMovement(float duration, string animation)
+    {
+        Duration = duration;
+        MoveInput = Vector2.zero;
+        JumpInput = false;
+        UseInput = false;
+        CatchInput = false;
         Animation = animation;
     }
     public float Duration;

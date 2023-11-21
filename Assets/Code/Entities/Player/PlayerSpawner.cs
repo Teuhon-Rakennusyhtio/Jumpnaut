@@ -14,6 +14,13 @@ public class PlayerSpawner : MonoBehaviour
             Invoke(nameof(EnablePipeCollider), 2f);
         }
 
+        CutsceneMovement[] spawnCutscene = new CutsceneMovement[_spawnCutscene.Length + 1];
+        for (int i = 0; i < _spawnCutscene.Length; i++)
+        {
+            spawnCutscene[i] = _spawnCutscene[i];
+        }
+        spawnCutscene[^1] = new CutsceneMovement(1f, $"Pose Right {Random.Range(0, 2)}");
+
         for (int i = 0; i < GameManager.PlayerDevices.Count; i++)
         {
             GameObject player = Instantiate(_playerPrefab, transform.position + new Vector3(i * 2 % 5, 0, 0), Quaternion.identity);
@@ -21,7 +28,7 @@ public class PlayerSpawner : MonoBehaviour
             if (transform.position.y < 10f)
             {
                 GameObject.Find("LeftBoundary").GetComponent<Collider2D>().enabled = false;
-                player.GetComponent<PlayerMover>().PlayCutscene(_spawnCutscene);
+                player.GetComponent<PlayerMover>().PlayCutscene(spawnCutscene);
                 player.GetComponent<PlayerMover>().SnuffOutLightForSeconds(2f);
             }
         }
