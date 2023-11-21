@@ -12,7 +12,8 @@ public class TitleCards : MonoBehaviour
     }
     IEnumerator Start()
     {
-        yield return new WaitForSecondsRealtime(4f);
+        yield return new WaitUntil(() => GameManager.Instance != null);
+        yield return new WaitForSecondsRealtime(2f);
         float logoOpacity = 1f;
         Image[] images = GetComponentsInChildren<Image>();
         while (logoOpacity > 0f)
