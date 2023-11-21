@@ -516,7 +516,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Congrats, you have taken back your workplace valiantly (and definitely
+  m_text: Congrats, you have taken back your workplace valiantly! (And definitely
     not with violence and mischievery!)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84acdff76d5b6054ab19e1389a53b020, type: 2}
@@ -1108,7 +1108,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Congrats, you have taken back your workplace valiantly (and definitely
+  m_text: Congrats, you have taken back your workplace valiantly! (And definitely
     not with violence and mischievery!)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84acdff76d5b6054ab19e1389a53b020, type: 2}
