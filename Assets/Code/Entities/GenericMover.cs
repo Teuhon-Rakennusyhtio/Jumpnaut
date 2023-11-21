@@ -45,6 +45,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     protected bool _jumpInput, _useInput, _catchInput;
     
     public bool IsInControl { get { return _isInControl; } }
+    public bool Grounded { get { return _grounded; } }
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();

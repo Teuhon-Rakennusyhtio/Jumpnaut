@@ -62,6 +62,7 @@ public class Holdable : MonoBehaviour
     public float AnalogDurability { get { return _analogDurability; } }
     public string WeaponUseAnimation { get { return _weaponUseAnimation; } }
     public bool IsHelmet { get { return _isHelmet; } }
+    public bool Thrown { get { return _thrown; } }
     public ToolBox ToolBox
     {
         get
