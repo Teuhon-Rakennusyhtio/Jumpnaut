@@ -359,6 +359,10 @@ public class PlayerMover : GenericMover
             _catchInput = movement.CatchInput;
             yield return new WaitForSeconds(movement.Duration);
         }
+        _moveInput = Vector2.zero;
+        _jumpInput = false;
+        _useInput = false;
+        _catchInput = false;
         _isInCutscene = false;
     }
 }
