@@ -726,6 +726,7 @@ public class EnemyMover : GenericMover
     }
     public override void Die()
     {
+        _AudioManager?.PlaySFX(_AudioManager.enemyDeath);
         _isInControl = false;
         _useRigidbodyNormally = true;
         _collider.isTrigger = true;
