@@ -16,7 +16,7 @@ public class EnemyHealth : GenericHealth
     }
     protected override void Die()
     {
-        GameManager.AddScore(pointWorth);
+        GameManager.AddScore(pointWorth, transform.position);
         base.Die();
         _mover.Die();
     }

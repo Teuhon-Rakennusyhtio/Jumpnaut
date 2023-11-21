@@ -60,9 +60,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
-    public static void AddScore(int points)
+    public static void AddScore(int points, Vector3 position)
     {
         score += points;
+        GameObject scoreGraphic = Instantiate(Resources.Load<GameObject>("Prefabs/ScoreGraphic"), position, Quaternion.identity);
+        scoreGraphic.GetComponent<NewScoreGraphic>().GotScore(points);
     }
 
     public static int DisplayScore()

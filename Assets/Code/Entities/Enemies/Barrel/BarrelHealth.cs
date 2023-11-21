@@ -10,7 +10,7 @@ public class BarrelHealth : GenericHealth
 
     protected override void Die()
     {
-        GameManager.AddScore(pointWorth);
+        GameManager.AddScore(pointWorth, transform.position);
         _die.Invoke();
     }
 }

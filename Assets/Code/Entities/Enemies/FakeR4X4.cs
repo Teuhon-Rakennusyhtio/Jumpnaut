@@ -43,7 +43,7 @@ public class FakeR4X4 : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         Debug.Log("Bye bye!");
-        GameManager.AddScore(pointWorth);
+        GameManager.AddScore(pointWorth, transform.position);
         _health.localPosition = Vector2.left * 500f;
         _rigidbody.bodyType = RigidbodyType2D.Dynamic;
         _rigidbody.AddForce(Vector2.one * 20f, ForceMode2D.Impulse);
