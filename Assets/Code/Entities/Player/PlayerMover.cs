@@ -214,7 +214,7 @@ public class PlayerMover : GenericMover
         dm.HearseService();
         EndFullBodyAnimation();
         SetControl(true);
-        _health.Heal(3);
+        _health.Heal(10);
         _helmetMain.enabled = true;
         _helmetClimb.enabled = true;
         dm.DeathReducer(this);
