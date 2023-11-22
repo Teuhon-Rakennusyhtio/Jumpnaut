@@ -147,7 +147,7 @@ public class PlayerMover : GenericMover
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("MainCamera") && _isDead == false && playerList.Length < 1)
+        if (collision.CompareTag("MainCamera") && _isDead == false && playerList.Length != 1)
         {
             _isRegrouping = true;
             SetControl(false);
@@ -233,6 +233,7 @@ public class PlayerMover : GenericMover
             {
                 closestPlayer = playerList[i];
                 closest = distance;
+                Debug.Log(closest);
             }
         }
     }
