@@ -211,7 +211,7 @@ public class PlayerMover : GenericMover
     IEnumerator IEMourn()
     {
         yield return new WaitForSeconds(3);
-        transform.position = spawnpoint.transform.position;
+        dm.HearseService();
         EndFullBodyAnimation();
         SetControl(true);
         _health.Heal(3);
