@@ -84,6 +84,10 @@ public abstract class GenericHealth : MonoBehaviour
         if (_health <= 0)
         {
             Die();
+            if (_health < 0)
+            {
+            _health = 0;
+            }
             return;
         }
         _invincibilityFrames = _maxInvincibilityFrames;

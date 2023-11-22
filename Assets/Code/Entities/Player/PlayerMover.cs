@@ -147,7 +147,7 @@ public class PlayerMover : GenericMover
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("MainCamera") && _isDead == false && playerList.Length != 1)
+        if (collision.CompareTag("MainCamera") && _isDead == false)
         {
             _isRegrouping = true;
             SetControl(false);
@@ -203,7 +203,6 @@ public class PlayerMover : GenericMover
             if (dm.DeathToll(playerList.Length) == true)
             {
                 StartCoroutine(IEMourn());
-                _isDead = false;
             }
         }
     }
@@ -219,6 +218,8 @@ public class PlayerMover : GenericMover
         _helmetClimb.enabled = true;
         dm.DeathReducer(this);
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
+        yield return new WaitForSeconds(4);
+        _isDead = false;
     }
 
     void FindClosestPlayer()
