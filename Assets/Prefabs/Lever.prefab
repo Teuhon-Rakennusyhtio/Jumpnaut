@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3660fddba6c6a589688431faac3c7740, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c52e97b30e118c46aca7ea2b73c171a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -321,8 +321,10 @@ MonoBehaviour:
   _pullRight:
     m_PersistentCalls:
       m_Calls: []
-  _movesAutomaticallyInSinglePlayer: 0
-  _automaticDelay: 2
+  _whenInSinglePlayer:
+    m_PersistentCalls:
+      m_Calls: []
+  _goneInSinglePlayer: 0
   _anim: {fileID: 8258343564021666391}
   _useTipBubbleGraphic: {fileID: 1280349925272728360}
 --- !u!95 &8258343564021666391

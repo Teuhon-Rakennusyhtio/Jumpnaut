@@ -95,21 +95,8 @@ public class MovingPlatform : MonoBehaviour
         _pathVector = _pathVector.normalized;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        /*if (_progress == _target)
-        {
-            if (MovesOnItsOwn)
-            {
-                _target = _progress == 0f ? 1f : 0f;
-            }
-            else
-            {
-                return;
-            }
-        }*/
-        //_progress = Mathf.MoveTowards(_progress, _target, Speed * Time.fixedDeltaTime);
         if ((_platfrom.position - (Vector2)_endPoint.position).sqrMagnitude < 0.01f && _direction == 1f)
         {
             bool backTrackNow = (_currentStartPoint == _pathPoints.Length - 2 && _whenTheLastPointIsReached == MovingPlatformPathTypes.BacktrackToStartPoint && _movesOnItsOwn);
@@ -133,12 +120,6 @@ public class MovingPlatform : MonoBehaviour
         }
         else if ((_platfrom.position - (Vector2)_startPoint.position).sqrMagnitude < 0.01f && _direction == -1f)
         {
-            /*_direction = 0f;
-            if (_movesOnItsOwn)
-            {
-                StartCoroutine(StartMovingOnOwnWithDelay(1f, _movingOnOwnDelay));
-            }*/
-
             bool backTrackNow = (_currentStartPoint == 0 && _whenTheLastPointIsReached == MovingPlatformPathTypes.BacktrackToStartPoint && _movesOnItsOwn);
             if (_waitAtEveryPathPoint || backTrackNow)
             {
@@ -164,8 +145,6 @@ public class MovingPlatform : MonoBehaviour
         {
             rigidbody.velocity += movementVector;
         }
-        //_platfrom.MovePosition(Vector2.Lerp(_startPoint.position, _endPoint.position, _progress));
-
     }
 
     IEnumerator StartMovingOnOwnWithDelay(float direction, float delay)
@@ -177,6 +156,21 @@ public class MovingPlatform : MonoBehaviour
     public void OnCollisionChange(bool isAdding, Collision2D collision)
     {
         Rigidbody2D rigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+        if (rigidbody == null || rigidbody.bodyType != RigidbodyType2D.Dynamic) return;
+        
+        if (isAdding) 
+        {
+            _attachedRigidbodies.Add(rigidbody);
+        }
+        else
+        {
+            _attachedRigidbodies.Remove(rigidbody);
+        }
+    }
+
+    public void OnCollisionChange(bool isAdding, Collider2D collider)
+    {
+        Rigidbody2D rigidbody = collider.gameObject.GetComponent<Rigidbody2D>();
         if (rigidbody == null || rigidbody.bodyType != RigidbodyType2D.Dynamic) return;
         
         if (isAdding) 
@@ -203,7 +197,6 @@ public class MovingPlatform : MonoBehaviour
         {
             _direction = -1f;
         }
-        //_direction = target > 0 ? 1f : -1f;
     }
 
     public void SetSpeed(float speed) => Speed = speed;
