@@ -19,7 +19,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     [SerializeField] protected Transform _mainRig, _leftArm, _rightArm, _climbArm;
     protected Holdable _heldItem;
     protected Vector2 _movement, _slopeNormal, _slopeNormalPerpendicular,
-    _gravity, _moveInput, _previousPosition;
+    _gravity, _moveInput, _previousPosition, _strafeMovement;
     protected Rigidbody2D _rigidBody;
     protected bool _useRigidbodyNormally = false;
     protected Collider2D _collider;
@@ -596,7 +596,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
             CheckIfInsideGround();
         }*/
         if (!_useRigidbodyNormally)
-            _rigidBody.velocity = (_movement + _gravity) * 50f * Time.fixedDeltaTime;
+            _rigidBody.velocity = (_movement + _gravity + _strafeMovement) * 50f * Time.fixedDeltaTime;
         _previousPosition = transform.position;
         if (_animator != null) Animate(_animator);
     }

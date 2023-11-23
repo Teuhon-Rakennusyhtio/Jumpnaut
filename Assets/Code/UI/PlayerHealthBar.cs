@@ -20,9 +20,11 @@ public class PlayerHealthBar : MonoBehaviour
     int _maxHealth;
     int _currentHealth;
     int _currentDigitalDurability;
+    List<RectTransform> _currentlyShakedThings;
     // Start is called before the first frame update
     void Start()
     {
+        _currentlyShakedThings = new();
         SetAnalogDurabilityFullness(0f);
         _heldItemIcon.enabled = false;
     }
@@ -193,36 +195,46 @@ public class PlayerHealthBar : MonoBehaviour
 
     IEnumerator Shake(RectTransform rt, float magnitude = 2f)
     {
-        Vector3 originalPosition = rt.localPosition;
-        float duration = 0.5f;
-
-        while (duration > 0f)
+        if (!_currentlyShakedThings.Contains(rt))
         {
-            Vector3 shake = new Vector3(Mathf.Sin(duration * 16), Mathf.Sin(duration * 32) * 2, 0) * magnitude * duration;
+            _currentlyShakedThings.Add(rt);
+            Vector3 originalPosition = rt.localPosition;
+            float duration = 0.5f;
 
-            rt.localPosition = originalPosition + shake;
-            yield return new WaitForEndOfFrame();
-            duration -= Time.deltaTime;
+            while (duration > 0f)
+            {
+                Vector3 shake = new Vector3(Mathf.Sin(duration * 16), Mathf.Sin(duration * 32) * 2, 0) * magnitude * duration;
+
+                rt.localPosition = originalPosition + shake;
+                yield return new WaitForEndOfFrame();
+                duration -= Time.deltaTime;
+            }
+
+            rt.localPosition = originalPosition;
+            _currentlyShakedThings.Remove(rt);
         }
-
-        rt.localPosition = originalPosition;
     }
 
     IEnumerator Raise(RectTransform rt, float magnitude = 2f)
     {
-        Vector3 originalPosition = rt.localPosition;
-        float duration = 0.5f;
-
-        while (duration > 0f)
+        if (!_currentlyShakedThings.Contains(rt))
         {
-            Vector3 shake = new Vector3(0, Mathf.Sin(duration * 32) * 2, 0) * magnitude * duration;
+            _currentlyShakedThings.Add(rt);
+            Vector3 originalPosition = rt.localPosition;
+            float duration = 0.5f;
 
-            rt.localPosition = originalPosition + shake;
-            yield return new WaitForEndOfFrame();
-            duration -= Time.deltaTime;
+            while (duration > 0f)
+            {
+                Vector3 shake = new Vector3(0, Mathf.Sin(duration * 32) * 2, 0) * magnitude * duration;
+
+                rt.localPosition = originalPosition + shake;
+                yield return new WaitForEndOfFrame();
+                duration -= Time.deltaTime;
+            }
+
+            rt.localPosition = originalPosition;
+            _currentlyShakedThings.Remove(rt);
         }
-
-        rt.localPosition = originalPosition;
     }
 
     void QuickLerpToColour(Color targetColour)

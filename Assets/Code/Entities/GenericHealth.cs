@@ -71,23 +71,17 @@ public abstract class GenericHealth : MonoBehaviour
 
     public virtual void Damaged(Weapon weapon, Vector2 position)
     {
-        /*if (
-            (_isPlayerAligned && weapon.Alignment == 0) ||
-            (!_isPlayerAligned && weapon.Alignment == 1) ||
-            (weapon.Thrown && _invincibleToCatchable)
-            ) return;*/
-
         weapon.LatestHitPosition = position;
         weapon.WeaponHit();
         if (_invincibilityFrames > 0f) return;
-        _health -= weapon.Damage;
+        if (_isPlayerAligned)
+            _health--;
+        else
+            _health -= weapon.Damage;
+        if (_health < 0) _health = 0;
         if (_health <= 0)
         {
             Die();
-            if (_health < 0)
-            {
-            _health = 0;
-            }
             return;
         }
         _invincibilityFrames = _maxInvincibilityFrames;
