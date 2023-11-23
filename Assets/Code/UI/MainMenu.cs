@@ -33,6 +33,7 @@ public class MainMenu : MonoBehaviour
     {
         Button[] buttons = subMenu.GetComponentsInChildren<Button>();
         Slider[] sliders = subMenu.GetComponentsInChildren<Slider>();
+        Toggle[] toggles = subMenu.GetComponentsInChildren<Toggle>();
         foreach (Button button in buttons)
         {
             button.interactable = toggle;
@@ -40,6 +41,10 @@ public class MainMenu : MonoBehaviour
         foreach(Slider slider in sliders)
         {
             slider.interactable = toggle;
+        }
+        foreach (Toggle toggleButton in toggles)
+        {
+            toggleButton.interactable = toggle;
         }
     }
 
