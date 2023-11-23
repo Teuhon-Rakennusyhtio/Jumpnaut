@@ -32,9 +32,14 @@ public class MainMenu : MonoBehaviour
     void ToggleAllButtons(GameObject subMenu, bool toggle)
     {
         Button[] buttons = subMenu.GetComponentsInChildren<Button>();
+        Slider[] sliders = subMenu.GetComponentsInChildren<Slider>();
         foreach (Button button in buttons)
         {
             button.interactable = toggle;
+        }
+        foreach(Slider slider in sliders)
+        {
+            slider.interactable = toggle;
         }
     }
 
@@ -70,6 +75,7 @@ public class MainMenu : MonoBehaviour
         agree.text = answers[Random.Range(0, answers.Length)];
         _lastSelectedButtonInStart = EventSystem.current.currentSelectedGameObject;
         ToggleAllButtons(_start, false);
+        ToggleAllButtons(_settings, true);
         _start.GetComponent<Animator>().Play("Out");
         _settings.GetComponent<Animator>().Play("In");
     }
@@ -92,8 +98,11 @@ public class MainMenu : MonoBehaviour
     public void ReturnFromSettingsScreen()
     {
         ToggleAllButtons(_settings, false);
+        ToggleAllButtons(_settings, false);
         _start.GetComponent<Animator>().Play("In");
         _settings.GetComponent<Animator>().Play("Out");
+
+        EventSystem.current.SetSelectedGameObject(_lastSelectedButtonInStart);
     }
 
     public void StartScreenReturnAnimation()
