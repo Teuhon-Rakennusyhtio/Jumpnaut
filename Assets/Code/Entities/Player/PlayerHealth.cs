@@ -7,6 +7,7 @@ public class PlayerHealth : GenericHealth
 {
     [SerializeField] PlayerMover _playerMover;
     PlayerHealthEventArgs _args;
+    int _pointWorth = -500;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerHealth : GenericHealth
 
     protected override void Die()
     {
+        GameManager.AddScore(_pointWorth, transform.position);
         _playerMover.Die();
         OnPlayerDeath();
     }

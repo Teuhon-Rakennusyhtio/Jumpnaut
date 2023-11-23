@@ -65,6 +65,10 @@ public class GameManager : MonoBehaviour
         score += points;
         GameObject scoreGraphic = Instantiate(Resources.Load<GameObject>("Prefabs/ScoreGraphic"), position, Quaternion.identity);
         scoreGraphic.GetComponent<NewScoreGraphic>().GotScore(points);
+        if (score < 0)
+        {
+            score = 0;
+        }
     }
 
     public static int DisplayScore()

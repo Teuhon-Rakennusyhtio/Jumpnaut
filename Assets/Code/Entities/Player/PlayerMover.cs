@@ -216,8 +216,8 @@ public class PlayerMover : GenericMover
         _health.Heal(10);
         _helmetMain.enabled = true;
         _helmetClimb.enabled = true;
-        dm.DeathReducer(this);
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);
+        dm.DeathReducer(this);
         yield return new WaitForSeconds(4);
         _isDead = false;
     }

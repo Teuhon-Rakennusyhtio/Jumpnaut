@@ -28,6 +28,10 @@ public class DeathManager : MonoBehaviour
     public void DeathReducer(PlayerMover player)
     {
         playerDead -= 1;
+        if (playerDead < 0)
+        {
+            playerDead = 0;
+        }
         _obituary.Remove(player);
     }
 
@@ -35,10 +39,12 @@ public class DeathManager : MonoBehaviour
     {
         if (playerDead == deathLimit)
         {
+            Debug.Log(playerDead);
             return true;
         }
         else
         {
+            Debug.Log(playerDead);
             return false;
         }
     }
