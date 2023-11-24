@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static List<ChildDeviceManager> PlayerDevices;
     [SerializeField] Color[] playerColors;
     public static int score;
+    public static bool MainSceneReloaded;
 
     // -1 means any input device can use the current UI
     public static int UIOwnerId = -1;
@@ -58,6 +59,30 @@ public class GameManager : MonoBehaviour
         Camera.main.GetComponent<CameraMovement>().ReturnToMainMenu();
         PlayerDevices.Clear();
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+    public static void ReloadMainScene(Scene bufferScene)
+    {
+        MainSceneReloaded = false;
+        Instance.StartCoroutine(Instance.IEReloadMainScene(bufferScene));
+    }
+
+    IEnumerator IEReloadMainScene(Scene bufferScene)
+    {
+        SceneManager.SetActiveScene(bufferScene);
+        
+        AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync("MainScene");
+        while (!asyncUnload.isDone)
+        {
+            yield return null;
+        }
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainScene");
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
+        MainSceneReloaded = true;
     }
 
     public static void AddScore(int points, Vector3 position)
