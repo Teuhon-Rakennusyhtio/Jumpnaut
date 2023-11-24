@@ -14,8 +14,17 @@ public class WinerWinnerChickenDinner : MonoBehaviour
     }
     public void PlayAgain()
     {
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        Camera.main.GetComponent<CameraMovement>().ReturnToMainMenu();
+        SceneManager.LoadScene("MainScene");
+        //GameManager.ReloadMainScene(SceneManager.GetSceneByName("WinScene"));
+        //StartCoroutine(IEPlayAgainGlitch());
     }
+
+    /*IEnumerator IEPlayAgainGlitch()
+    {
+        yield return new WaitUntil( () => GameManager.MainSceneReloaded);
+        SceneManager.UnloadSceneAsync("WinScene");
+    }*/
 
     public void QuitToMainMenu()
     {

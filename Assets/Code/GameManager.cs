@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainScene");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive);
         while (!asyncLoad.isDone)
         {
             yield return null;
