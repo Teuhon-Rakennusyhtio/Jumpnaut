@@ -24,13 +24,13 @@ public class PlayerMover : GenericMover
     public float _respawnSpeed = 7f;
     public GameObject[] playerList;
     SpriteRenderer[] _sprites;
-    public GameObject closestPlayer;
-    float distance;
-    float closest = 1000;
+    public GameObject _ClosestPlayer;
+    float _closest = 1000;
+    float _distance;
     private DeathManager dm;
-    private Transform targetPlayer;
-    private GameObject spawnpoint;
-    public SpriteRenderer ufoRenderer;
+    private Transform _targetPlayer;
+    private GameObject _spawnpoint;
+    public SpriteRenderer _UfoRenderer;
     public float smoothTime = 0;
     private Vector2 velocity = Vector2.zero;
 
@@ -49,8 +49,8 @@ public class PlayerMover : GenericMover
         _args = new HoldableEventArgs();
         _materialPropertyBlock = new MaterialPropertyBlock();
         if (_sprites == null) _sprites = GetComponentsInChildren<SpriteRenderer>(true);
-        spawnpoint = GameObject.Find("Spawnpoint");
-        ufoRenderer.enabled = false;
+        _spawnpoint = GameObject.Find("Spawnpoint");
+        _UfoRenderer.enabled = false;
         dm = GameObject.FindObjectOfType<DeathManager>();
         _ladderSongExists = GameManager.LadderSongClip != null;
     }
@@ -164,7 +164,7 @@ public class PlayerMover : GenericMover
 
         if (collision.gameObject.tag == "Checkpoint")
         {
-            spawnpoint.transform.position = transform.position;
+            _spawnpoint.transform.position = transform.position;
             dm.HearseService();
             Debug.Log("Spawnpoint set");
         }
@@ -184,13 +184,13 @@ public class PlayerMover : GenericMover
     {
         if (_isRegrouping == true)
         {
-            ufoRenderer.enabled = true;
-            float distance = Vector3.Distance(transform.position, closestPlayer.transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, closestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
+            _UfoRenderer.enabled = true;
+            float distance = Vector3.Distance(transform.position, _ClosestPlayer.transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, _ClosestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
         }
         else if (_isRegrouping == false)
         {
-            ufoRenderer.enabled = false;
+            _UfoRenderer.enabled = false;
         }
     }
 
@@ -228,13 +228,12 @@ public class PlayerMover : GenericMover
 
         for (int i = 0; i < playerList.Length; i++)
         {
-            distance = Vector2.Distance(this.transform.position, playerList[i].transform.position);
+            _distance = Vector2.Distance(this.transform.position, playerList[i].transform.position);
 
-            if (distance < closest && distance > 4.45)
+            if (_distance < _closest && _distance > 4.45)
             {
-                closestPlayer = playerList[i];
-                closest = distance;
-                Debug.Log(closest);
+                _ClosestPlayer = playerList[i];
+                _closest = _distance;
             }
         }
     }
