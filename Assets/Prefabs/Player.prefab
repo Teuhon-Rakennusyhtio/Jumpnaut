@@ -5799,13 +5799,13 @@ MonoBehaviour:
   _playerLights:
   - {fileID: 6665794013257521696}
   - {fileID: 3475257179821220136}
+  _hurtbox: {fileID: 1658377281168426225}
   Device: {fileID: 0}
   Id: 0
   _respawnSpeed: 7
   playerList: []
-  closestPlayer: {fileID: 0}
-  ufoRenderer: {fileID: 2804466622549616454}
-  smoothTime: 0
+  _ClosestPlayer: {fileID: 0}
+  _UfoRenderer: {fileID: 2804466622549616454}
 --- !u!61 &7545643569282281466
 BoxCollider2D:
   m_ObjectHideFlags: 0

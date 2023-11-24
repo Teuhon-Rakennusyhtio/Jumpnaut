@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player")
         {
             DespawnEnemies();
             DespawnMovingPlatforms();
@@ -26,7 +26,7 @@ public class Checkpoint : MonoBehaviour
     {
         for (int i = 0; i < enemies.Length; i++)
         {
-            if (this.transform.position.y > enemies[i].transform.position.y + 10f)
+            if (enemies[i] != null && enemies[i].activeSelf && this.transform.position.y > enemies[i].transform.position.y + 15f)
             {
                 enemies[i].SetActive(false);
             }
@@ -37,7 +37,7 @@ public class Checkpoint : MonoBehaviour
     {
         for (int i = 0; i < platforms.Length; i++)
         {
-            if (this.transform.position.y > platforms[i].transform.position.y + 10f)
+            if (platforms[i] != null && platforms[i].activeSelf && this.transform.position.y > platforms[i].transform.position.y + 15f)
             {
                 platforms[i].SetActive(false);
             }
