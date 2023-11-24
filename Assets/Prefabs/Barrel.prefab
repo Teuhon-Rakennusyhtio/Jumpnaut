@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 2
-  _maxInvincibilityFrames: 0.1
+  _maxInvincibilityFrames: 0.01
   _isPlayerAligned: 0
   _die:
     m_PersistentCalls:

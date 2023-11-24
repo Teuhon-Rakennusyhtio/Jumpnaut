@@ -318,7 +318,7 @@ public class EnemyMover : GenericMover
         }
 
         Debug.DrawLine(transform.position, fightPosition, Color.magenta);
-        _strafeMovement = new Vector2((fightPosition - (Vector2)transform.position).x, 0);
+        _strafeMovement = -_slopeNormalPerpendicular * (fightPosition - (Vector2)transform.position).x;
         if (_strafeMovement.magnitude > 1f)
             _strafeMovement = _strafeMovement.normalized;
         _strafeMovement *= _speed * 0.9f;

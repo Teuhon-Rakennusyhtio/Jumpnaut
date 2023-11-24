@@ -557,7 +557,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
         CheckIfGrounded();
         CheckSlope();
         // Stops the entity from sliding off of sloped surfaces
-        if (_currentSpeed != 0f)
+        if (_currentSpeed != 0f || _strafeMovement != Vector2.zero)
         {
             _collider.sharedMaterial = _moveMaterial;
         }
