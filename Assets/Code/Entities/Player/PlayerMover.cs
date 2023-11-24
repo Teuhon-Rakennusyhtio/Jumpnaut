@@ -11,6 +11,7 @@ public class PlayerMover : GenericMover
 
     //[SerializeField] Animator _animator;
     //[SerializeField] protected Transform _mainRig, _leftArm, _rightArm, _climbArm;
+    [SerializeField] private Collider2D _hurtbox;
     MaterialPropertyBlock _materialPropertyBlock;
     public ChildDeviceManager Device;
     public int Id;
@@ -31,7 +32,6 @@ public class PlayerMover : GenericMover
     private Transform _targetPlayer;
     private GameObject _spawnpoint;
     public SpriteRenderer _UfoRenderer;
-    public float smoothTime = 0;
     private Vector2 velocity = Vector2.zero;
 
 
@@ -187,10 +187,12 @@ public class PlayerMover : GenericMover
             _UfoRenderer.enabled = true;
             float distance = Vector3.Distance(transform.position, _ClosestPlayer.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, _ClosestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
+            _hurtbox.enabled = false;
         }
         else if (_isRegrouping == false)
         {
             _UfoRenderer.enabled = false;
+            _hurtbox.enabled = true;
         }
     }
 
@@ -213,7 +215,7 @@ public class PlayerMover : GenericMover
         dm.HearseService();
         EndFullBodyAnimation();
         SetControl(true);
-        _health.Heal(10);
+        _health.Heal(3);
         _helmetMain.enabled = true;
         _helmetClimb.enabled = true;
         Camera.main.GetComponent<CameraMovement>().AddPlayer(this);

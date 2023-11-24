@@ -26,7 +26,7 @@ public class Checkpoint : MonoBehaviour
     {
         for (int i = 0; i < enemies.Length; i++)
         {
-            if (this.transform.position.y > enemies[i].transform.position.y + 10f)
+            if (this.transform.position.y > enemies[i].transform.position.y + 15f)
             {
                 enemies[i].SetActive(false);
             }
@@ -37,7 +37,7 @@ public class Checkpoint : MonoBehaviour
     {
         for (int i = 0; i < platforms.Length; i++)
         {
-            if (this.transform.position.y > platforms[i].transform.position.y + 10f)
+            if (this.transform.position.y > platforms[i].transform.position.y + 15f)
             {
                 platforms[i].SetActive(false);
             }
