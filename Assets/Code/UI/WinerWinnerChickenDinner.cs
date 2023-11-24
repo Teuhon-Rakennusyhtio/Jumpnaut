@@ -15,6 +15,8 @@ public class WinerWinnerChickenDinner : MonoBehaviour
     public void PlayAgain()
     {
         Camera.main.GetComponent<CameraMovement>().ReturnToMainMenu();
+        GameManager.CurrentlyInUI = false;
+        GameManager.score = 0;
         SceneManager.LoadScene("MainScene");
         //GameManager.ReloadMainScene(SceneManager.GetSceneByName("WinScene"));
         //StartCoroutine(IEPlayAgainGlitch());
