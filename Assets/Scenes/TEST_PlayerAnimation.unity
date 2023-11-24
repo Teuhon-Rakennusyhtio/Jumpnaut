@@ -6650,12 +6650,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -6.623474, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1263272239}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1263272239}
+  m_maskType: 0
 --- !u!23 &1263272239
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7671,7 +7671,7 @@ PrefabInstance:
     - target: {fileID: 7778230961904520742, guid: de64e9f233d7c19428afe53e0b1fa093, type: 3}
       propertyPath: _spawnItem
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 926660258940846467, guid: f812c8f1427526a44a02aeac10fa315d, type: 3}
     - target: {fileID: 8015271972027896431, guid: de64e9f233d7c19428afe53e0b1fa093, type: 3}
       propertyPath: m_LocalRotation.w
       value: -0.5364466
@@ -34383,16 +34383,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -1, y: 28, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 1
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 2147483649
   - first: {x: 3, y: 28, z: 0}
     second:
       serializedVersion: 2
@@ -58147,12 +58137,12 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 4827
     m_Data: {fileID: 11400000, guid: 56871db5cc16ac499a2e325045ce3e1f, type: 2}
-  - m_RefCount: 24
+  - m_RefCount: 23
     m_Data: {fileID: 11400000, guid: eb8d4b8893f391e4e8da6e1a55175ba8, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 4827
     m_Data: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  - m_RefCount: 24
+  - m_RefCount: 23
     m_Data: {fileID: -730786058, guid: f403efeb3a4e31949a15dd65dff0197f, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 4827
@@ -58173,7 +58163,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
-  - m_RefCount: 24
+  - m_RefCount: 23
     m_Data:
       e00: 1
       e01: 0
@@ -58192,7 +58182,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 4851
+  - m_RefCount: 4850
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -58289,14 +58279,6 @@ CompositeCollider2D:
         Y: 250014656
       - X: 130000000
         Y: -60000000
-    - - X: 12209
-        Y: 290014656
-      - X: -9987791
-        Y: 290014656
-      - X: -9987791
-        Y: 280014656
-      - X: 12209
-        Y: 280014656
     - - X: 40012208
         Y: 290014656
       - X: 30012210
@@ -58355,10 +58337,6 @@ CompositeCollider2D:
       - {x: 4.0011916, y: 29.001467}
       - {x: 3.001221, y: 29.001436}
       - {x: 3.0012505, y: 27.001467}
-    - - {x: 0.0011916, y: 28.001467}
-      - {x: 0.0011916, y: 29.001467}
-      - {x: -0.9987791, y: 29.001436}
-      - {x: -0.9987498, y: 28.001467}
     - - {x: 10.001191, y: 26.001467}
       - {x: 10.001191, y: 27.001467}
       - {x: 7.0012207, y: 27.001436}
@@ -59250,12 +59228,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -6.623474, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1975657877}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1975657877}
+  m_maskType: 0
 --- !u!23 &1975657877
 MeshRenderer:
   m_ObjectHideFlags: 0

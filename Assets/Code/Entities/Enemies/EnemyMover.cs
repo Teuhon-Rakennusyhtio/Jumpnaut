@@ -43,7 +43,7 @@ public class EnemyMover : GenericMover
     Vector2 _waypoint, _ladderTarget;
     Transform _target;
     Vector2 _targetOldPosition;
-    float _aggroTime, _idleTime, _attackTime;
+    float _aggroTime, _idleTime, _attackTime, _aimTime;
     Holdable _targetHoldable;
     EnemyState _enemyState = EnemyState.StandingStill;
     Collider2D[] _nearbyPlayers;
@@ -246,6 +246,84 @@ public class EnemyMover : GenericMover
     // TODO: Make this method not suck so much
     void EngagingPlayer()
     {
+        _attackTime -= Time.deltaTime;
+        Vector2 target = Vector2.zero;
+        bool preferMelee;
+        //Debug.Log(_patrolPoint1.x + " " + _closestPlayer.position.x + " " + _patrolPoint2.x);
+        if (_facingLeft)
+        {
+            if (_patrolPoint2.x < _closestPlayer.position.x)
+            {
+                target = _closestPlayer.position;
+                preferMelee = true;
+            }
+            else
+            {
+                target = _patrolPoint2;
+                preferMelee = false;
+            }
+            if (_closestPlayer.position.x > transform.position.x)
+                SetState(EnemyState.ChasingPlayer);
+        }
+        else
+        {
+            if (_patrolPoint1.x > _closestPlayer.position.x)
+            {
+                target = _closestPlayer.position;
+                preferMelee = true;
+            }
+            else
+            {
+                target = _patrolPoint1;
+                preferMelee = false;
+            }
+            if (_closestPlayer.position.x < transform.position.x)
+                SetState(EnemyState.ChasingPlayer);
+        }
+
+        Vector2 fightPosition = target + Vector2.right * (_facingLeft ? 1f : -1f);
+
+        bool aimedAtAPlayer = false;
+        float distanceToPlayer = 0f;
+        float aimDirection = _facingLeft ? 1f : -1f;
+        RaycastHit2D[] entitiesHit = Physics2D.RaycastAll(transform.position, _slopeNormalPerpendicular * aimDirection, _aggroRadius, _entityLayer);
+        foreach (RaycastHit2D entityHit in entitiesHit)
+        {
+            if (entityHit.collider.CompareTag("Player"))
+            {
+                aimedAtAPlayer = true;
+                distanceToPlayer = entityHit.distance;
+            }
+        }
+
+        if (aimedAtAPlayer)
+        {
+            _aimTime += Time.deltaTime;
+            if (_aimTime > 2f) _aimTime = 2f;
+        }
+        else
+        {
+            _aimTime -= Time.deltaTime;
+            if (_aimTime < 0f) _aimTime = 0f;
+        }
+
+        if (preferMelee && _holdingSomething && _holdingWeapon && _canUseWeapons && _aimTime > 0.25f && distanceToPlayer < 2f && _attackTime <= 0f)
+        {
+            _attackTime = _attackDelay;
+            _useInput = true;
+        }
+        else if ((!preferMelee || !_canUseWeapons || !_holdingWeapon) && _canThrowWeapons && _holdingSomething && aimedAtAPlayer && _aimTime > 0.5f && _attackTime <= 0f)
+        {
+            _attackTime = _attackDelay;
+            _catchInput = true;
+        }
+
+        Debug.DrawLine(transform.position, fightPosition, Color.magenta);
+        _strafeMovement = new Vector2((fightPosition - (Vector2)transform.position).x, 0);
+        if (_strafeMovement.magnitude > 1f)
+            _strafeMovement = _strafeMovement.normalized;
+        _strafeMovement *= _speed * 0.9f;
+        //Debug.Log($"Prefer melee: {preferMelee}, Holding something: {_holdingSomething}, Can use weapons: {_canUseWeapons}, Aim time: {_aimTime}, Attack time: {_attackTime}");
         /*
         _attackTime -= Time.deltaTime;
         Vector2 target = Vector2.zero;
@@ -353,6 +431,7 @@ public class EnemyMover : GenericMover
             GameObject newBarrel = Instantiate(_barrel, transform.position - Vector3.up * _collider.bounds.extents.y / 2, Quaternion.identity);
             newBarrel.GetComponent<Barrel>().Push(_barrelDirectionIsToTheLeft ? -1f : 1f);
         }
+        PlayerCheck();
     }
 
     void CheckForPlayersNearby()
