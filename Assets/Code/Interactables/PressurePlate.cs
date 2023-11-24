@@ -14,6 +14,7 @@ public class PressurePlate : MonoBehaviour
     Color _targetColour;
     [SerializeField] SpriteRenderer _colouredPart, _glow;
     [SerializeField] Transform _buttonTransform;
+    float _buttonLocalHeight;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class PressurePlate : MonoBehaviour
         }
         _colouredPart.color = _turnedOn ? _turnedOnColour : _turnedOffColour;
         _glow.color = _turnedOn ? _turnedOnColour : Color.black;
+        _buttonLocalHeight = _colouredPart.transform.localPosition.y;
     }
 
     // Update is called once per frame
@@ -79,14 +81,14 @@ public class PressurePlate : MonoBehaviour
     IEnumerator ButtonBounceBack()
     {
         float doneness = 0f;
-        while(_buttonTransform.localPosition.y < 0.1f)
+        while(_buttonTransform.localPosition.y < 1f)
         {
             if (_howManyThingsAreOnThePlate > 0)
                 break;
-            doneness += Time.deltaTime;
-            if (doneness > 0.1f)
-                doneness = 0.1f;
-            _buttonTransform.localPosition = Vector3.up * doneness;
+            doneness += Time.deltaTime * 10;
+            if (doneness > 1f)
+                doneness = 1f;
+            _buttonTransform.localPosition = Vector3.up * _buttonLocalHeight * doneness;
             yield return new WaitForEndOfFrame();
         }
     }
