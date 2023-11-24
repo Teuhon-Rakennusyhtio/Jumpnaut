@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
         UIOwnerId = -1;
         Camera.main.GetComponent<CameraMovement>().ReturnToMainMenu();
         PlayerDevices.Clear();
+        score = 0;
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 

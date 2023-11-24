@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FakeR4X4 : MonoBehaviour
 {
@@ -49,13 +50,15 @@ public class FakeR4X4 : MonoBehaviour
         _rigidbody.AddForce(Vector2.one * 20f, ForceMode2D.Impulse);
         _rigidbody.AddTorque(-15f, ForceMode2D.Impulse);
         _timer.StopTimer();
+        collider.enabled = false;
         StartCoroutine(Winner());
     }
 
     IEnumerator Winner()
     {
         yield return new WaitForSeconds(1.5f);
-        float opacity = 0f;
+        SceneManager.LoadScene("WinScene", LoadSceneMode.Single);
+        /*float opacity = 0f;
         while (opacity < 1f)
         {
             opacity += Time.deltaTime / 2;
@@ -65,6 +68,6 @@ public class FakeR4X4 : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         yield return new WaitForSeconds(20f);
-        GameManager.ReturnToMainMenu();
+        GameManager.ReturnToMainMenu();*/
     }
 }

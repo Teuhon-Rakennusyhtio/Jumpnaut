@@ -9,6 +9,7 @@ public class SpeedRunTimer : MonoBehaviour
 {
     bool stopwatchActive = true;
     float currentTime;
+    float finalTime;
     TextMeshProUGUI currentTimeText;
 
     void Start()
@@ -30,10 +31,16 @@ public class SpeedRunTimer : MonoBehaviour
     public void StopTimer()
     {
         stopwatchActive = false;
+        finalTime = currentTime;
     }
 
     public void StartTimer()
     {
         stopwatchActive = true;
+    }
+
+    public float ReturnTime()
+    {
+        return finalTime;
     }
 }
