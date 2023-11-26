@@ -710,6 +710,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     public virtual void Damaged(float iFrames)
     {
+        _AudioManager?.PlaySFX(_AudioManager.damage);
         ExitLadder();
         //_coyoteTime = 0f;
         _animator?.Play((_facingLeft ? "Left " : "Right ") + "Fall");

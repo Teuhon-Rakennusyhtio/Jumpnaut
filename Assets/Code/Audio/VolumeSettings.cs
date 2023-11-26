@@ -10,6 +10,7 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider SFXSlider;
     [SerializeField] private Slider masterSlider;
+    private float scalingFactor = 50f;
 
     private const string MusicVolumeKey = "MusicVolume";
     private const string SFXVolumeKey = "SFXVolume";
@@ -23,21 +24,21 @@ public class VolumeSettings : MonoBehaviour
     public void SetMusicVolume()
     {
         float volume = musicSlider.value;
-        mixeriino.SetFloat("music", Mathf.Log10(volume)*20);
+        mixeriino.SetFloat("music", Mathf.Log10(volume)*scalingFactor);
         PlayerPrefs.SetFloat(MusicVolumeKey, volume);
     }
 
     public void SetSFXVolume()
     {
         float volume = SFXSlider.value;
-        mixeriino.SetFloat("SFX", Mathf.Log10(volume)*20);
+        mixeriino.SetFloat("SFX", Mathf.Log10(volume)*scalingFactor);
         PlayerPrefs.SetFloat(SFXVolumeKey, volume);
     }
 
     public void SetMasterVolume()
     {
         float volume = masterSlider.value;
-        mixeriino.SetFloat("Master", Mathf.Log10(volume)*20);
+        mixeriino.SetFloat("Master", Mathf.Log10(volume)*scalingFactor);
         PlayerPrefs.SetFloat(MasterVolumeKey, volume);
     }
 

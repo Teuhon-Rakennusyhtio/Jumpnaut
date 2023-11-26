@@ -38,8 +38,8 @@ public class AudioManager : MonoBehaviour
     public void PlayStageMusic()
     {
         StopAllMusic();
-        //musicSource.clip = background;
-        //musicSource.Play();
+        musicSource.clip = background;
+        musicSource.Play();
     }
 
     public void StopAllMusic()

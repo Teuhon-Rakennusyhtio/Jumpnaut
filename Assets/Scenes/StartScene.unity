@@ -26371,10 +26371,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1968711327}
   SFXSource: {fileID: 335826749}
-  background: {fileID: 0}
+  background: {fileID: 8300000, guid: b032c0d139803e14dbf35809b0b6af59, type: 3}
   title: {fileID: 8300000, guid: d6a899864d6578742a5a6a10d117b3eb, type: 3}
   jump: {fileID: 8300000, guid: 31e1c98c07b9c744b96fb84f753ed4be, type: 3}
-  damage: {fileID: 0}
+  damage: {fileID: 8300000, guid: 17dfc468a5dcd734a81ea32b12670a25, type: 3}
   playerDeath: {fileID: 0}
   enemyDeath: {fileID: 8300000, guid: daa7b193338e4664eb14d6fc531e3a0d, type: 3}
   explosion: {fileID: 0}
