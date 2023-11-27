@@ -17,6 +17,8 @@ public class WinerWinnerChickenDinner : MonoBehaviour
         Camera.main.GetComponent<CameraMovement>().ReturnToMainMenu();
         GameManager.CurrentlyInUI = false;
         GameManager.score = 0;
+        PlayerPrefs.DeleteKey("FinalTime");
+        PlayerPrefs.Save();
         SceneManager.LoadScene("MainScene");
         //GameManager.ReloadMainScene(SceneManager.GetSceneByName("WinScene"));
         //StartCoroutine(IEPlayAgainGlitch());

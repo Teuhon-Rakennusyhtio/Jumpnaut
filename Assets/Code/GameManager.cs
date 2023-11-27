@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Color[] playerColors;
     public static int score;
     public static bool MainSceneReloaded;
+    public static SpeedRunTimer SpeedTimer;
 
     // -1 means any input device can use the current UI
     public static int UIOwnerId = -1;
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
         {
             CurrentlyInUI = false;
         }
-        
+        SpeedTimer = GetComponent<SpeedRunTimer>();
         StartCoroutine(LadderSong.GetSong());
     }
 

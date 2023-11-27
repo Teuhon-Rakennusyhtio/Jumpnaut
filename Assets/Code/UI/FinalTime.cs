@@ -9,9 +9,11 @@ public class FinalTime : MonoBehaviour
 {
     SpeedRunTimer finalTime;
     TextMeshProUGUI finalTimeText;
+    float gottenFinalTime;
 
     void Start()
     {
+        gottenFinalTime = PlayerPrefs.GetFloat("FinalTime", 0f);
         finalTimeText = GetComponent<TextMeshProUGUI>();
         finalTime = GetComponent<SpeedRunTimer>();
         ShowFinalTime();
@@ -19,7 +21,7 @@ public class FinalTime : MonoBehaviour
 
     private void ShowFinalTime()
     {
-        TimeSpan time = TimeSpan.FromSeconds(finalTime.ReturnTime());
+        TimeSpan time = TimeSpan.FromSeconds(gottenFinalTime);
         finalTimeText.text = time.ToString(@"hh\:mm\:ss");
     }
 }
