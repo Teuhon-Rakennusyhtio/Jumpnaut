@@ -44,6 +44,7 @@ public class MeleeWeapon : Holdable
 
     public override void Break()
     {
+        _AudioManager.PlaySFX(_AudioManager.objectBreak);
         base.Break();
     }
 

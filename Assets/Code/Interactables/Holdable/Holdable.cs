@@ -56,6 +56,7 @@ public class Holdable : MonoBehaviour
     float _timeStoodStill = 0f;
     Vector3 _oldPosition;
     float _timeOffset;
+    public AudioManager _AudioManager;
 
     public Sprite ItemIcon { get { return _itemIcon; } }
     public int DigitalDurability { get { return _digitalDurability; } }
@@ -93,6 +94,9 @@ public class Holdable : MonoBehaviour
         _glowParticles = _glowEffect.GetComponent<ParticleSystem>();
         _glowLight = _glowEffect.GetComponent<Light2D>();
         _timeOffset = Random.Range(-1f, 1f);
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _AudioManager = audioManagerGameObject.GetComponent<AudioManager>();
 
         if (_analogDurability == 0f)
         {

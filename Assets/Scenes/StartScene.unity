@@ -26377,6 +26377,7 @@ MonoBehaviour:
   damage: {fileID: 8300000, guid: 17dfc468a5dcd734a81ea32b12670a25, type: 3}
   playerDeath: {fileID: 0}
   enemyDeath: {fileID: 8300000, guid: daa7b193338e4664eb14d6fc531e3a0d, type: 3}
+  objectBreak: {fileID: 8300000, guid: 41b8fa4f7c951b94085983dfd9808072, type: 3}
   explosion: {fileID: 0}
 --- !u!4 &1598933911
 Transform:
