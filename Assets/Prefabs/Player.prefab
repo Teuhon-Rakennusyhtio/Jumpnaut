@@ -5801,6 +5801,7 @@ MonoBehaviour:
   - {fileID: 6665794013257521696}
   - {fileID: 3475257179821220136}
   _hurtbox: {fileID: 1658377281168426225}
+  _ufoEffect: {fileID: 8568283995657080732}
   Device: {fileID: 0}
   Id: 0
   _respawnSpeed: 7
@@ -6054,5 +6055,10 @@ PrefabInstance:
 --- !u!4 &3098987578112675529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1636676292156478086, guid: c3fc136298d982a4b8e9a3723f0b4e2f, type: 3}
+  m_PrefabInstance: {fileID: 4447151400254397519}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8568283995657080732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5431301874295067603, guid: c3fc136298d982a4b8e9a3723f0b4e2f, type: 3}
   m_PrefabInstance: {fileID: 4447151400254397519}
   m_PrefabAsset: {fileID: 0}

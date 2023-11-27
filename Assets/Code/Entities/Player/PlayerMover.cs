@@ -12,6 +12,7 @@ public class PlayerMover : GenericMover
     //[SerializeField] Animator _animator;
     //[SerializeField] protected Transform _mainRig, _leftArm, _rightArm, _climbArm;
     [SerializeField] private Collider2D _hurtbox;
+    [SerializeField] private GameObject _ufoEffect;
     MaterialPropertyBlock _materialPropertyBlock;
     public ChildDeviceManager Device;
     public int Id;
@@ -188,9 +189,11 @@ public class PlayerMover : GenericMover
             float distance = Vector3.Distance(transform.position, _ClosestPlayer.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, _ClosestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
             _hurtbox.enabled = false;
+            _ufoEffect.SetActive(true);
         }
         else if (_isRegrouping == false)
         {
+            _ufoEffect.SetActive(false);
             _UfoRenderer.enabled = false;
             _hurtbox.enabled = true;
         }
