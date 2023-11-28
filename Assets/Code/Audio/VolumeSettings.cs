@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class VolumeSettings : MonoBehaviour
@@ -21,24 +20,65 @@ public class VolumeSettings : MonoBehaviour
         LoadVolumeSettings();
     }
 
+    void Update()
+    {
+        // Check for horizontal input and update the selected slider accordingly
+        UpdateSelectedSliderWithHorizontalInput();
+    }
+
+    private void UpdateSelectedSliderWithHorizontalInput()
+    {
+        // Check if any UI element is currently selected
+        if (EventSystem.current.currentSelectedGameObject != null)
+        {
+            Slider selectedSlider = EventSystem.current.currentSelectedGameObject.GetComponent<Slider>();
+
+            // Check if the selected UI element is a Slider
+            if (selectedSlider != null)
+            {
+                float horizontalInput = Input.GetAxis("Horizontal");
+
+                if (Mathf.Abs(horizontalInput) > 0.1f)
+                {
+                    selectedSlider.value += horizontalInput * Time.deltaTime;
+                    selectedSlider.value = Mathf.Clamp01(selectedSlider.value); // Ensure the value stays between 0 and 1
+
+                    // Call the corresponding volume setting method
+                    if (selectedSlider == musicSlider)
+                    {
+                        SetMusicVolume();
+                    }
+                    else if (selectedSlider == SFXSlider)
+                    {
+                        SetSFXVolume();
+                    }
+                    else if (selectedSlider == masterSlider)
+                    {
+                        SetMasterVolume();
+                    }
+                }
+            }
+        }
+    }
+
     public void SetMusicVolume()
     {
         float volume = musicSlider.value;
-        mixeriino.SetFloat("music", Mathf.Log10(volume)*scalingFactor);
+        mixeriino.SetFloat("music", Mathf.Log10(volume) * scalingFactor);
         PlayerPrefs.SetFloat(MusicVolumeKey, volume);
     }
 
     public void SetSFXVolume()
     {
         float volume = SFXSlider.value;
-        mixeriino.SetFloat("SFX", Mathf.Log10(volume)*scalingFactor);
+        mixeriino.SetFloat("SFX", Mathf.Log10(volume) * scalingFactor);
         PlayerPrefs.SetFloat(SFXVolumeKey, volume);
     }
 
     public void SetMasterVolume()
     {
         float volume = masterSlider.value;
-        mixeriino.SetFloat("Master", Mathf.Log10(volume)*scalingFactor);
+        mixeriino.SetFloat("Master", Mathf.Log10(volume) * scalingFactor);
         PlayerPrefs.SetFloat(MasterVolumeKey, volume);
     }
 

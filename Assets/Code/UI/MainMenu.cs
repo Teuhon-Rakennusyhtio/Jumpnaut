@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(_startGameButton);
         Time.timeScale = 1.0f;
         ToggleAllButtons(_joinGame, false);
@@ -107,12 +108,14 @@ public class MainMenu : MonoBehaviour
         _start.GetComponent<Animator>().Play("In");
         _settings.GetComponent<Animator>().Play("Out");
 
+        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(_lastSelectedButtonInStart);
     }
 
     public void StartScreenReturnAnimation()
     {
         ToggleAllButtons(_start, true);
+        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(_lastSelectedButtonInStart);
     }
 }
