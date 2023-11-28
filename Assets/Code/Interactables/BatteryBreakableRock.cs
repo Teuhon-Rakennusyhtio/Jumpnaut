@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class BatteryBreakableRock : MonoBehaviour, IBatteryDamageable
 {
-    SpriteRenderer _forceFieldSprite;
+    [SerializeField] SpriteRenderer[] _forceFieldSprites;
+    [SerializeField] ParticleSystem[] _particles;
+    Color[] _forceFieldSpriteColours;
     bool _broken = false;
     BreakageDebris[] _debris;
     Color _startColour;
     void Start()
     {
-        _forceFieldSprite = GetComponent<SpriteRenderer>();
+        //_forceFieldSprite = GetComponent<SpriteRenderer>();
         _debris = GetComponentsInChildren<BreakageDebris>();
-        _startColour = _forceFieldSprite.color;
+        //_startColour = _forceFieldSprite.color;
+        _forceFieldSpriteColours = new Color[_forceFieldSprites.Length];
+        for (int i = 0; i < _forceFieldSpriteColours.Length; i++)
+        {
+            _forceFieldSpriteColours[i] = _forceFieldSprites[i].color;
+        }
     }
 
     public void HitByBattery()
@@ -32,7 +39,18 @@ public class BatteryBreakableRock : MonoBehaviour, IBatteryDamageable
             blinkingTimer -= Time.deltaTime;
             if (blinkingTimer < 0f)
                 blinkingTimer = 0f;
-            _forceFieldSprite.color = _startColour * (Mathf.Sin(blinkingTimer * 30f) / 2 + 0.5f) * blinkingTimer; // new Color(_startColour.r, _startColour.g, _startColour.b, (Mathf.Sin(blinkingTimer * 30f) / 2 + 0.5f) * blinkingTimer);
+            float colourMultiplier = (Mathf.Sin(blinkingTimer * 30f) / 2 + 0.5f) * blinkingTimer;
+            for (int i = 0; i < _forceFieldSprites.Length; i++)
+            {
+                _forceFieldSprites[i].color = _forceFieldSpriteColours[i] * colourMultiplier;
+            }
+            for (int i = 0; i < _particles.Length; i++)
+            {
+                if (colourMultiplier < 0.5f)
+                    _particles[i].Stop();
+                else
+                    _particles[i].Play();
+            }
             yield return new WaitForEndOfFrame();
         }
         yield return new WaitForSeconds(0.2f);
