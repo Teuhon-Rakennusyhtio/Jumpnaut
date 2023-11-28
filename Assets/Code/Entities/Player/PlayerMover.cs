@@ -166,6 +166,7 @@ public class PlayerMover : GenericMover
         if (collision.gameObject.tag == "Checkpoint")
         {
             _spawnpoint.transform.position = transform.position;
+            GameManager.SaveFile.CurrentRunCheckPointPosition = transform.position;
             dm.HearseService();
             Debug.Log("Spawnpoint set");
         }

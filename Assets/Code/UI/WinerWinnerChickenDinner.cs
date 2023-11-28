@@ -7,10 +7,26 @@ using UnityEngine.EventSystems;
 public class WinerWinnerChickenDinner : MonoBehaviour
 {
     [SerializeField] GameObject _playAgain, _quit;
+    bool _newHighScore, _newLowestTime;
     void Start()
     {
         GameManager.CurrentlyInUI = true;
         EventSystem.current.SetSelectedGameObject(_playAgain);
+
+        _newHighScore = GameManager.SaveFile.HighScore < GameManager.SaveFile.CurrentRunScore;
+        _newLowestTime = GameManager.SaveFile.LowestTime > 0f && GameManager.SaveFile.CurrentRunTime < GameManager.SaveFile.LowestTime;
+
+        if (_newHighScore)
+        {
+            GameManager.SaveFile.HighScore = GameManager.SaveFile.CurrentRunScore;
+        }
+        if (_newLowestTime)
+        {
+            GameManager.SaveFile.LowestTime = GameManager.SaveFile.CurrentRunTime;
+        }
+
+
+        GameManager.ClearRunFromTheSave();
     }
     public void PlayAgain()
     {

@@ -59,8 +59,7 @@ public class JoinGameSubMenu : MonoBehaviour
         }
         if (_currentReadyPlayerCount == _currentPlayerCount && _currentPlayerCount > 0)
         {
-            GameManager.CurrentlyInUI = false;
-            SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+            GameManager.StartGame();
         }
     }
 

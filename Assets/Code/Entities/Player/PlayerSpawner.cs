@@ -9,6 +9,14 @@ public class PlayerSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        if (GameManager.SaveFile.CurrentRunCheckPointPosition.y > 10f)
+        {
+            transform.position = GameManager.SaveFile.CurrentRunCheckPointPosition;
+            Transform cameraTransform = Camera.main.transform;
+            cameraTransform.position = new Vector3(cameraTransform.position.x, transform.position.y, cameraTransform.position.z);
+        }
+
         if (transform.position.y < 10f)
         {
             Invoke(nameof(EnablePipeCollider), 2f);

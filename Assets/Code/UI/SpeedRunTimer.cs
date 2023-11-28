@@ -8,14 +8,13 @@ using TMPro;
 public class SpeedRunTimer : MonoBehaviour
 {
     bool stopwatchActive = true;
-    float currentTime;
+    static float currentTime;
     float finalTime;
     TextMeshProUGUI currentTimeText;
 
     void Start()
     {
         currentTimeText = GetComponent<TextMeshProUGUI>();
-        currentTime = 0;
     }
 
     void Update()
@@ -23,6 +22,7 @@ public class SpeedRunTimer : MonoBehaviour
         if (stopwatchActive == true)
         {
             currentTime = currentTime + Time.deltaTime;
+            GameManager.SaveFile.CurrentRunTime = currentTime;
             TimeSpan time = TimeSpan.FromSeconds(currentTime);
             currentTimeText.text = time.ToString(@"hh\:mm\:ss");
         }
@@ -38,6 +38,11 @@ public class SpeedRunTimer : MonoBehaviour
     public void StartTimer()
     {
         stopwatchActive = true;
+    }
+
+    public static void SetTime(float time)
+    {
+        currentTime = time;
     }
 
     public float ReturnTime()

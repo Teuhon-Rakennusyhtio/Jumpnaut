@@ -23,12 +23,16 @@ public class GameManager : MonoBehaviour
 
     // Ladder Song
     public static AudioClip LadderSongClip;
+
+    // The save file
+    public static SaveFile SaveFile;
     
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         Instance = this;
         PlayerDevices = new List<ChildDeviceManager>();
+        SaveFile = SaverLoader.ReadSaveFromBinary();
         if (SceneManager.GetActiveScene().name == "StartScene")
         {
             ReturnToMainMenu();
@@ -39,6 +43,9 @@ public class GameManager : MonoBehaviour
         }
         SpeedTimer = GetComponent<SpeedRunTimer>();
         StartCoroutine(LadderSong.GetSong());
+        Debug.Log(SaveFile.HighScore);
+        Debug.Log(SaveFile.LowestTime);
+        Debug.Log(SaveFile.CurrentRunCheckPointPosition);
     }
 
     public static Color GetPlayerColor(int id)
@@ -53,9 +60,30 @@ public class GameManager : MonoBehaviour
         return playerColor;
     }
 
+    public static void SaveToFile()
+    {
+        SaverLoader.WriteSaveToBinary(SaveFile);
+    }
+
+    public static void StartGame(bool newGame = false)
+    {
+        CurrentlyInUI = false;
+        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        if (!newGame)
+        {
+            score = SaveFile.CurrentRunScore;
+        }
+        else
+        {
+            ClearRunFromTheSave();
+        }
+        SpeedRunTimer.SetTime(SaveFile.CurrentRunTime);
+    }
+
     public static void ReturnToMainMenu()
     {
-        GameManager.CurrentlyInUI = true;
+        SaveToFile();
+        CurrentlyInUI = true;
         UIOwnerId = -1;
         Camera.main.GetComponent<CameraMovement>().ReturnToMainMenu();
         PlayerDevices.Clear();
@@ -90,6 +118,7 @@ public class GameManager : MonoBehaviour
     public static void AddScore(int points, Vector3 position)
     {
         score += points;
+        SaveFile.CurrentRunScore += points;
         GameObject scoreGraphic = Instantiate(Resources.Load<GameObject>("Prefabs/ScoreGraphic"), position, Quaternion.identity);
         scoreGraphic.GetComponent<NewScoreGraphic>().GotScore(points);
         if (score < 0)
@@ -101,6 +130,13 @@ public class GameManager : MonoBehaviour
     public static int DisplayScore()
     {
         return score;
+    }
+
+    public static void ClearRunFromTheSave()
+    {
+        SaveFile.CurrentRunScore = 0;
+        SaveFile.CurrentRunTime = 0f;
+        SaveFile.CurrentRunCheckPointPosition = Vector2.negativeInfinity;
     }
 
     void Update()
