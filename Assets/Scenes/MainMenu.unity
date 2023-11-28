@@ -2444,18 +2444,6 @@ MonoBehaviour:
           m_StringArgument: aaa
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1165438938}
-        m_TargetAssemblyTypeName: NavigateMyAssHoleYouPrick, Assembly-CSharp
-        m_MethodName: SetSettingsMenuActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1125802953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2506,7 +2494,6 @@ GameObject:
   - component: {fileID: 1165438935}
   - component: {fileID: 1165438936}
   - component: {fileID: 1165438937}
-  - component: {fileID: 1165438938}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -2591,25 +2578,6 @@ MonoBehaviour:
   musicSlider: {fileID: 2115402584}
   SFXSlider: {fileID: 1731764283}
   masterSlider: {fileID: 2013057025}
---- !u!114 &1165438938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1165438933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e041a916e836b91479981e91f61ffb4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navigatables:
-  - {fileID: 1484558165}
-  - {fileID: 389010073}
-  - {fileID: 1688466884}
-  - {fileID: 2115402584}
-  - {fileID: 1731764283}
-  - {fileID: 2013057025}
 --- !u!1 &1187466623
 GameObject:
   m_ObjectHideFlags: 0
@@ -3138,7 +3106,7 @@ MonoBehaviour:
           m_StringArgument: aaa
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1165438938}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NavigateMyAssholeYouPrick, Assembly-CSharp
         m_MethodName: SetSettingsMenuActive
         m_Mode: 6
@@ -3958,7 +3926,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.5
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

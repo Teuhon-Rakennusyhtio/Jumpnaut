@@ -54,20 +54,51 @@ public class MainDeviceManager : MonoBehaviour
         GameObject selectedGameObject = Instance._eventSystem.currentSelectedGameObject;
         Selectable nextSelect = null;
         if (selectedGameObject == null) return;
-        if (selectedGameObject.GetComponent<Button>() != null)
+        if (selectedGameObject.GetComponent<Button>() != null || selectedGameObject.GetComponent<Slider>() != null || selectedGameObject.GetComponent<Toggle>() != null)
         {
-            Button selectedButton = selectedGameObject.GetComponent<Button>();
-
-            
-            if (moveInput.y < -0.2f) nextSelect = selectedButton.FindSelectableOnDown();
-            else if (moveInput.x < -0.2f) nextSelect = selectedButton.FindSelectableOnLeft();
-            else if (moveInput.x > 0.2f) nextSelect = selectedButton.FindSelectableOnRight();
-            else if (moveInput.y > 0.2f) nextSelect = selectedButton.FindSelectableOnUp();
-            else if (inputs[(int) ChildDeviceManager.InputTypes.confirm])
+            if (selectedGameObject.GetComponent<Button>() != null)
             {
-                ExecuteEvents.Execute(Instance._eventSystem.currentSelectedGameObject, new BaseEventData(Instance._eventSystem), ExecuteEvents.submitHandler);
+                Button selectedButton = selectedGameObject.GetComponent<Button>();
+
+                if (moveInput.y < -0.2f) nextSelect = selectedButton.FindSelectableOnDown();
+                else if (moveInput.x < -0.2f) nextSelect = selectedButton.FindSelectableOnLeft();
+                else if (moveInput.x > 0.2f) nextSelect = selectedButton.FindSelectableOnRight();
+                else if (moveInput.y > 0.2f) nextSelect = selectedButton.FindSelectableOnUp();
+                else if (inputs[(int) ChildDeviceManager.InputTypes.confirm])
+                {
+                    ExecuteEvents.Execute(Instance._eventSystem.currentSelectedGameObject, new BaseEventData(Instance._eventSystem), ExecuteEvents.submitHandler);
+                }
+                if (nextSelect != null) nextSelect.Select(); 
             }
-            if (nextSelect != null) nextSelect.Select();
+            else if (selectedGameObject.GetComponent<Slider>() != null)
+            {
+                Slider selectedSlider = selectedGameObject.GetComponent<Slider>();
+
+                if (moveInput.y < -0.2f) nextSelect = selectedSlider.FindSelectableOnDown();
+                else if (moveInput.x < -0.2f) nextSelect = selectedSlider.FindSelectableOnLeft();
+                else if (moveInput.x > 0.2f) nextSelect = selectedSlider.FindSelectableOnRight();
+                else if (moveInput.y > 0.2f) nextSelect = selectedSlider.FindSelectableOnUp();
+                else if (inputs[(int) ChildDeviceManager.InputTypes.confirm])
+                {
+                    ExecuteEvents.Execute(Instance._eventSystem.currentSelectedGameObject, new BaseEventData(Instance._eventSystem), ExecuteEvents.submitHandler);
+                }
+                if (nextSelect != null) nextSelect.Select();
+            }
+            else if (selectedGameObject.GetComponent<Toggle>() != null)
+            {
+                Toggle selectedToggle = selectedGameObject.GetComponent<Toggle>();
+
+                if (moveInput.y < -0.2f) nextSelect = selectedToggle.FindSelectableOnDown();
+                else if (moveInput.x < -0.2f) nextSelect = selectedToggle.FindSelectableOnLeft();
+                else if (moveInput.x > 0.2f) nextSelect = selectedToggle.FindSelectableOnRight();
+                else if (moveInput.y > 0.2f) nextSelect = selectedToggle.FindSelectableOnUp();
+                else if (inputs[(int) ChildDeviceManager.InputTypes.confirm])
+                {
+                    ExecuteEvents.Execute(Instance._eventSystem.currentSelectedGameObject, new BaseEventData(Instance._eventSystem), ExecuteEvents.submitHandler);
+                }
+                if (nextSelect != null) nextSelect.Select(); 
+            }
+            
         }
     }
 
