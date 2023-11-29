@@ -17,6 +17,12 @@ public class AudioManager : MonoBehaviour
     public AudioClip enemyDeath;
     public AudioClip objectBreak;
     public AudioClip explosion;
+    public AudioClip batteryInsert;
+    public AudioClip batteryGenerator;
+    public AudioClip hammerHit;
+    public AudioClip pilarBreak;
+    public AudioClip checkpoint;
+    public AudioClip throwsfx;
 
     private void Start()
     {

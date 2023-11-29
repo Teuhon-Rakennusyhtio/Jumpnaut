@@ -424,6 +424,7 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
     }
     protected virtual void Throw()
     {
+        _AudioManager?.PlaySFX(_AudioManager.throwsfx);
         Vector2 throwVector = Vector2.zero;
         if (!_grounded)
         {
@@ -710,9 +711,9 @@ public abstract class GenericMover : MonoBehaviour, ILadderInteractable
 
     public virtual void Damaged(float iFrames)
     {
-        _AudioManager?.PlaySFX(_AudioManager.damage);
         ExitLadder();
         //_coyoteTime = 0f;
+        _AudioManager?.PlaySFX(_AudioManager.damage);
         _animator?.Play((_facingLeft ? "Left " : "Right ") + "Fall");
         if (_health.CurrentHealth <= 1 && _helmetMain != null)
         {

@@ -9,11 +9,16 @@ public class Battery : Holdable
     [SerializeField] Collider2D _explosionCollider;
     public BatterySpawner BatterySpawner;
     bool _exploded = false, _firstTimePickup = true;
+    AudioManager _audioManager;
+
     void Start()
     {
         /*_breaksOnImpact = true;
         _flipable = false;
         _isHeavy = true;*/
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _audioManager = audioManagerGameObject.GetComponent<AudioManager>();
     }
 
     public override void Break()
@@ -59,6 +64,7 @@ public class Battery : Holdable
         {
             potentialBreakable.collider.GetComponent<IBatteryDamageable>()?.HitByBattery();
         }
+        _audioManager?.PlaySFX(_audioManager.explosion);
         _explosionCollider.GetComponent<Weapon>().Alignment = _alignment;
         _explosionCollider.enabled = true;
         CameraMovement.SetCameraShake(3, 5, 1, 1f);

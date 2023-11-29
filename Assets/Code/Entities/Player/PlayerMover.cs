@@ -292,6 +292,7 @@ public class PlayerMover : GenericMover
         base.Die();
         ExitLadder();
         //_coyoteTime = 0f;
+        _AudioManager?.PlaySFX(_AudioManager.playerDeath);
         _animator?.Play((_facingLeft ? "Left " : "Right ") + "Fall");
         SetControl(false);
         StartCoroutine(IEDamaged(1f));

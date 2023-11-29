@@ -26239,11 +26239,17 @@ MonoBehaviour:
   background: {fileID: 8300000, guid: b032c0d139803e14dbf35809b0b6af59, type: 3}
   title: {fileID: 8300000, guid: d6a899864d6578742a5a6a10d117b3eb, type: 3}
   jump: {fileID: 8300000, guid: 31e1c98c07b9c744b96fb84f753ed4be, type: 3}
-  damage: {fileID: 8300000, guid: 17dfc468a5dcd734a81ea32b12670a25, type: 3}
-  playerDeath: {fileID: 0}
-  enemyDeath: {fileID: 8300000, guid: daa7b193338e4664eb14d6fc531e3a0d, type: 3}
-  objectBreak: {fileID: 8300000, guid: 184b26f3e3c58ea4aa45d52d8116399d, type: 3}
-  explosion: {fileID: 0}
+  damage: {fileID: 8300000, guid: ee4c69984c32f0c40bcadbba7cd4413b, type: 3}
+  playerDeath: {fileID: 8300000, guid: a5ff649530aea674eb88924ab42b8585, type: 3}
+  enemyDeath: {fileID: 8300000, guid: edfd0966353459f4e9245b6551b78c7f, type: 3}
+  objectBreak: {fileID: 8300000, guid: daa7b193338e4664eb14d6fc531e3a0d, type: 3}
+  explosion: {fileID: 8300000, guid: 90e267a81d554f946b8c5ee950d951a4, type: 3}
+  batteryInsert: {fileID: 8300000, guid: f55208f7c77fc7842a57fc44bfe157c1, type: 3}
+  batteryGenerator: {fileID: 8300000, guid: e811fa81e7c64f044b709382ba9c8f33, type: 3}
+  hammerHit: {fileID: 8300000, guid: 010019b71da55fa4dbe64bf2dc305fa8, type: 3}
+  pilarBreak: {fileID: 8300000, guid: d16291b6ecf85a14a920d39fb9a586ce, type: 3}
+  checkpoint: {fileID: 8300000, guid: fec19528503f1cf49b84fd81ff316512, type: 3}
+  throwsfx: {fileID: 8300000, guid: 4ea7316da1874bd4ab11275041cc82c7, type: 3}
 --- !u!4 &1598933911
 Transform:
   m_ObjectHideFlags: 0

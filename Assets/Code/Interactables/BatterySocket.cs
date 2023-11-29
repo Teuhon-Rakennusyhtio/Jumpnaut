@@ -15,6 +15,7 @@ public class BatterySocket : MonoBehaviour
     Battery _battery;
     float _useTipBubbleYCoord;
     bool _batteryInSocket = false;
+    AudioManager _audioManager;
     
     void Start()
     {
@@ -25,6 +26,9 @@ public class BatterySocket : MonoBehaviour
         {
             InsertBattery(false);
         }
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _audioManager = audioManagerGameObject.GetComponent<AudioManager>();
     }
 
     void InsertBattery(bool insertedByPlayer)
@@ -40,6 +44,7 @@ public class BatterySocket : MonoBehaviour
         }
         else
         {
+            _audioManager?.PlaySFX(_audioManager.batteryInsert);
             _particles.Play();
         }
     }

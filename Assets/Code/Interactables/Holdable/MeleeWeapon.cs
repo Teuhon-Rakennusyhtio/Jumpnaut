@@ -7,11 +7,15 @@ public class MeleeWeapon : Holdable
     [SerializeField] float _swingWeaponHitboxDuration = 0.5f;
     float _currentSwingDuration;
     bool _alreadyHit;
+    AudioManager _audioManager;
     //BreakageDebris[] _debris;
     void Start()
     {
         //_weaponUseAnimation = "Melee Swing";
         //_debris = GetComponentsInChildren<BreakageDebris>();
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _audioManager = audioManagerGameObject.GetComponent<AudioManager>();
     }
 
     protected override void OnAttack()
@@ -24,6 +28,7 @@ public class MeleeWeapon : Holdable
     public void WeaponHit()
     {
         CameraMovement.SetCameraShake(2, 0.7f, 0.5f, 1f);
+        _audioManager?.PlaySFX(_audioManager.hammerHit);
         if (_alreadyHit) return;
         _alreadyHit = true;
         RemoveDurability(1);

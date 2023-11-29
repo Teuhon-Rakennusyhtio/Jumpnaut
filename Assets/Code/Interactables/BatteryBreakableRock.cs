@@ -10,6 +10,8 @@ public class BatteryBreakableRock : MonoBehaviour, IBatteryDamageable
     bool _broken = false;
     BreakageDebris[] _debris;
     Color _startColour;
+    AudioManager _audioManager;
+
     void Start()
     {
         //_forceFieldSprite = GetComponent<SpriteRenderer>();
@@ -20,6 +22,9 @@ public class BatteryBreakableRock : MonoBehaviour, IBatteryDamageable
         {
             _forceFieldSpriteColours[i] = _forceFieldSprites[i].color;
         }
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _audioManager = audioManagerGameObject.GetComponent<AudioManager>();
     }
 
     public void HitByBattery()
@@ -34,6 +39,7 @@ public class BatteryBreakableRock : MonoBehaviour, IBatteryDamageable
     IEnumerator Break()
     {
         float blinkingTimer = 1f;
+        _audioManager?.PlaySFX(_audioManager.pilarBreak);
         while (blinkingTimer > 0f)
         {
             blinkingTimer -= Time.deltaTime;
