@@ -23,6 +23,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip pilarBreak;
     public AudioClip checkpoint;
     public AudioClip throwsfx;
+    public AudioClip buttonON;
+    public AudioClip buttonOFF;
 
     private void Start()
     {

@@ -26250,6 +26250,8 @@ MonoBehaviour:
   pilarBreak: {fileID: 8300000, guid: d16291b6ecf85a14a920d39fb9a586ce, type: 3}
   checkpoint: {fileID: 8300000, guid: fec19528503f1cf49b84fd81ff316512, type: 3}
   throwsfx: {fileID: 8300000, guid: 4ea7316da1874bd4ab11275041cc82c7, type: 3}
+  buttonON: {fileID: 8300000, guid: 890fe9a4b7ffa7249a6ed33d55acd9f5, type: 3}
+  buttonOFF: {fileID: 8300000, guid: 46d29a73a7b920049a2f9c85f583a22e, type: 3}
 --- !u!4 &1598933911
 Transform:
   m_ObjectHideFlags: 0

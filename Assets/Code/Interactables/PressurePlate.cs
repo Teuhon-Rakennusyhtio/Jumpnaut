@@ -15,6 +15,7 @@ public class PressurePlate : MonoBehaviour
     [SerializeField] SpriteRenderer _colouredPart, _glow;
     [SerializeField] Transform _buttonTransform;
     float _buttonLocalHeight;
+    AudioManager _audioManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,10 @@ public class PressurePlate : MonoBehaviour
         _colouredPart.color = _turnedOn ? _turnedOnColour : _turnedOffColour;
         _glow.color = _turnedOn ? _turnedOnColour : Color.black;
         _buttonLocalHeight = _colouredPart.transform.localPosition.y;
+        
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _audioManager = audioManagerGameObject.GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -65,6 +70,7 @@ public class PressurePlate : MonoBehaviour
 
     void SteppedOn()
     {
+        _audioManager?.PlaySFX(_audioManager.buttonON);
         if (_turnedOn)
             _stepOn.Invoke();
         _buttonTransform.localPosition = Vector3.zero;
@@ -72,6 +78,7 @@ public class PressurePlate : MonoBehaviour
 
     void SteppedOff()
     {
+        _audioManager?.PlaySFX(_audioManager.buttonOFF);
         if (_turnedOn)
             _stepOff.Invoke();
         StartCoroutine(ButtonBounceBack());
