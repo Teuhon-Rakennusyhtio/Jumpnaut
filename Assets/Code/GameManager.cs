@@ -72,6 +72,10 @@ public class GameManager : MonoBehaviour
         if (!newGame)
         {
             score = SaveFile.CurrentRunScore;
+            if (score < 0)
+            {
+                score = 0;
+            }
         }
         else
         {
