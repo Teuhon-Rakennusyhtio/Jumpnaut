@@ -8,11 +8,16 @@ using TMPro;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject _start, _joinGame, _settings, _startGameButton;
+    [SerializeField] TextMeshProUGUI _highScore, _lowestTime;
     GameObject _lastSelectedButtonInStart;
     public AudioManager _AudioManager;
     // Start is called before the first frame update
     void Start()
     {
+        _highScore.text = $"High Score: {GameManager.SaveFile.HighScore}";
+        var lowestTime = System.TimeSpan.FromSeconds(GameManager.SaveFile.LowestTime);
+        string lowestTimeString = lowestTime.ToString(@"hh\:mm\:ss");
+        _lowestTime.text = "Best Time: " + lowestTimeString;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(_startGameButton);
         Time.timeScale = 1.0f;
