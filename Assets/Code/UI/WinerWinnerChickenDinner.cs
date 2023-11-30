@@ -8,6 +8,7 @@ public class WinerWinnerChickenDinner : MonoBehaviour
 {
     [SerializeField] GameObject _playAgain, _quit;
     bool _newHighScore, _newLowestTime;
+    AudioManager _audioManager;
     void Start()
     {
         GameManager.CurrentlyInUI = true;
@@ -25,6 +26,12 @@ public class WinerWinnerChickenDinner : MonoBehaviour
             GameManager.SaveFile.LowestTime = GameManager.SaveFile.CurrentRunTime;
         }
 
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _audioManager = audioManagerGameObject.GetComponent<AudioManager>();
+
+        _audioManager?.PlayWinMusic();
+        _audioManager?.PlaySFX(_audioManager.winsfx);
 
         GameManager.ClearRunFromTheSave();
     }
@@ -35,6 +42,7 @@ public class WinerWinnerChickenDinner : MonoBehaviour
         GameManager.score = 0;
         PlayerPrefs.DeleteKey("FinalTime");
         PlayerPrefs.Save();
+        _audioManager.ManualClapStop();
         SceneManager.LoadScene("MainScene");
         //GameManager.ReloadMainScene(SceneManager.GetSceneByName("WinScene"));
         //StartCoroutine(IEPlayAgainGlitch());

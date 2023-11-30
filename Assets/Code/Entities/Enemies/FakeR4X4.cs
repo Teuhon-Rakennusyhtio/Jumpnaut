@@ -14,6 +14,7 @@ public class FakeR4X4 : MonoBehaviour
     int pointWorth = 10;
 
     SpeedRunTimer _timer;
+    AudioManager _audioManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,9 @@ public class FakeR4X4 : MonoBehaviour
         _healthBarTargetPos = _healthBar.localPosition;
         _healthBar.localPosition += Vector3.left * 50f; 
         _timer = GameObject.FindObjectOfType<SpeedRunTimer>();
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _audioManager = audioManagerGameObject.GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -44,6 +48,7 @@ public class FakeR4X4 : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         Debug.Log("Bye bye!");
+        _audioManager?.PlaySFX(_audioManager.r4x4Death);
         GameManager.AddScore(pointWorth, transform.position);
         _health.localPosition = Vector2.left * 500f;
         _rigidbody.bodyType = RigidbodyType2D.Dynamic;

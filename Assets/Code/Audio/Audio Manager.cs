@@ -11,10 +11,13 @@ public class AudioManager : MonoBehaviour
     [Header(" - - - Audio Clip - - - ")]
     public AudioClip background;
     public AudioClip title;
+    public AudioClip win;
+    public AudioClip winsfx;
     public AudioClip jump;
     public AudioClip damage;
     public AudioClip playerDeath;
     public AudioClip enemyDeath;
+    public AudioClip r4x4Death;
     public AudioClip objectBreak;
     public AudioClip explosion;
     public AudioClip batteryInsert;
@@ -52,6 +55,18 @@ public class AudioManager : MonoBehaviour
         StopAllMusic();
         musicSource.clip = background;
         musicSource.Play();
+    }
+
+    public void PlayWinMusic()
+    {
+        StopAllMusic();
+        musicSource.clip = win;
+        musicSource.Play();
+    }
+
+    public void ManualClapStop()
+    {
+        SFXSource.Stop();
     }
 
     public void StopAllMusic()

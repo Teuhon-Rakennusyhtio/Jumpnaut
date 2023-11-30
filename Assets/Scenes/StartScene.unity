@@ -26238,10 +26238,13 @@ MonoBehaviour:
   SFXSource: {fileID: 335826749}
   background: {fileID: 8300000, guid: b032c0d139803e14dbf35809b0b6af59, type: 3}
   title: {fileID: 8300000, guid: d6a899864d6578742a5a6a10d117b3eb, type: 3}
+  win: {fileID: 8300000, guid: 1520acfd24ac64a4391f0704e2626226, type: 3}
+  winsfx: {fileID: 8300000, guid: 6fbab2bdc925e9f4db6cc290f0be7a78, type: 3}
   jump: {fileID: 8300000, guid: 31e1c98c07b9c744b96fb84f753ed4be, type: 3}
   damage: {fileID: 8300000, guid: ee4c69984c32f0c40bcadbba7cd4413b, type: 3}
   playerDeath: {fileID: 8300000, guid: a5ff649530aea674eb88924ab42b8585, type: 3}
   enemyDeath: {fileID: 8300000, guid: edfd0966353459f4e9245b6551b78c7f, type: 3}
+  r4x4Death: {fileID: 8300000, guid: 610b747bf50cd48498057280ba6cc678, type: 3}
   objectBreak: {fileID: 8300000, guid: daa7b193338e4664eb14d6fc531e3a0d, type: 3}
   explosion: {fileID: 8300000, guid: 90e267a81d554f946b8c5ee950d951a4, type: 3}
   batteryInsert: {fileID: 8300000, guid: f55208f7c77fc7842a57fc44bfe157c1, type: 3}
