@@ -15,7 +15,7 @@ public class WinerWinnerChickenDinner : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(_playAgain);
 
         _newHighScore = GameManager.SaveFile.HighScore < GameManager.SaveFile.CurrentRunScore;
-        _newLowestTime = GameManager.SaveFile.LowestTime > 0.01f && GameManager.SaveFile.CurrentRunTime < GameManager.SaveFile.LowestTime;
+        _newLowestTime = GameManager.SaveFile.LowestTime < 0.01f || GameManager.SaveFile.CurrentRunTime < GameManager.SaveFile.LowestTime;
 
         if (_newHighScore)
         {
