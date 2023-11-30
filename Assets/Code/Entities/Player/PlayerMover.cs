@@ -151,6 +151,7 @@ public class PlayerMover : GenericMover
         if (collision.CompareTag("MainCamera") && _isDead == false)
         {
             _isRegrouping = true;
+            _AudioManager?.PlaySFX(_AudioManager.ufo);
             SetControl(false);
             Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
             FindClosestPlayer();
@@ -187,7 +188,6 @@ public class PlayerMover : GenericMover
         if (_isRegrouping == true)
         {
             _UfoRenderer.enabled = true;
-            _AudioManager?.PlaySFX(_AudioManager.ufo);
             float distance = Vector3.Distance(transform.position, _ClosestPlayer.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, _ClosestPlayer.transform.position, _respawnSpeed * Time.deltaTime);
             _hurtbox.enabled = false;
