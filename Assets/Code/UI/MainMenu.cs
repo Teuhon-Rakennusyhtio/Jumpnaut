@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
     {
         _highScore.text = $"High Score: {GameManager.SaveFile.HighScore}";
         var lowestTime = System.TimeSpan.FromSeconds(GameManager.SaveFile.LowestTime);
-        string lowestTimeString = lowestTime.ToString(@"hh\:mm\:ss");
+        string lowestTimeString = GameManager.SaveFile.LowestTime <= 0.1f ? "" : lowestTime.ToString(@"hh\:mm\:ss");
         _lowestTime.text = "Best Time: " + lowestTimeString;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(_startGameButton);
