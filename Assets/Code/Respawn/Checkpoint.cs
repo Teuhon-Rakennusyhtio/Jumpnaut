@@ -22,8 +22,11 @@ public class Checkpoint : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             _audioManager?.PlaySFX(_audioManager.checkpoint);
-            DespawnEnemies();
-            DespawnMovingPlatforms();
+            if (gameObject.name != "Checkpoint 3.5")
+            {
+                DespawnEnemies();
+                DespawnMovingPlatforms();
+            }
             GetComponent<Collider2D>().enabled = false;
         }
     }

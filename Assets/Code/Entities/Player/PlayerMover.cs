@@ -236,7 +236,7 @@ public class PlayerMover : GenericMover
         {
             _distance = Vector2.Distance(this.transform.position, playerList[i].transform.position);
 
-            if (_distance < _closest && _distance > 4.45)
+            if (_distance < _closest && _distance > 10)
             {
                 _ClosestPlayer = playerList[i];
                 _closest = _distance;
