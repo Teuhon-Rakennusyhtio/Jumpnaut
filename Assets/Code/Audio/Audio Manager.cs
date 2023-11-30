@@ -25,6 +25,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip throwsfx;
     public AudioClip buttonON;
     public AudioClip buttonOFF;
+    public AudioClip sawOn;
+    public AudioClip sawOff;
+    public AudioClip sawHit;
 
     private void Start()
     {

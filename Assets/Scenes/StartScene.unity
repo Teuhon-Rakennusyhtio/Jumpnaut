@@ -26252,6 +26252,9 @@ MonoBehaviour:
   throwsfx: {fileID: 8300000, guid: 4ea7316da1874bd4ab11275041cc82c7, type: 3}
   buttonON: {fileID: 8300000, guid: 890fe9a4b7ffa7249a6ed33d55acd9f5, type: 3}
   buttonOFF: {fileID: 8300000, guid: 46d29a73a7b920049a2f9c85f583a22e, type: 3}
+  sawOn: {fileID: 8300000, guid: b1434228cc906ca458ad84aae4f80466, type: 3}
+  sawOff: {fileID: 8300000, guid: 1dcfa92ee9ac89348a53a865c323f9f2, type: 3}
+  sawHit: {fileID: 8300000, guid: 9f0a9d33cc99ba346bdf424e93f5077e, type: 3}
 --- !u!4 &1598933911
 Transform:
   m_ObjectHideFlags: 0

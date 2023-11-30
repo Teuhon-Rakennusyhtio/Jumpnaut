@@ -28,9 +28,9 @@ public class MeleeWeapon : Holdable
     public void WeaponHit()
     {
         CameraMovement.SetCameraShake(2, 0.7f, 0.5f, 1f);
-        _audioManager?.PlaySFX(_audioManager.hammerHit);
         if (_alreadyHit) return;
         _alreadyHit = true;
+        _audioManager?.PlaySFX(_audioManager.hammerHit);
         RemoveDurability(1);
     }
 

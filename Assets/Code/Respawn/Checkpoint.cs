@@ -6,19 +6,25 @@ public class Checkpoint : MonoBehaviour
 {
     GameObject[] enemies;
     GameObject[] platforms;
+    AudioManager _audioManager;
 
     void Start()
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         platforms = GameObject.FindGameObjectsWithTag("MovingPlatform");
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _audioManager = audioManagerGameObject.GetComponent<AudioManager>();
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Player")
         {
+            _audioManager?.PlaySFX(_audioManager.checkpoint);
             DespawnEnemies();
             DespawnMovingPlatforms();
+            GetComponent<Collider2D>().enabled = false;
         }
     }
 

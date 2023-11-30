@@ -150,9 +150,9 @@ public class Barrel : MonoBehaviour, ILadderInteractable
         GameObject explosionEffectObject = Instantiate(_particleEffect, transform.position, Quaternion.identity);
         ParticleSystem explosionEffect = explosionEffectObject.GetComponent<ParticleSystem>();
         explosionEffect.Play();
+        Destroy(gameObject);
         yield return new WaitForSeconds(explosionEffect.main.duration);
         Destroy(explosionEffectObject);
-        Destroy(gameObject);
     }
 
     bool GroundCheck()

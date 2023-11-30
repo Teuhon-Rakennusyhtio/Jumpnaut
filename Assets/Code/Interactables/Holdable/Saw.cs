@@ -13,9 +13,18 @@ public class Saw : Holdable
     [SerializeField] Transform _sparkPosition;
     bool _exploded;
     bool _isTurnedOn;
+    AudioManager _audioManager;
+
+    void Start()
+    {
+        GameObject audioManagerGameObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioManagerGameObject != null)
+            _audioManager = audioManagerGameObject.GetComponent<AudioManager>();
+    }
 
     protected override void OnPickup(Transform hand, GenericHealth health)
     {
+        _audioManager?.PlaySFX(_audioManager.sawOn);
         base.OnPickup(hand, health);
         if (AnalogDurability <= 0f) return;
         if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Running"))
@@ -28,6 +37,7 @@ public class Saw : Holdable
 
     protected override void OnOutOfDurability()
     {
+        _audioManager?.PlaySFX(_audioManager.sawOff);
         _weaponCollider.enabled = false;
         _animator.Play("Out of fuel");
         _smoke.transform.parent = null;
@@ -37,6 +47,7 @@ public class Saw : Holdable
     // Shoots spark particles towards the hurtbox that has been hit
     public void Sparks()
     {
+        _audioManager?.PlaySFX(_audioManager.sawHit);
         _sparks.transform.parent = null;
         float angle = Vector2.SignedAngle(_weapon.LatestHitPosition - (Vector2)_weapon.transform.position, Vector2.up);
         var sparksShape = _sparks.shape;
