@@ -26241,6 +26241,7 @@ MonoBehaviour:
   win: {fileID: 8300000, guid: 1520acfd24ac64a4391f0704e2626226, type: 3}
   winsfx: {fileID: 8300000, guid: 6fbab2bdc925e9f4db6cc290f0be7a78, type: 3}
   jump: {fileID: 8300000, guid: 31e1c98c07b9c744b96fb84f753ed4be, type: 3}
+  ufo: {fileID: 8300000, guid: 2bb4a7dc405f61e49b993c6506026035, type: 3}
   damage: {fileID: 8300000, guid: ee4c69984c32f0c40bcadbba7cd4413b, type: 3}
   playerDeath: {fileID: 8300000, guid: a5ff649530aea674eb88924ab42b8585, type: 3}
   enemyDeath: {fileID: 8300000, guid: edfd0966353459f4e9245b6551b78c7f, type: 3}

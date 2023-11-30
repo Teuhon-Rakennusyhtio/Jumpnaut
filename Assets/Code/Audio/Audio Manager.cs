@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip win;
     public AudioClip winsfx;
     public AudioClip jump;
+    public AudioClip ufo;
     public AudioClip damage;
     public AudioClip playerDeath;
     public AudioClip enemyDeath;

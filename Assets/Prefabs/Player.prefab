@@ -5802,6 +5802,7 @@ MonoBehaviour:
   - {fileID: 3475257179821220136}
   _hurtbox: {fileID: 1658377281168426225}
   _ufoEffect: {fileID: 8568283995657080732}
+  _ufoBegone: {fileID: 0}
   Device: {fileID: 0}
   Id: 0
   _respawnSpeed: 7
