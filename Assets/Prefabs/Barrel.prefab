@@ -429,6 +429,7 @@ MonoBehaviour:
     m_Bits: 64
   _rollingSprite: {fileID: 7929489285294285544}
   _ladderSprite: {fileID: 8686461862995479955}
+  _particleEffect: {fileID: 5469781213835765212, guid: b4f728804ed8e054d91d6358060b3947, type: 3}
 --- !u!1 &6613172416033864107
 GameObject:
   m_ObjectHideFlags: 0

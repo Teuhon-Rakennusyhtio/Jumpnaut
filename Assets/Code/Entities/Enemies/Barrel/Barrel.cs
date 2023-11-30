@@ -14,6 +14,7 @@ public class Barrel : MonoBehaviour, ILadderInteractable
     bool _grounded;
     bool _nextToLadders;
     bool _goingDownLadder;
+    bool _exploded = false;
     float _groundRaycastDistance = 0.01f;
     float _direction;
     float _ladderXPosition;
@@ -28,6 +29,7 @@ public class Barrel : MonoBehaviour, ILadderInteractable
     [SerializeField] float _fallAcceleration = 1f;
     [SerializeField] LayerMask _groundLayer;
     [SerializeField] SpriteRenderer _rollingSprite, _ladderSprite;
+    [SerializeField] GameObject _particleEffect;
     void Start()
     {
         _collider = GetComponent<CircleCollider2D>();
@@ -136,7 +138,20 @@ public class Barrel : MonoBehaviour, ILadderInteractable
 
     public void Break()
     {
-        // TODO: make a breaking animation
+        if (_exploded) return;
+        _exploded = true;
+        _ladderSprite.enabled = false;
+        _rollingSprite.enabled = false;
+        StartCoroutine(Explode());
+    }
+
+    IEnumerator Explode()
+    {
+        GameObject explosionEffectObject = Instantiate(_particleEffect, transform.position, Quaternion.identity);
+        ParticleSystem explosionEffect = explosionEffectObject.GetComponent<ParticleSystem>();
+        explosionEffect.Play();
+        yield return new WaitForSeconds(explosionEffect.main.duration);
+        Destroy(explosionEffectObject);
         Destroy(gameObject);
     }
 
