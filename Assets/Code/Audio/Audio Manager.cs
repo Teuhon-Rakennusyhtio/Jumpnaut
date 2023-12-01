@@ -65,7 +65,7 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void ManualClapStop()
+    public void ManualSFXStop()
     {
         SFXSource.Stop();
     }

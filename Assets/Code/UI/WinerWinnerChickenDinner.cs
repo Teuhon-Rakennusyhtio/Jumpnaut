@@ -42,7 +42,7 @@ public class WinerWinnerChickenDinner : MonoBehaviour
         GameManager.score = 0;
         PlayerPrefs.DeleteKey("FinalTime");
         PlayerPrefs.Save();
-        _audioManager.ManualClapStop();
+        _audioManager.ManualSFXStop();
         SceneManager.LoadScene("MainScene");
         //GameManager.ReloadMainScene(SceneManager.GetSceneByName("WinScene"));
         //StartCoroutine(IEPlayAgainGlitch());
@@ -56,6 +56,7 @@ public class WinerWinnerChickenDinner : MonoBehaviour
 
     public void QuitToMainMenu()
     {
+        _audioManager.ManualSFXStop();
         GameManager.ReturnToMainMenu();
     }
 }
