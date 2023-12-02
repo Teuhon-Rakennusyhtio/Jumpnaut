@@ -23,10 +23,10 @@ public class VolumeSettings : MonoBehaviour
     void Update()
     {
         // Check for horizontal input and update the selected slider accordingly
-        UpdateSelectedSliderWithHorizontalInput();
+        UpdateSliderInput();
     }
 
-    private void UpdateSelectedSliderWithHorizontalInput()
+    private void UpdateSliderInput()
     {
         // Check if any UI element is currently selected
         if (EventSystem.current.currentSelectedGameObject != null)
@@ -95,14 +95,14 @@ public class VolumeSettings : MonoBehaviour
         {
             float sfxVolume = PlayerPrefs.GetFloat(SFXVolumeKey);
             SFXSlider.value = sfxVolume;
-            SetSFXVolume(); // Apply the loaded volume
+            SetSFXVolume();
         }
 
         if (PlayerPrefs.HasKey(MasterVolumeKey))
         {
             float masterVolume = PlayerPrefs.GetFloat(MasterVolumeKey);
             masterSlider.value = masterVolume;
-            SetMasterVolume(); // Apply the loaded volume
+            SetMasterVolume();
         }
     }
 }
