@@ -22,7 +22,7 @@ public class Checkpoint : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             _audioManager?.PlaySFX(_audioManager.checkpoint);
-            if (gameObject.name != "Checkpoint 3.5")
+            if (gameObject.name != "Checkpoint 3.5" || gameObject.name != "Checkpoint 4")
             {
                 DespawnEnemies();
                 DespawnMovingPlatforms();
