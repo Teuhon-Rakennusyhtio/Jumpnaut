@@ -151,8 +151,11 @@ public class PlayerMover : GenericMover
         if (collision.CompareTag("MainCamera") && _isDead == false)
         {
             _isRegrouping = true;
-            _AudioManager?.PlaySFX(_AudioManager.ufo);
             SetControl(false);
+            if (_isRegrouping == true)
+            {
+                _AudioManager?.PlaySFX(_AudioManager.ufo);
+            }
             Camera.main.GetComponent<CameraMovement>().RemovePlayer(this);
             FindClosestPlayer();
         }

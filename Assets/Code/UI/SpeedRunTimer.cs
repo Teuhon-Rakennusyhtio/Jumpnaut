@@ -33,6 +33,7 @@ public class SpeedRunTimer : MonoBehaviour
         stopwatchActive = false;
         finalTime = currentTime;
         PlayerPrefs.SetFloat("FinalTime", finalTime);
+        currentTime = 0;
     }
 
     public void StartTimer()
