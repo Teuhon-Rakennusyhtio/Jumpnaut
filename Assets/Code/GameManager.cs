@@ -43,9 +43,6 @@ public class GameManager : MonoBehaviour
         }
         SpeedTimer = GetComponent<SpeedRunTimer>();
         StartCoroutine(LadderSong.GetSong());
-        Debug.Log(SaveFile.HighScore);
-        Debug.Log(SaveFile.LowestTime);
-        Debug.Log(SaveFile.CurrentRunCheckPointPosition);
     }
 
     public static Color GetPlayerColor(int id)

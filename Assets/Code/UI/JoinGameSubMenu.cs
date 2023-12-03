@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class JoinGameSubMenu : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class JoinGameSubMenu : MonoBehaviour
     public bool CurrentlyInJoinGame = false;
     int _currentPlayerCount = 0, _currentReadyPlayerCount = 0;
     int _latestInputId;
+    int _selectedButton = 0;
     bool[] _inputs;
     List<int> _currentlyJoinedPlayers;
     List<PlayerJoinIcon> _playerIcons;
@@ -18,6 +21,7 @@ public class JoinGameSubMenu : MonoBehaviour
     [SerializeField] GameObject _playerIconPrefab;
     [SerializeField] Transform _iconField;
     [SerializeField] TextMeshProUGUI _readyPlayersText;
+    [SerializeField] Button _newGameButton, _continueGameButton;
 
     // Start is called before the first frame update
     void Start()
@@ -59,8 +63,47 @@ public class JoinGameSubMenu : MonoBehaviour
         }
         if (_currentReadyPlayerCount == _currentPlayerCount && _currentPlayerCount > 0)
         {
-            GameManager.StartGame();
+            StartCoroutine(EnableStartGameButtons());
+            //GameManager.StartGame();
         }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            _newGameButton.interactable = false;
+            _continueGameButton.interactable = false;
+        }
+    }
+
+    IEnumerator EnableStartGameButtons()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _newGameButton.interactable = true;
+        if (GameManager.SaveFile.CurrentRunTime > 0.01f)
+        {
+            _continueGameButton.interactable = true;
+        }
+
+        if (_selectedButton == 0)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(_newGameButton.gameObject);
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(_continueGameButton.gameObject);
+        }
+    }
+
+    public void StartNewGame()
+    {
+        GameManager.ClearRunFromTheSave();
+        GameManager.StartGame();
+    }
+
+    public void ContinueGame()
+    {
+        GameManager.StartGame();
     }
 
     void PlayerJoined()

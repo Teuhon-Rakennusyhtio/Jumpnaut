@@ -25,7 +25,7 @@ public class EnemyMover : GenericMover
     //[SerializeField] bool _canJump = true;
     [SerializeField] bool _canUseWeapons = true;
     [SerializeField] bool _canThrowWeapons = true;
-    [SerializeField] bool _canCatchWeapons = true;
+    //[SerializeField] bool _canCatchWeapons = true;
     [SerializeField] bool _canSearchForWeapons = true;
     [SerializeField] bool _runsAwayWhenCloseToPlayerWhenWithoutWeapon = true;
     [SerializeField] bool _canThrowBarrels = false;
