@@ -30,6 +30,8 @@ public class Barrel : MonoBehaviour, ILadderInteractable
     [SerializeField] LayerMask _groundLayer;
     [SerializeField] SpriteRenderer _rollingSprite, _ladderSprite;
     [SerializeField] GameObject _particleEffect;
+    [SerializeField] GameObject _theDamageDealer;
+    [SerializeField] GameObject _lights;
     void Start()
     {
         _collider = GetComponent<CircleCollider2D>();
@@ -150,9 +152,11 @@ public class Barrel : MonoBehaviour, ILadderInteractable
         GameObject explosionEffectObject = Instantiate(_particleEffect, transform.position, Quaternion.identity);
         ParticleSystem explosionEffect = explosionEffectObject.GetComponent<ParticleSystem>();
         explosionEffect.Play();
-        Destroy(gameObject);
+        _theDamageDealer.SetActive(false);
+        _lights.SetActive(false);
         yield return new WaitForSeconds(explosionEffect.main.duration);
         Destroy(explosionEffectObject);
+        Destroy(gameObject);
     }
 
     bool GroundCheck()
