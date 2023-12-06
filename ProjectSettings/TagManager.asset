@@ -11,6 +11,7 @@ TagManager:
   - Checkpoint
   - Audio
   - MovingPlatform
+  - Lock
   layers:
   - Default
   - TransparentFX
